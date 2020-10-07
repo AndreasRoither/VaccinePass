@@ -17,8 +17,10 @@ cache:
 
 install:
   - git clone https://github.com/flutter/flutter.git -b stable
-  - ./flutter/bin/flutter doctor
-  - ./flutter/bin/flutter packages get
+  - export PATH="$PATH":./flutter/bin:./flutter/bin/cache/dart-sdk/bin
+  - flutter config --no-analytics
+  - flutter doctor
+  - flutter packages get
 
 static_analysis: &static_analysis
   name: "Static analysis"
