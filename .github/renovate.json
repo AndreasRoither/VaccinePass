@@ -1,9 +1,0 @@
-{
-    "schedule": ["before 2am"],
-    "packageRules": [
-      {
-        "updateTypes": ["minor", "patch", "pin", "digest"],
-        "automerge": true
-      }
-    ]
-  }
