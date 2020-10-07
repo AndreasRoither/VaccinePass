@@ -43,6 +43,10 @@ jobs:
     - stage: build
       name: "Building APK"
       language: android
+      licenses:
+        - android-sdk-preview-license-.+
+        - android-sdk-license-.+
+        - google-gdk-license-.+
       jdk:
         - oraclejdk8
       android:
@@ -50,12 +54,16 @@ jobs:
           - tools
           - tools # See (https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
           - platform-tools
-          - build-tools-28.0.3
+          - build-tools-29.0.2
           - android-29
       before_script:
         - export BUILD_NAME=$TRAVIS_TAG
         - export BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
+        - yes | sdkmanager --update
       script:
+        - flutter build apk --profile # fix for https://github.com/flutter/flutter/issues/58247
+        - flutter build apk --debug
+        - flutter build apk --release
         - if [[ $TRAVIS_TAG == "" ]]; then flutter build apk; else flutter build apk --build-name $BUILD_NAME --build-number $BUILD_NUMBER; fi
 
 notifications:
