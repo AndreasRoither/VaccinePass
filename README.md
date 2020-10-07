@@ -12,6 +12,7 @@
   - You have to close and reopen any existing console windows for these changes to take effect.
     - You can run `which flutter dart` to see if it worked which should give you the location of the folders
 - Run `flutter doctor` to check what you are still missing
+  - run `yes | flutter doctor --android-licenses` to accept all licenses
 
 ## A few ressources to start
 

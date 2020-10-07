@@ -21,6 +21,7 @@ install:
   - flutter config --no-analytics
   - flutter doctor
   - flutter packages get
+  - yes | flutter doctor --android-licenses
 
 static_analysis: &static_analysis
   name: "Static analysis"
@@ -30,15 +31,14 @@ unit_tests: &unit_tests
   script: flutter test
 
 stages:
-  - static analysis
-  - test
+  - static analysis and test
   - build
 
 jobs:
   include:
-    - stage: static analysis
+    - stage: static analysis and test
+      name: "Static code analysis & unit test"
       <<: *static_analysis
-    - stage: test
       <<: *unit_tests
     - stage: build
       name: "Building APK"
