@@ -1,45 +1,60 @@
 language: dart
+os: linux
 dist: xenial
-
-cache:
-  directories:
-    - $HOME/.pub-cache
 
 addons:
   apt:
     packages:
       - lib32stdc++6
 
+env:
+  global:
+    - FLUTTER_CHANNEL=stable
+
+cache:
+  directories:
+    - $HOME/.pub-cache
+
 install:
   - git clone https://github.com/flutter/flutter.git -b stable
   - ./flutter/bin/flutter doctor
+  - ./flutter/bin/flutter packages get
+
+static_analysis: &static_analysis
+  name: "Static analysis"
+  script: flutter analyze --no-current-package $TRAVIS_BUILD_DIR/lib
+unit_tests: &unit_tests
+  name: "Unit tests"
+  script: flutter test
 
 stages:
-  - sonarcloud
-  - build app
-  - unit test
+  - static analysis
+  - test
+  - build
 
-
-obs:
+jobs:
   include:
-    - stage: sonarcloud
-      name: "Sonarcloud code analysis"
-      addons:
-        sonarcloud:
-          organization: "andreasroither"
-          token: $SONAR_TOKEN
+    - stage: static analysis
+      <<: *static_analysis
+    - stage: test
+      <<: *unit_tests
+    - stage: build
+      name: "Building APK"
+      language: android
+      jdk:
+        - oraclejdk8
+      android:
+        components:
+          - tools
+          - tools # See (https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
+          - platform-tools
+          - build-tools-28.0.3
+          - android-29
+      before_script:
+        - export BUILD_NAME=$TRAVIS_TAG
+        - export BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
       script:
-        - sonar-scanner
-    - stage: build app
-      name: "Building App"
-      script:
-        - ./flutter/bin/flutter build
-    - stage: unit test
-      name: "Testing all Unit test of the App"
-      script:
-        - ./flutter/bin/flutter test
-
-
+        - if [[ $TRAVIS_TAG == "" ]]; then flutter build apk; else flutter build apk --build-name $BUILD_NAME --build-number $BUILD_NUMBER; fi
 
 notifications:
   on_success: change
