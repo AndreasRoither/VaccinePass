@@ -1,0 +1,46 @@
+language: dart
+dist: xenial
+
+cache:
+  directories:
+    - $HOME/.pub-cache
+
+addons:
+  apt:
+    packages:
+      - lib32stdc++6
+
+install:
+  - git clone https://github.com/flutter/flutter.git -b stable
+  - ./flutter/bin/flutter doctor
+
+stages:
+  - sonarcloud
+  - build app
+  - unit test
+
+
+obs:
+  include:
+    - stage: sonarcloud
+      name: "Sonarcloud code analysis"
+      addons:
+        sonarcloud:
+          organization: "andreasroither"
+          token: $SONAR_TOKEN
+      script:
+        - sonar-scanner
+    - stage: build app
+      name: "Building App"
+      script:
+        - ./flutter/bin/flutter build
+    - stage: unit test
+      name: "Testing all Unit test of the App"
+      script:
+        - ./flutter/bin/flutter test
+
+
+
+notifications:
+  on_success: change
+  on_failure: always
