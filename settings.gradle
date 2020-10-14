@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Vaccine pass"
+rootProject.name = "VaccinePass"
