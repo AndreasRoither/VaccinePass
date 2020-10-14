@@ -5,7 +5,8 @@ import org.koin.dsl.module
 object InjectionModules {
     fun getModules() = listOf(
         module {
-
+            // androidx.lifecycle.viewmodel
+            // viewModel { My´ViewModel(get(), get())}
         }
     )
 }
