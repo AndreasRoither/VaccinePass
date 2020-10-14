@@ -6,12 +6,26 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import timber.log.Timber
+import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var disposables: CompositeDisposable
+    private val messageService: MessageService by inject { parametersOf(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        disposables = CompositeDisposable()
+        //messageService.subscribeToRequests(viewModel.messageRequest)
+        // in viewmodel
+        // val messageRequest = ServiceRequest<MessageRequest>()
+        //  messageRequest.raise(whatever)
+
+        disposables.add(messageService)
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -37,4 +51,10 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onDestroy() {
+        disposables.dispose()
+        super.onDestroy()
+    }
+
 }
