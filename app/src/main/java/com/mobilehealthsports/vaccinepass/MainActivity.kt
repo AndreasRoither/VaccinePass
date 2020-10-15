@@ -8,6 +8,8 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.databinding.DataBindingUtil
+import com.mobilehealthsports.vaccinepass.databinding.ActivityMainBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
@@ -23,18 +25,20 @@ class MainActivity : AppCompatActivity() {
 
         disposables = CompositeDisposable()
         //messageService.subscribeToRequests(viewModel.messageRequest)
-        // in viewmodel
+        // in viewModel:
         // val messageRequest = ServiceRequest<MessageRequest>()
         //  messageRequest.raise(whatever)
 
         disposables.add(messageService)
 
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        // The layout for this activity is a Data Binding layout so it needs to be inflated using
+        // DataBindingUtil.
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        setSupportActionBar(binding.toolbar)
+        binding.fab.setOnClickListener{view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
     }
 
