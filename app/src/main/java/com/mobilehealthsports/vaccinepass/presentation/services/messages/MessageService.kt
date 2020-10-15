@@ -27,6 +27,6 @@ interface MessageService: Disposable {
         negativeBtn: String?, negativeBtnListener: DialogInterface.OnClickListener?
     )
 
-    fun subscribeToRequests(requests: ServiceRequest<MessageRequest>)
+    fun subscribeToRequests(service: ServiceRequest<MessageRequest>)
     fun executeRequest(request: MessageRequest)
 }

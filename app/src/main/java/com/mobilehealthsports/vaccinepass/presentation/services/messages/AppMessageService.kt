@@ -131,17 +131,22 @@ class AppMessageService private constructor(
         }
     }
 
-    override fun subscribeToRequests(requests: ServiceRequest<MessageRequest>) {
-        disposables.add(requests.requests.observeOn(AndroidSchedulers.mainThread())
-            .subscribe { model ->
-                executeRequest(model)
-            })
+    override fun subscribeToRequests(service: ServiceRequest<MessageRequest>) {
+        disposables.add(service.requests.observeOn(AndroidSchedulers.mainThread())
+            .subscribe { messageRequest ->
+                executeRequest(messageRequest)
+            }
+        )
     }
 
     /**
      * Smart cast request and decide what message will be shown
      */
     override fun executeRequest(request: MessageRequest) {
+
+        if (currentFragment == null && currentActivity == null)
+            throw IllegalStateException("[VaccPass] Context is null for message request")
+
         when (request) {
             is SnackbarRequest -> {
                 // TODO: display snackbar

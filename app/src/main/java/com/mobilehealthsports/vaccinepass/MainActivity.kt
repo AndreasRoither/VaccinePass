@@ -1,5 +1,7 @@
 package com.mobilehealthsports.vaccinepass
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -57,4 +59,10 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    companion object {
+        // create intent to navigate to this class
+        fun intent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+    }
 }
