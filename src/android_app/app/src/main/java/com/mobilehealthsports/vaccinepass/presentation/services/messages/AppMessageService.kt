@@ -35,17 +35,17 @@ class AppMessageService private constructor(
 
     private val disposables = CompositeDisposable()
 
-    override fun displayToastMessage(messageId: Int) {
+    override fun displayToastMessage(msgId: Int) {
         try {
-            displayToastMessage(context.getString(messageId))
+            displayToastMessage(context.getString(msgId))
         } catch (ex: Exception) {
             Timber.e(ex, "[VaccPass] Could not display toast message.")
         }
     }
 
-    override fun displayToastMessage(message: String) {
+    override fun displayToastMessage(msg: String) {
         try {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
             Timber.e(ex, "[VaccPass] Could not display toast message.")
         }
