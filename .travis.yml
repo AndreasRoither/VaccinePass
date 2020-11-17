@@ -52,5 +52,5 @@ stages:
   - build
 
 script:
-  - chmod +x gradlew
-  - ./gradlew assembleDebug
+  - chmod +x ./src/app/gradlew
+  - ./src/app/gradlew assembleDebug
