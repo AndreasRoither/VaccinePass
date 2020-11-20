@@ -4,7 +4,7 @@
   "description": "Checks if the client is authenticated. If so the vaccination string will be signed and sent back as a response.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon -L src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "VaccinePassGroup",
