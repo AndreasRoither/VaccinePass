@@ -3,13 +3,8 @@ package com.mobilehealthsports.vaccinepass
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.mobilehealthsports.vaccinepass.databinding.ActivityMainBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
