@@ -7,7 +7,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .\restAPI:/app
+      - .\restAPI:/usr/app
+      - /usr/app/node_modules
     depends_on: 
       - database
 
