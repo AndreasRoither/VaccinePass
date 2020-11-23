@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.snackbar.Snackbar
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -39,7 +40,7 @@ class AppMessageService private constructor(
         try {
             displayToastMessage(context.getString(msgId))
         } catch (ex: Exception) {
-            Timber.e(ex, "[VaccPass] Could not display toast message.")
+            Timber.e(ex, "[VaccinePass] Could not display toast message.")
         }
     }
 
@@ -47,7 +48,7 @@ class AppMessageService private constructor(
         try {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
-            Timber.e(ex, "[VaccPass] Could not display toast message.")
+            Timber.e(ex, "[VaccinePass] Could not display toast message.")
         }
     }
 
@@ -58,11 +59,10 @@ class AppMessageService private constructor(
         btnListener: DialogInterface.OnClickListener?
     ) {
         try {
-
             val btn = if (btnMsg != null) context.getString(btnMsg) else null
             displaySnackbar(view, context.getString(msgId), btn, btnListener)
         } catch (ex: Exception) {
-            Timber.e(ex, "[VaccPass] Could not display snackbar.")
+            Timber.e(ex, "[VaccinePass] Could not display snackbar.")
         }
     }
 
@@ -101,7 +101,7 @@ class AppMessageService private constructor(
 
             builder.show()
         } catch (ex: Exception) {
-            Timber.e(ex, "[VaccPass] Could not display dialog with titleId $titleId")
+            Timber.e(ex, "[VaccinePass] Could not display dialog with titleId $titleId")
         }
     }
 
@@ -127,7 +127,7 @@ class AppMessageService private constructor(
 
             builder.show()
         } catch (ex: Exception) {
-            Timber.e(ex, "[VaccPass] Could not display dialog with title $title")
+            Timber.e(ex, "[VaccinePass] Could not display dialog with title $title")
         }
     }
 
@@ -145,7 +145,7 @@ class AppMessageService private constructor(
     override fun executeRequest(request: MessageRequest) {
 
         if (currentFragment == null && currentActivity == null)
-            throw IllegalStateException("[VaccPass] Context is null for message request")
+            throw IllegalStateException("[VaccinePass] Context is null for message request")
 
         when (request) {
             is SnackbarRequest -> {
@@ -166,14 +166,17 @@ class AppMessageService private constructor(
                     negativeBtnListener = negativeListener
                 )
             }
+            is ToastRequest ->
+                displayToastMessage(request.message)
+
         }
     }
 
     override fun dispose() {
-       disposables.dispose()
+        disposables.dispose()
     }
 
     override fun isDisposed(): Boolean {
-       return disposables.isDisposed
+        return disposables.isDisposed
     }
 }

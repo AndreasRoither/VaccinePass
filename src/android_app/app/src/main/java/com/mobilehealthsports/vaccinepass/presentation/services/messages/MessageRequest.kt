@@ -3,6 +3,8 @@ package com.mobilehealthsports.vaccinepass.presentation.services.messages
 sealed class MessageRequest
 class ButtonModel(val caption: String, val onClick: (() -> Unit)? = null)
 
+class ToastRequest(val message: String): MessageRequest()
+
 class SnackbarRequest(val message: String) : MessageRequest()
 
 class DialogRequest(

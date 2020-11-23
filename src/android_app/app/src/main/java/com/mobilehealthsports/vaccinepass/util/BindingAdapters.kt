@@ -1,6 +1,7 @@
 package com.mobilehealthsports.vaccinepass.util
 import android.view.View
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 
 @BindingAdapter("android:boolean_visibility")
 fun booleanVisibility(view: View, visible: Boolean) {

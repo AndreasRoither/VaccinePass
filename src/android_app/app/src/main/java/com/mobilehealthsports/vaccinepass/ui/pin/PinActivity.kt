@@ -10,27 +10,18 @@ import androidx.security.crypto.MasterKey
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityPinBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
+import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 
 class PinActivity : AppCompatActivity() {
-    private lateinit var disposables: CompositeDisposable
+    private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val viewModel: PinViewModel by stateViewModel()
-
-    private val masterKey = MasterKey.Builder(this, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
-        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-        .build()
-
-    private val sharedPreferences = EncryptedSharedPreferences.create(
-        this,
-        "VaccinePass",
-        masterKey,
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    )
+    private val pinList: MutableList<Int> = mutableListOf()
+    private val adapter = PinViewAdapter(pinList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +31,23 @@ class PinActivity : AppCompatActivity() {
             R.layout.activity_pin
         )
         binding.viewModel = viewModel
+        binding.pinRecyclerview.adapter = adapter
         binding.lifecycleOwner = this
 
         messageService.subscribeToRequests(viewModel.messageRequest)
+        disposables.addAll(messageService)
+
+        val masterKey = MasterKey.Builder(this, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            this,
+            "VaccinePass",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
         viewModel.sharedPreferences = sharedPreferences
 
         when (val state = intent.getSerializableExtra(EXTRA_STATE)) {
@@ -54,9 +59,31 @@ class PinActivity : AppCompatActivity() {
         val length = intent.getIntExtra(EXTRA_PIN_LENGTH, 4)
         viewModel.setPinLength(length)
 
-        disposables.addAll(messageService)
+        viewModel.pinCount.observe(this, { pinCount ->
+            val recyclerItemCount = pinList.count()
 
-        setContentView(R.layout.activity_pin)
+            when {
+                pinCount > recyclerItemCount -> {
+                    pinList.add(1)
+                }
+                pinCount == 0 -> {
+                    pinList.clear()
+                }
+                pinCount < recyclerItemCount -> {
+                    while (pinList.count() > pinCount && pinList.isNotEmpty())
+                        pinList.removeLast()
+                }
+            }
+
+            adapter.notifyDataSetChanged()
+        })
+
+        viewModel.correctPin.observe(this, {
+            if (it) {
+                viewModel.messageRequest.request(ToastRequest("Correct PIN!"))
+                finish()
+            }
+        })
     }
 
     override fun onDestroy() {
