@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.mobilehealthsports.vaccinepass.TestActivity
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
+import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -60,6 +61,7 @@ class AppNavigationService private constructor(
         when (request) {
             is HomeRequest -> startIntent(TestActivity.intent(context))
             is PinRequest -> startIntent(PinActivity.intent(context, request.state, request.pinLength))
+            is MainRequest -> startIntent(MainActivity.intent(context))
         }
     }
 

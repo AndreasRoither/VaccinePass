@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModel
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.PinRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
+import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
+
 
 class TestViewModel : ViewModel() {
 
@@ -17,5 +20,9 @@ class TestViewModel : ViewModel() {
 
     fun startPinActivityCheck() {
         navigationRequest.request(PinRequest(PinViewModel.PinState.CHECK, 4))
+    }
+
+    fun startMainActivity() {
+        navigationRequest.request(MainRequest)
     }
 }
