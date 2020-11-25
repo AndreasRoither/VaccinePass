@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_user"
+        android:enabled="true"
+        android:icon="@drawable/ic_user"
+        android:title="@string/bottom_nav_user"/>
+    <item
+        android:id="@+id/bottom_nav_vaccine"
+        android:enabled="true"
+        android:icon="@drawable/ic_vaccine"
+        android:title="@string/bottom_nav_vaccine"/>
+    <item
+        android:id="@+id/bottom_nav_hidden"
+        android:enabled="false"
+        android:title=""/>
+    <item
+        android:id="@+id/bottom_nav_calendar"
+        android:enabled="true"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/bottom_nav_calendar"/>
+    <item
+        android:id="@+id/bottom_nav_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/bottom_nav_settings"/>
+</menu>

@@ -15,4 +15,13 @@
     <dimen name="activity_pin_btn_margin">5dp</dimen>
     <dimen name="activity_pin_btn_forgot_pin_top_margin">35dp</dimen>
 
+    <!--
+    MAIN Activity
+    -->
+    <dimen name="activity_main_bottom_corner_radius">15dp</dimen>
+    <dimen name="activity_main_bottom_bar_shadow_height">10dp</dimen>
+    <dimen name="activity_main_bottom_item_left_right_padding">25dp</dimen>
+    <dimen name="activity_main_bottom_item_top_bottom_padding">5dp</dimen>
+    <dimen name="activity_main_btn_add_diameter">85dp</dimen>
+
 </resources>

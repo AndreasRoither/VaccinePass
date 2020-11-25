@@ -11,12 +11,6 @@ class MainViewModel : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
     private var currentErrorCoroutine: Job? = null
 
-    val text :String = "MainText"
-
-    init {
-
-    }
-
     companion object {
         const val SHARED_PREF_KEY = "MAIN"
     }

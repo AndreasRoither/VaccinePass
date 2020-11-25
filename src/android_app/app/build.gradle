@@ -69,6 +69,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0-M1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.0-M1'
 
+    //Fragments
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 

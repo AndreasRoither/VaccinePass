@@ -19,5 +19,10 @@
     <string name="pin_btn_9">9</string>
     <string name="pin_btn_0">0</string>
     <string name="pin_btn_del">Del</string>
+    <string name="bottom_nav_user">User</string>
+    <string name="bottom_nav_vaccine">Vaccines</string>
+    <string name="bottom_nav_calendar">Calendar</string>
+    <string name="bottom_nav_settings">Settings</string>
+    <string name="bottom_nav_add">Log</string>
 
 </resources>
