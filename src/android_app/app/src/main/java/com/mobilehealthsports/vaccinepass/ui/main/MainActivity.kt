@@ -51,8 +51,6 @@ class MainActivity : AppCompatActivity() {
             add<UserFragment>(R.id.fragment_container_view)
         }
 
-        val contextView = findViewById<View>(R.id.bottom_navigation)
-
 
         val radius = resources.getDimension(R.dimen.activity_main_bottom_corner_radius)
         val bottomNavigationBackground = binding.bottomNavigation.background as MaterialShapeDrawable

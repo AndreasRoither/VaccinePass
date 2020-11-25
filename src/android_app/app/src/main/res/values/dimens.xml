@@ -23,5 +23,7 @@
     <dimen name="activity_main_bottom_item_left_right_padding">25dp</dimen>
     <dimen name="activity_main_bottom_item_top_bottom_padding">5dp</dimen>
     <dimen name="activity_main_btn_add_diameter">85dp</dimen>
+    <dimen name="activity_main_usr_img_diameter">100dp</dimen>
+    <dimen name="activity_main_usr_img_radius">50dp</dimen>
 
 </resources>
