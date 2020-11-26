@@ -21,8 +21,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toTopOf="@id/bottom_navigation_container"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -72,8 +71,7 @@
                 android:elevation="15dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:text="@string/bottom_nav_add"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:text="@string/bottom_nav_add"/>
         </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

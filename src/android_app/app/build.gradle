@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.mobilehealthsports.vaccinepass"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -88,6 +88,8 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koin_version"
     // Koin for Android Architecture ViewModel
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    // Koin AndroidX Fragment features
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
 
     // RX
     // Because RxAndroid releases are few and far between, it is recommended you also

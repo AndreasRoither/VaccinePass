@@ -25,5 +25,9 @@
     <string name="bottom_nav_settings">Settings</string>
     <string name="bottom_nav_add">Log</string>
     <string name="activity_main_user_pic_description">User Picture for MainView</string>
+    <string name="activity_main_user_bloodtype">Blood Type</string>
+    <string name="activity_main_user_weight">Weight</string>
+    <string name="activity_main_user_height">Height</string>
+    <string name="activity_main_user_birth">Birth</string>
 
 </resources>

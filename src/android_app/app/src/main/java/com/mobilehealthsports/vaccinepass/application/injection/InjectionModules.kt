@@ -10,6 +10,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.Message
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNavigationService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.UserViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -50,6 +51,7 @@ object InjectionModules {
             viewModel { TestViewModel() }
             viewModel { PinViewModel() }
             viewModel { MainViewModel() }
+            viewModel { UserViewModel() }
         }
     )
 }

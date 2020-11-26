@@ -25,5 +25,7 @@
     <dimen name="activity_main_btn_add_diameter">85dp</dimen>
     <dimen name="activity_main_usr_img_diameter">100dp</dimen>
     <dimen name="activity_main_usr_img_radius">50dp</dimen>
+    <dimen name="activity_main_usr_item_margin">10dp</dimen>
+    <dimen name="activity_main_vaccine_card_icon_size">25dp</dimen>
 
 </resources>

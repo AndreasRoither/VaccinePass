@@ -6,27 +6,55 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.fragment.app.*
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.snackbar.Snackbar
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityMainBinding
+import com.mobilehealthsports.vaccinepass.databinding.FragmentUserBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
+import java.time.LocalDate
 
 
-class UserFragment : Fragment(R.layout.user_fragment)
-class VaccineFragment : Fragment(R.layout.vaccine_fragment)
-class AddVaccineFragment : Fragment(R.layout.add_fragment)
-class CalendarFragment : Fragment(R.layout.calendar_fragment)
-class SettingsFragment : Fragment(R.layout.settings_fragment)
+class UserFragment : Fragment(R.layout.fragment_user){
+    private var disposables = CompositeDisposable()
+    private val messageService: MessageService by inject { parametersOf(this) }
+    private val viewModel: UserViewModel by stateViewModel()
+    private var adapter: VaccineViewAdapter ?= null
+
+    private var fragmentUserBinding : FragmentUserBinding? = null
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val binding = FragmentUserBinding.bind(view)
+        fragmentUserBinding = binding
+
+        adapter = VaccineViewAdapter(viewModel.vaccines)
+
+        binding.viewModel = viewModel
+        binding.vaccineRecyclerview.adapter = adapter
+        binding.lifecycleOwner = this
+
+        messageService.subscribeToRequests(viewModel.messageRequest)
+        disposables.addAll(messageService)
+    }
+
+    override fun onDestroy() {
+        disposables.dispose()
+        super.onDestroy()
+    }
+}
+class AddVaccineFragment : Fragment(R.layout.fragment_add)
+class CalendarFragment : Fragment(R.layout.fragment_calendar)
+class SettingsFragment : Fragment(R.layout.fragment_settings)
+
+class VaccineFragment : Fragment(R.layout.fragment_vaccine)
 
 class MainActivity : AppCompatActivity() {
     private var disposables = CompositeDisposable()
