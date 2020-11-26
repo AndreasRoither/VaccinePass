@@ -108,4 +108,6 @@ dependencies {
     // security
     implementation "androidx.security:security-crypto:1.1.0-alpha02"
 
+    // calendar view
+    implementation 'com.github.kizitonwose:CalendarView:1.0.0'
 }
