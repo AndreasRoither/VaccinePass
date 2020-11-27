@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.wear.widget.BoxInsetLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:padding="@dimen/activity_tests_box_inset_layout_padding"
+        tools:context=".ui.testing.FragmentTestActivity"
+        tools:deviceIds="wear">
+
+        <FrameLayout
+            android:id="@+id/activity_test_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+    </androidx.wear.widget.BoxInsetLayout>
+
+</layout>

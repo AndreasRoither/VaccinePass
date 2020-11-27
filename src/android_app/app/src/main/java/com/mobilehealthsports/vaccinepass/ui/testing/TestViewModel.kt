@@ -2,8 +2,10 @@ package com.mobilehealthsports.vaccinepass.ui.testing
 
 import androidx.lifecycle.ViewModel
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.FragmentTestRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.PinRequest
+import com.mobilehealthsports.vaccinepass.ui.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 
 class TestViewModel : ViewModel() {
@@ -17,5 +19,11 @@ class TestViewModel : ViewModel() {
 
     fun startPinActivityCheck() {
         navigationRequest.request(PinRequest(PinViewModel.PinState.CHECK, 4))
+    }
+
+    fun startCalendarFragment() {
+        navigationRequest.request(
+            FragmentTestRequest("CalendarFragment")
+        )
     }
 }
