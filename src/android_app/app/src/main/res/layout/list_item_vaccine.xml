@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.mobilehealthsports.vaccinepass.ui.main.Vaccine" />
+            type="com.mobilehealthsports.vaccinepass.ui.main.user.Vaccine" />
     </data>
 
     <androidx.cardview.widget.CardView

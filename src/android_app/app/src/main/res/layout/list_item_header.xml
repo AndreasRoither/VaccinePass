@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
             name="item"
-            type="com.mobilehealthsports.vaccinepass.ui.main.HeaderItem" />
+            type="com.mobilehealthsports.vaccinepass.ui.main.user.HeaderItem" />
     </data>
+
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="4dp"
@@ -16,9 +18,10 @@
             android:id="@+id/txt_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:padding="16dp"
-            android:text="@{item.text}"/>
+            android:paddingHorizontal="16dp"
+            android:text="@{item.text}"
+            android:textColor="@color/app_primary"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </layout>

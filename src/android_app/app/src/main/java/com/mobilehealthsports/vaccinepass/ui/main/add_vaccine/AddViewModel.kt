@@ -1,4 +1,4 @@
-package com.mobilehealthsports.vaccinepass.ui.main
+package com.mobilehealthsports.vaccinepass.ui.main.add_vaccine
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData

@@ -1,4 +1,4 @@
-package com.mobilehealthsports.vaccinepass.ui.main
+package com.mobilehealthsports.vaccinepass.ui.main.user
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,14 +11,7 @@ import com.mobilehealthsports.vaccinepass.databinding.ListItemVaccineBinding
 import java.lang.IllegalStateException
 
 
-abstract class ListItem(open var type: ListItemType)
 
-enum class ListItemType {
-    HEADER,
-    VACCINE
-}
-
-data class HeaderItem(val text: String, override var type: ListItemType = ListItemType.HEADER) : ListItem(type)
 
 class VaccineViewAdapter(private val listItems: List<ListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

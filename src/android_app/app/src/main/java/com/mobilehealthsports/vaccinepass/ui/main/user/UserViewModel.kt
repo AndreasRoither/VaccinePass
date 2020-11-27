@@ -1,4 +1,4 @@
-package com.mobilehealthsports.vaccinepass.ui.main
+package com.mobilehealthsports.vaccinepass.ui.main.user
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
@@ -11,6 +11,24 @@ import kotlinx.coroutines.Job
 import java.time.LocalDate
 import java.util.EnumMap
 import kotlin.collections.ArrayList
+
+enum class ListItemType {
+    HEADER,
+    VACCINE
+}
+
+abstract class ListItem(open var type: ListItemType)
+data class HeaderItem(val text: String, override var type: ListItemType = ListItemType.HEADER) : ListItem(type)
+data class Vaccine(val name: String, val date: LocalDate, val state: VaccineState, override var type: ListItemType = ListItemType.VACCINE) : ListItem(type)
+
+data class User(val firstName: String, val lastName: String, val bloodType: String, val weight: Int, val height: Int, val birthDate: LocalDate)
+
+enum class VaccineState(val text: String) {
+    ACTIVE("Active Vaccinations"),
+    SCHEDULED("Scheduled Vaccinations"),
+    NOT_SCHEDULED("Expired Vaccinations"),
+    NOT_VACCINATED("Mandatory Vaccinations")
+}
 
 class UserViewModel : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
@@ -59,15 +77,3 @@ class UserViewModel : BaseViewModel() {
         const val ERROR_DELAY = 3000L
     }
 }
-
-data class User(val firstName: String, val lastName: String, val bloodType: String, val weight: Int, val height: Int, val birthDate: LocalDate)
-
-
-enum class VaccineState(val text: String) {
-    ACTIVE("Active Vaccinations"),
-    SCHEDULED("Scheduled Vaccinations"),
-    NOT_SCHEDULED("Expired Vaccinations"),
-    NOT_VACCINATED("Mandatory Vaccinations")
-}
-
-data class Vaccine(val name: String, val date: LocalDate, val state: VaccineState, override var type: ListItemType = ListItemType.VACCINE) : ListItem(type)

@@ -9,9 +9,9 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.AppMess
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNavigationService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
-import com.mobilehealthsports.vaccinepass.ui.main.AddViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
-import com.mobilehealthsports.vaccinepass.ui.main.UserViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

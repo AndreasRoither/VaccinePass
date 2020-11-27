@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.mobilehealthsports.vaccinepass.ui.main.UserViewModel" />
+            type="com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel" />
 
         <variable
             name="adapter"
-            type="com.mobilehealthsports.vaccinepass.ui.main.VaccineViewAdapter" />
+            type="com.mobilehealthsports.vaccinepass.ui.main.user.VaccineViewAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

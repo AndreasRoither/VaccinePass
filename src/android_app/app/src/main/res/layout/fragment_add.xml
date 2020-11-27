@@ -8,7 +8,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mobilehealthsports.vaccinepass.ui.main.AddViewModel" />
+            type="com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
