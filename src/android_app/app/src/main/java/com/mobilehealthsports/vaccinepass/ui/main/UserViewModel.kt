@@ -1,8 +1,6 @@
 package com.mobilehealthsports.vaccinepass.ui.main
 
 import android.content.SharedPreferences
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mobilehealthsports.vaccinepass.R
@@ -11,35 +9,46 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.Message
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import kotlinx.coroutines.Job
 import java.time.LocalDate
-import java.util.*
+import java.util.EnumMap
 import kotlin.collections.ArrayList
 
 class UserViewModel : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
     private var currentErrorCoroutine: Job? = null
 
-    var vaccineLength : Int = 10
+    private var vaccineLength : Int = 10
 
     private var _user = MutableLiveData(User("John", "Doe", "0 pos", 75, 180, LocalDate.of(1996,10,22)))
     var user: LiveData<User> = _user
 
-    var vaccines = MutableList(vaccineLength) { Vaccine("Hepatitis C", LocalDate.of(2020,11,15), VaccineState.ACTIVE)}
+    var listItems : MutableList<ListItem> = ArrayList()
 
+    private var vaccines : MutableList<Vaccine>
 
-    /*private var _userFirstName = MutableLiveData("John")
-    var userFirstName: LiveData<String> = _userFirstName
+    init {
+        vaccines = MutableList(vaccineLength) { Vaccine("Hepatitis C", LocalDate.of(2020,11,15), VaccineState.ACTIVE)}
 
-    private var _userLastName = MutableLiveData("Doe")
-    var userLastName: LiveData<String> = _userLastName
+        val listMap : MutableMap<VaccineState, MutableList<Vaccine>> = toMap(vaccines)
 
-    private var _userBloodType = MutableLiveData("0 pos")
-    var userBloodType : LiveData<String> = _userBloodType
+        for(state: VaccineState in listMap.keys) {
+            val header = HeaderItem(state.text)
+            listItems.add(header)
+            for(vac: Vaccine in listMap[state]!!){
+                listItems.add(vac)
+            }
+        }
+    }
 
-    private var _userWeight = MutableLiveData(75)
-    var userWeight: LiveData<Int> = _userWeight
+    private fun toMap(vacs : MutableList<Vaccine>) : MutableMap<VaccineState, MutableList<Vaccine>> {
+        val map: MutableMap<VaccineState, MutableList<Vaccine>> = EnumMap(VaccineState::class.java)
 
-    private var _userHeight = MutableLiveData(180)
-    var userHeight: LiveData<Int> = _userHeight*/
+        for(vaccine: Vaccine in vacs) {
+            val value: MutableList<Vaccine> = map[vaccine.state] ?: ArrayList()
+            map.putIfAbsent(vaccine.state, value)
+            value.add(vaccine)
+        }
+        return map
+    }
 
     lateinit var sharedPreferences: SharedPreferences
 
@@ -54,11 +63,11 @@ class UserViewModel : BaseViewModel() {
 data class User(val firstName: String, val lastName: String, val bloodType: String, val weight: Int, val height: Int, val birthDate: LocalDate)
 
 
-enum class VaccineState {
-    ACTIVE,
-    SCHEDULED,
-    NOT_SCHEDULED,
-    NOT_VACCINATED
+enum class VaccineState(val text: String) {
+    ACTIVE("Active Vaccinations"),
+    SCHEDULED("Scheduled Vaccinations"),
+    NOT_SCHEDULED("Expired Vaccinations"),
+    NOT_VACCINATED("Mandatory Vaccinations")
 }
 
-data class Vaccine(val name: String, val date: LocalDate, val state: VaccineState)
+data class Vaccine(val name: String, val date: LocalDate, val state: VaccineState, override var type: ListItemType = ListItemType.VACCINE) : ListItem(type)

@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="5dp"
-    android:background="?android:attr/selectableItemBackground">
-    <RelativeLayout
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="item"
+            type="com.mobilehealthsports.vaccinepass.ui.main.Vaccine" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
-        android:clickable="true"
-        android:padding="16dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:background="?android:attr/selectableItemBackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/vaccine_name"
-            android:textSize="20sp"
-            android:text="Hepatitis C"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/vaccine_name"
-            android:id="@+id/vaccine_date"
-            android:text="22. Sep 2020"/>
+            android:focusable="true"
+            android:clickable="true"
+            android:padding="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/vaccine_name"
+                android:textSize="20sp"
+                android:text="@{item.name}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vaccine_name"
+                android:id="@+id/vaccine_date"
+                android:text="@{item.date.toString()}"/>
 
-        <ImageView
-            android:layout_width="@dimen/activity_main_vaccine_card_icon_size"
-            android:layout_height="@dimen/activity_main_vaccine_card_icon_size"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/vaccine_name"
-            android:src="@drawable/ic_syringe" />
+            <ImageView
+                android:layout_width="@dimen/activity_main_vaccine_card_icon_size"
+                android:layout_height="@dimen/activity_main_vaccine_card_icon_size"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/vaccine_name"
+                android:src="@drawable/ic_syringe" />
 
-        <ImageView
-            android:layout_width="@dimen/activity_main_vaccine_card_icon_size"
-            android:layout_height="@dimen/activity_main_vaccine_card_icon_size"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_bell"/>
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="@dimen/activity_main_vaccine_card_icon_size"
+                android:layout_height="@dimen/activity_main_vaccine_card_icon_size"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_bell"/>
+        </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>
