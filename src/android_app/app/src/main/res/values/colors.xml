@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="app_primary">#9768EB</color>
+    <color name="app_light">#cc97ff</color>
+    <color name="app_dark">#653bb8</color>
+    <color name="app_complementary">#bbeb68</color>
     <color name="app_background">#F2F4F9</color>
+    <color name="app_triadic">#eb68bb</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -10,5 +14,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#BDBDBD</color>
+    <color name="light_grey">#EEEEEE</color>
     <color name="error_red">#f20d0d</color>
 </resources>

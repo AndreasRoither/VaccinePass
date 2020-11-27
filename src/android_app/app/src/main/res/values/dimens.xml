@@ -15,4 +15,22 @@
     <dimen name="activity_pin_btn_margin">5dp</dimen>
     <dimen name="activity_pin_btn_forgot_pin_top_margin">35dp</dimen>
 
+    <!--
+   Test Activity
+   -->
+    <dimen name="activity_tests_box_inset_layout_padding">0dp</dimen>
+
+    <!--
+    Calendar Fragment
+    -->
+    <dimen name="fragment_calendar_months_bottom_margin">5dp</dimen>
+    <dimen name="fragment_calendar_selected_header_margin">5dp</dimen>
+    <dimen name="fragment_calendar_month_text">25sp</dimen>
+    <dimen name="fragment_calendar_year_text">16sp</dimen>
+    <dimen name="fragment_calendar_selected_header_text">14sp</dimen>
+    <dimen name="fragment_calendar_legend_header_text">16sp</dimen>
+    <dimen name="fragment_calendar_padding">15dp</dimen>
+    <dimen name="fragment_calendar_selected_header_padding">12dp</dimen>
+
+
 </resources>
