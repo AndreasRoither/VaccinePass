@@ -152,7 +152,7 @@ app.get('/login', (req, response) => {
 
 app.get('/loginDoctor', (req, response) => {
     var loginCredentials = JSON.parse(JSON.stringify(req.body));
-    var email = loginCredentials.email;
+    var email = loginCredentials.mail;
     console.log(email);
     var password = loginCredentials.password;
     console.log(password);

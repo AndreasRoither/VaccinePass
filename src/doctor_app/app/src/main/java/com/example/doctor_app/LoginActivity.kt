@@ -133,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
             params["password"] = password.text.toString();
             if(params["mail"] != "" && params["password"] != "") {
                 val jsonObject = JSONObject(params as Map<*, *>);
-                val request = JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                val request = JsonObjectRequest(Request.Method.GET, url, jsonObject,
                     { response ->
                         // Process the json
                         try {
