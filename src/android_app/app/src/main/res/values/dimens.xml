@@ -29,4 +29,7 @@
     <dimen name="activity_main_vaccine_card_icon_size">25dp</dimen>
     <dimen name="activity_main_fragment_add_height">500dp</dimen>
 
+    <dimen name="fragment_add_margins">15dp</dimen>
+    <dimen name="fragment_add_ic_size">35dp</dimen>
+
 </resources>

@@ -31,5 +31,9 @@
     <string name="activity_main_user_birth">Birth</string>
     <string name="add_vaccine_btn_add">Add</string>
     <string name="add_vaccine_btn_cancel">Cancel</string>
+    <string name="add_vaccine_lbl_date">Start Date</string>
+    <string name="add_vaccine_ic_calendar_description">Calendar Icon</string>
+    <string name="add_vaccine_ic_schedule_description">Icon for Schedule</string>
+    <string name="add_vaccine_btn_schedule_add">Add to Schedule</string>
 
 </resources>

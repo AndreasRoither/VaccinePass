@@ -7,7 +7,10 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.user.Vaccine
+import com.mobilehealthsports.vaccinepass.ui.main.user.VaccineState
 import kotlinx.coroutines.Job
+import java.time.LocalDate
 
 class AddViewModel : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
@@ -15,8 +18,8 @@ class AddViewModel : BaseViewModel() {
 
     lateinit var sharedPreferences: SharedPreferences
 
-    private var _text = MutableLiveData("AddVaccine Fragment")
-    var text: LiveData<String> = _text
+    private var _vaccine = MutableLiveData(Vaccine("Hepatitis C", LocalDate.now(), VaccineState.NOT_SCHEDULED))
+    var vaccine: LiveData<Vaccine> = _vaccine
 
     companion object {
         const val SHARED_PREF_KEY = "VACCINE"
