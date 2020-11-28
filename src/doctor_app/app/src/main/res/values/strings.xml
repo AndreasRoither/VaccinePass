@@ -13,4 +13,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="qr_code_view">QR-Code View</string>
     <string name="login_view">Login View</string>
+
+    <string name="vaccineuser_userid">UserID</string>
+    <string name="generate_qr">Generate QR Code</string>
 </resources>

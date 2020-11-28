@@ -3,6 +3,7 @@ package com.example.doctor_app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.doctor_app.certificate.VaccinationUserData
 import kotlinx.android.synthetic.main.activity_test.*
 
 class TestActivity : AppCompatActivity() {
@@ -17,10 +18,9 @@ class TestActivity : AppCompatActivity() {
         }
 
         qr_code_view_btn.setOnClickListener{
-            //TODO,
-            //val intent = Intent(this, LoginActivity.kt::class.java)
+            val intent = Intent(this, VaccinationUserData::class.java)
             // start your next activity
-            //startActivity(intent)
+            startActivity(intent)
         }
 
 
