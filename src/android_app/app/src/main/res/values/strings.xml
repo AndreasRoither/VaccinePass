@@ -29,5 +29,7 @@
     <string name="activity_main_user_weight">Weight</string>
     <string name="activity_main_user_height">Height</string>
     <string name="activity_main_user_birth">Birth</string>
+    <string name="add_vaccine_btn_add">Add</string>
+    <string name="add_vaccine_btn_cancel">Cancel</string>
 
 </resources>

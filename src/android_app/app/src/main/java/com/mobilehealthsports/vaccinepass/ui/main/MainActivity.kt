@@ -3,18 +3,17 @@ package com.mobilehealthsports.vaccinepass.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.*
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityMainBinding
-import com.mobilehealthsports.vaccinepass.databinding.FragmentAddBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddVaccineFragment
-import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsFragment
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserFragment
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                         .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                         .build()
 
-       binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.bottom_nav_user -> {
                     supportFragmentManager.commit {
@@ -91,10 +90,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.ivAdd.setOnClickListener{
+            it.setBackgroundResource(R.drawable.drawable_btn_background)
             supportFragmentManager.commit {
+                setCustomAnimations(R.anim.slide_up, R.anim.slide_down)
                 setReorderingAllowed(true)
-                add<AddVaccineFragment>(R.id.fragment_container_view)
+                add<AddVaccineFragment>(R.id.dialog_container_view, AddVaccineFragment.TAG)
             }
+            it.isEnabled = false
+
+            /*val addVaccineFragment = AddVaccineFragment()
+            addVaccineFragment.show(supportFragmentManager, AddVaccineFragment.TAG)*/
         }
 
     }
