@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <!--<variable
+        <variable
             name="item"
-            type="com.mobilehealthsports.vaccinepass.ui.main.user.Schedule" />-->
+            type="com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ScheduleItem" />
     </data>
 
     <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="in 14 days"/>
+            android:text='@{item.daysTo}'/>
 
     </androidx.cardview.widget.CardView>
 

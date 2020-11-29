@@ -9,11 +9,18 @@
         <variable
             name="viewModel"
             type="com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel" />
+        <variable
+            name="adapter"
+            type="com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ScheduleViewAdapter" />
     </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_main_fragment_add_height"
+        android:layout_height="wrap_content"
         android:background="@drawable/drawable_layout_round">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +57,7 @@
                         android:id="@+id/add_vaccine_txt_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.vaccine.name}"
+                        android:text="@{viewModel.vaccineName}"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
 
@@ -87,7 +94,7 @@
                                 android:id="@+id/add_vaccine_txt_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{viewModel.vaccine.date.toString()}"
+                                android:text="@{viewModel.vaccineDate.toString()}"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -148,25 +155,27 @@
                 android:id="@+id/add_vaccine_schedule_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/add_vaccine_lbl_schedule_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:listitem="@layout/list_item_schedule"
                 android:orientation="vertical"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_vaccine_lbl_schedule_container"
+                app:setAdapter="@{adapter}"
                 tools:itemCount="3"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                tools:listitem="@layout/list_item_schedule" />
 
             <Button
+                android:id="@+id/add_vaccine_btn_add_schedule"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_vaccine_schedule_list"
+                android:backgroundTint="@color/white"
                 android:text="@string/add_vaccine_btn_schedule_add"
-                android:backgroundTint="@color/white"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_vaccine_schedule_list" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -201,5 +210,6 @@
                 android:text="@string/add_vaccine_btn_cancel" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </layout>

@@ -22,4 +22,13 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.VaccinePass.Button.Rounded</item>
         <item name="strokeColor">@color/app_primary</item>
     </style>
+
+
+    <style name="SpinnerDatePickerStyle" parent="android:Theme.Material.Dialog">
+        <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
+    </style>
+
+    <style name="SpinnerDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+    </style>
 </resources>
