@@ -79,7 +79,7 @@ app.post('/registerDoctor', (req, response) => {
     bcrypt.hash(doctor.password, 1, (err, hash) => {
         doctor.password = hash;
 
-        var queryString = `INSERT INTO doctors(name, password, mail, publicKey) 
+        var queryString = `INSERT INTO doctors(name, password, mail, public_key) 
                            VALUES(` + "'" + doctor.name + "'" + `,` + "'" + doctor.password + "'" + `,` + "'" + doctor.mail + "'" + "," + "'" + doctor.publicKey + "'" + `)`;
         
     
@@ -150,7 +150,7 @@ app.get('/login', (req, response) => {
 });
 
 
-app.get('/loginDoctor', (req, response) => {
+app.post('/loginDoctor', (req, response) => {
     var loginCredentials = JSON.parse(JSON.stringify(req.body));
     var email = loginCredentials.mail;
     console.log(email);
@@ -175,6 +175,17 @@ app.get('/loginDoctor', (req, response) => {
                             }).catch(e => console.error(e.stack))                          
             }).catch(e => console.error(e.stack))
 });
+
+
+app.post('/addVaccine', (req, res) => {
+    // get object (data from qr code: vaccine stuff, userid or mail, docker mail, signature)
+    // retrive public key with the docker mail
+    // verify signature with public key
+    // if successful
+    //      - add vaccine to user 
+    //      - send successful response
+})
+
 
 app.listen(3000, () => {
     console.log("Listening on port 3000");

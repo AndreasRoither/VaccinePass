@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         register_btn.setOnClickListener{
-            val url = "localhost:3000/registerDoctor"
+            val url = "http://192.168.0.110:3000/registerDoctor"
             val gson = Gson()
 
             val params = HashMap<String, String>()
@@ -139,14 +139,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
         login.setOnClickListener {
-            val url = "http://localhost:3000/loginDoctor"
+            val url = "http://192.168.0.110:3000/loginDoctor"
             val gson = Gson()
             val params = HashMap<String, String>()
             params["mail"] = mail.text.toString();
             params["password"] = password.text.toString();
             if(params["mail"] != "" && params["password"] != "") {
                 val jsonObject = JSONObject(params as Map<*, *>);
-                val request = JsonObjectRequest(Request.Method.GET, url, jsonObject,
+                val request = JsonObjectRequest(Request.Method.POST, url, jsonObject,
                     { response ->
                         // Process the json
                         try {

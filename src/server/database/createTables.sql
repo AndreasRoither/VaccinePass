@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS doctors (
 	name VARCHAR(25) NOT NULL,
 	password VARCHAR(255) NOT NULL,
     mail VARCHAR(50) NOT NULL,
-    public_key VARCHAR(255) NOT NULL,
+    public_key text NOT NULL,
     UNIQUE(mail)
 );
 

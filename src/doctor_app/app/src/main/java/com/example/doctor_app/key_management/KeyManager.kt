@@ -6,6 +6,7 @@ import android.security.keystore.KeyProperties
 import android.security.keystore.UserNotAuthenticatedException
 import android.util.Base64.DEFAULT
 import android.util.Base64.encodeToString
+import android.util.Log
 import java.math.BigInteger
 import java.security.*
 import java.util.*
@@ -34,7 +35,7 @@ class KeyManager {
             setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1) //Set of padding schemes with which the key can be used when signing/verifying
             setCertificateNotBefore(startDate.time)                         //Start of the validity period for the self-signed certificate of the generated, default Jan 1 1970
             setCertificateNotAfter(endDate.time)                            //End of the validity period for the self-signed certificate of the generated key, default Jan 1 2048
-            setUserAuthenticationRequired(true)                             //Sets whether this key is authorized to be used only if the user has been authenticated, default false
+            setUserAuthenticationRequired(false)                             //Sets whether this key is authorized to be used only if the user has been authenticated, default false
             setUserAuthenticationValidityDurationSeconds(30)                //Duration(seconds) for which this key is authorized to be used after the user is successfully authenticated
             build()
         }
@@ -52,7 +53,7 @@ class KeyManager {
         return publicKey;
     }
 
-    public fun signData(key_alias: String) : String {
+    public fun signData(key_alias: String, data: String) : String {
         try {
             //We get the Keystore instance
             val keyStore: KeyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply {
@@ -65,7 +66,7 @@ class KeyManager {
             //We sign the data with the private key. We use RSA algorithm along SHA-256 digest algorithm
             val signature: ByteArray? = Signature.getInstance("SHA256withRSA").run {
                 initSign(privateKey)
-                update("TestString".toByteArray())
+                update(data.toByteArray())
                 sign()
             }
 
@@ -75,8 +76,10 @@ class KeyManager {
             }
 
         } catch (e: UserNotAuthenticatedException) {
+            Log.e("TAG", "Error: " + e)
             //Exception thrown when the user has not been authenticated
         } catch (e: KeyPermanentlyInvalidatedException) {
+            Log.e("TAG", "Error: " + e)
             //Exception thrown when the key has been invalidated for example when lock screen has been disabled.
         } catch (e: Exception) {
             throw RuntimeException(e)
