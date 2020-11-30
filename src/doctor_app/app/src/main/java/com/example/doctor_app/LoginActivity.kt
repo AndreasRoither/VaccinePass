@@ -1,22 +1,29 @@
 package com.example.doctor_app
 
-import android.R.attr
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
+import com.example.doctor_app.certificate.VaccinationUserData
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 import com.example.doctor_app.model.User
+import kotlin.collections.HashMap
+import com.example.doctor_app.key_management.KeyManager;
 
-
+/***
+ * https://medium.com/@abel.suviri.payan/create-rsa-key-on-android-for-sign-and-verify-9debbb566541
+ * source for signing
+ */
 class LoginActivity : AppCompatActivity() {
+
+    private var keyManager = KeyManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -86,6 +93,10 @@ class LoginActivity : AppCompatActivity() {
             params["mail"] = mail.text.toString();
             params["password"] = password.text.toString();
             if(params["name"] != "" && params["mail"] != "" && params["password"] != ""){
+                var secretAlias = params["mail"] + "_secret";
+                keyManager.generateKey(secretAlias);
+                var publicKey = keyManager.getPublicKey();
+                params["publicKey"] = publicKey;
                 val jsonObject = JSONObject(params as Map<*, *>);
                 val request = JsonObjectRequest(Request.Method.POST, url, jsonObject,
                     { response ->
@@ -99,8 +110,10 @@ class LoginActivity : AppCompatActivity() {
                                 // auto login if registration is successfull
                                 Toast.makeText(applicationContext,"Registration successful! Auto login!",Toast.LENGTH_SHORT).show()
                                 val loggedInUser = User(name, mail, success)
-                                //TODO save loggedInUser
-                                //TODO start qr code activity with user data
+                                val intent = Intent(this, VaccinationUserData::class.java)
+                                intent.putExtra("user", gson.toJson(loggedInUser).toString())
+                                // start your next activity
+                                startActivity(intent)
                             }
                         } catch (e: Exception) {
                             println("Exception: $e")
@@ -144,8 +157,10 @@ class LoginActivity : AppCompatActivity() {
                             if (success) {
                                 Toast.makeText(applicationContext,"Login successful!",Toast.LENGTH_SHORT).show()
                                 val loggedInUser = User(name, mail, success)
-                                //TODO save loggedInUser
-                                //TODO start qr code activity with user data
+                                val intent = Intent(this, VaccinationUserData::class.java)
+                                intent.putExtra("user", gson.toJson(loggedInUser).toString())
+                                // start your next activity
+                                startActivity(intent)
                             }
                         } catch (e: Exception) {
                             println("Exception: $e")
@@ -170,4 +185,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+
+
 }

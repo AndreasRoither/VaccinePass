@@ -79,8 +79,8 @@ app.post('/registerDoctor', (req, response) => {
     bcrypt.hash(doctor.password, 1, (err, hash) => {
         doctor.password = hash;
 
-        var queryString = `INSERT INTO doctors(name, password, mail) 
-                           VALUES(` + "'" + doctor.name + "'" + `,` + "'" + doctor.password + "'" + `,` + "'" + doctor.mail + "'" +`)`;
+        var queryString = `INSERT INTO doctors(name, password, mail, publicKey) 
+                           VALUES(` + "'" + doctor.name + "'" + `,` + "'" + doctor.password + "'" + `,` + "'" + doctor.mail + "'" + "," + "'" + doctor.publicKey + "'" + `)`;
         
     
         client.query(queryString, (err, res) => {
@@ -213,21 +213,23 @@ User.fromJson = function (json) {
 };
 
 
-var Doctor = function (name, password, mail){
+var Doctor = function (name, password, mail, publicKey){
     this.name = name;
     this.password = password;
     this.mail = mail;
+    this.publicKey = publicKey;
 
     this.toJson = function (){
         return ("{" +
             "\"name\":\"" + this.name + "\"," +
             "\"password\":" + this.password + "," +
             "\"mail\":" + this.mail + "," +
+            "\"publicKey\":" + this.mail + "," +
         "}");
     };
 };
 
 Doctor.fromJson = function (json) {
     var obj = JSON.parse (json);
-    return new Doctor (obj.name, obj.password, obj.mail);
+    return new Doctor (obj.name, obj.password, obj.mail, obj.publicKey);
 };
