@@ -5,6 +5,8 @@ import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.FragmentTestRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.PinRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
+import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
 import com.mobilehealthsports.vaccinepass.ui.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 
@@ -25,5 +27,9 @@ class TestViewModel : ViewModel() {
         navigationRequest.request(
             FragmentTestRequest("CalendarFragment")
         )
+    }
+
+    fun startMainActivity() {
+        navigationRequest.request(MainRequest)
     }
 }

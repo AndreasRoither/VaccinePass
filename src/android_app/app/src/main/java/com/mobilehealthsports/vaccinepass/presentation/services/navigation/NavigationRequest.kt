@@ -9,3 +9,4 @@ sealed class NavigationRequest
 object HomeRequest : NavigationRequest()
 class PinRequest(val state: PinViewModel.PinState, val pinLength: Int) : NavigationRequest()
 class FragmentTestRequest(val fragment: String) : NavigationRequest()
+object MainRequest : NavigationRequest()

@@ -17,4 +17,6 @@
     <color name="grey">#BDBDBD</color>
     <color name="light_grey">#EEEEEE</color>
     <color name="error_red">#f20d0d</color>
+
+    <color name="ic_background">#FF5014B9</color>
 </resources>
