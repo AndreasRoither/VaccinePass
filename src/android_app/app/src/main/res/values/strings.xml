@@ -35,5 +35,8 @@
     <string name="add_vaccine_ic_calendar_description">Calendar Icon</string>
     <string name="add_vaccine_ic_schedule_description">Icon for Schedule</string>
     <string name="add_vaccine_btn_schedule_add">Add to Schedule</string>
+    <string name="add_vaccine_lbl_schedule">Schedule</string>
+    <string name="add_vaccine_lbl_subtitle_schedule">Remaining treatments</string>
+    <string name="add_vaccine_lbl_subtitle_vaccine_name">State of Vaccine</string>
 
 </resources>

@@ -18,6 +18,8 @@ import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsFragment
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserFragment
 import com.mobilehealthsports.vaccinepass.ui.main.vaccine.VaccineFragment
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
@@ -46,6 +48,10 @@ class MainActivity : AppCompatActivity() {
             add<UserFragment>(R.id.fragment_container_view)
         }
 
+        //Access Mode for Shared Preferences
+        val sharedPrefs = this.getSharedPreferences("prefs", MODE_PRIVATE)
+        sharedPrefs["test"] = "test"
+        val teststr : String? = sharedPrefs["test"]
 
         val radius = resources.getDimension(R.dimen.activity_main_bottom_corner_radius)
         val bottomNavigationBackground = binding.bottomNavigation.background as MaterialShapeDrawable

@@ -45,7 +45,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_syringe" />
+                    android:src="@drawable/ic_vial" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                         android:id="@+id/add_vaccine_txt_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="State of Vaccine"
+                        android:text="@string/add_vaccine_lbl_subtitle_vaccine_name"
                         android:textColor="@color/white" />
 
                     <LinearLayout
@@ -127,14 +127,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Schedule"
+                        android:text="@string/add_vaccine_lbl_schedule"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Remaining treatments"
+                        android:text="@string/add_vaccine_lbl_subtitle_schedule"
                         android:textColor="@color/white" />
                 </LinearLayout>
 

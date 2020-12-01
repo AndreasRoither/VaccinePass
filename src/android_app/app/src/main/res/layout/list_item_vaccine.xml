@@ -39,7 +39,7 @@
                 android:layout_height="@dimen/activity_main_vaccine_card_icon_size"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/vaccine_name"
-                android:src="@drawable/ic_syringe" />
+                android:src="@drawable/ic_vial" />
 
             <ImageView
                 android:layout_width="@dimen/activity_main_vaccine_card_icon_size"
