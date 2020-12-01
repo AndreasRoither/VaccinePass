@@ -6,8 +6,6 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Fragm
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.PinRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
-import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
-import com.mobilehealthsports.vaccinepass.ui.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 
 class TestViewModel : ViewModel() {

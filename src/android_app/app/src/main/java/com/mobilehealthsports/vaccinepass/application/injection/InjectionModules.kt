@@ -12,7 +12,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Navig
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel
-import com.mobilehealthsports.vaccinepass.ui.calendar.CalendarViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

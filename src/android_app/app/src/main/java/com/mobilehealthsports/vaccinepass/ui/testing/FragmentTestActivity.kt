@@ -9,7 +9,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityFragmentTestBinding
-import com.mobilehealthsports.vaccinepass.ui.calendar.CalendarFragment
+import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 
 
 class FragmentTestActivity : AppCompatActivity() {
