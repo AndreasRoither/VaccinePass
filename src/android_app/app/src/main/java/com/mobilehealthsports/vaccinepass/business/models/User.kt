@@ -1,0 +1,20 @@
+package com.mobilehealthsports.vaccinepass.business.models
+
+import android.content.Context
+import androidx.core.content.ContextCompat
+import java.util.*
+
+data class User(
+    val uid: Int,
+    val firstName: String?,
+    val lastName: String?,
+    val bloodType: String?,
+    val birthDay: Date?,
+    val weight: Float?,
+    val height: Float?,
+    val themeColor: Int,
+) {
+    fun resolveColor(context: Context): Int {
+        return ContextCompat.getColor(context, themeColor)
+    }
+}

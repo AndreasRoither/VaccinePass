@@ -3,8 +3,10 @@ package com.mobilehealthsports.vaccinepass.application.injection
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.mobilehealthsports.vaccinepass.business.database.AppDatabase
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.AppMessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNavigationService
@@ -15,6 +17,7 @@ import com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -46,6 +49,11 @@ object InjectionModules {
                     else -> throw IllegalArgumentException("Can't provide MessageService for class ${activityOrFragment::class.java}")
                 }
             }
+        },
+
+        // Database module
+        module {
+          single{ Room.databaseBuilder(get(), AppDatabase::class.java, "vaccineDb").build() }
         },
 
         // ViewModel module
