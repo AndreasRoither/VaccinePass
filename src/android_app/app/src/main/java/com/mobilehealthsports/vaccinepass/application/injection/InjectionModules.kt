@@ -7,6 +7,10 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mobilehealthsports.vaccinepass.business.database.AppDatabase
+import com.mobilehealthsports.vaccinepass.business.repository.UserRepository
+import com.mobilehealthsports.vaccinepass.business.repository.UserRepositoryImpl
+import com.mobilehealthsports.vaccinepass.business.repository.VaccineRepository
+import com.mobilehealthsports.vaccinepass.business.repository.VaccineRepositoryImpl
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.AppMessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNavigationService
@@ -53,7 +57,9 @@ object InjectionModules {
 
         // Database module
         module {
-          single{ Room.databaseBuilder(get(), AppDatabase::class.java, "vaccineDb").build() }
+            single { Room.databaseBuilder(get(), AppDatabase::class.java, "vaccineDb").build() }
+            single<UserRepository> { UserRepositoryImpl(get()) }
+            single<VaccineRepository> { VaccineRepositoryImpl(get()) }
         },
 
         // ViewModel module
