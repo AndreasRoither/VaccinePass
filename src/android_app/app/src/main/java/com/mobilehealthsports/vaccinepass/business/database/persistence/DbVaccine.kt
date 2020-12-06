@@ -9,6 +9,7 @@ import java.util.*
 data class DbVaccine(
     @PrimaryKey val uid: Int,
     @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "active") val active: Boolean,
     @ColumnInfo(name = "company") val company: String?,
     @ColumnInfo(name = "indication") val indication: String?,
     @ColumnInfo(name = "target_group") val targetGroup: String?,
@@ -16,6 +17,5 @@ data class DbVaccine(
     @ColumnInfo(name = "adjuvans") val adjuvans: String?,
     @ColumnInfo(name = "thiomersal") val thiomersal: String?,
     @ColumnInfo(name = "refresh_recommendation") val refreshRecommendation: String?,
-    @ColumnInfo(name = "refresh_date") val refreshDate: Date?,
 )
 

@@ -2,8 +2,10 @@ package com.mobilehealthsports.vaccinepass.business.database.extension
 
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.business.database.persistence.DbUser
+import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccination
 import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccine
 import com.mobilehealthsports.vaccinepass.business.models.User
+import com.mobilehealthsports.vaccinepass.business.models.Vaccination
 import com.mobilehealthsports.vaccinepass.business.models.Vaccine
 
 /***********************
@@ -21,13 +23,13 @@ fun DbUser.toUser() = User(
 )
 
 fun User.toDb() = DbUser(
-    uid,
-    firstName = null,
-    lastName = null,
-    bloodType = null,
-    birthDay = null,
-    weight = null,
-    height = null,
+    uid = uid,
+    firstName = firstName,
+    lastName = lastName,
+    bloodType = bloodType,
+    birthDay = birthDay,
+    weight = weight,
+    height = height,
     themeColor = R.color.app_primary
 )
 
@@ -44,18 +46,38 @@ fun DbVaccine.toVaccine() = Vaccine(
     adjuvans = adjuvans,
     thiomersal = thiomersal,
     refreshRecommendation = refreshRecommendation,
-    refreshDate = refreshDate
+    active = active
 )
 
 fun Vaccine.toDb() = DbVaccine(
-    uid,
-    name,
-    company = null,
-    indication = null,
-    targetGroup = null,
-    note = null,
-    adjuvans = null,
-    thiomersal = null,
-    refreshRecommendation = null,
-    refreshDate = null
+    uid = uid,
+    name = name,
+    company = company,
+    indication = indication,
+    targetGroup = targetGroup,
+    note = note,
+    adjuvans = adjuvans,
+    thiomersal = thiomersal,
+    refreshRecommendation = refreshRecommendation,
+    active = active
+)
+
+/***********************
+ * USER VACCINATION
+ ************************/
+
+fun DbVaccination.toVaccination() = Vaccination(
+    uid = uid,
+    f_uid = f_uid,
+    active = active,
+    refreshDate = refreshDate,
+    vaccinationDate = vaccinationDate
+)
+
+fun Vaccination.toDb() = DbVaccination(
+    uid = uid,
+    f_uid = f_uid,
+    active = active,
+    refreshDate = refreshDate,
+    vaccinationDate = vaccinationDate
 )

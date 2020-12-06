@@ -4,7 +4,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 data class Vaccine(
-    @PrimaryKey val uid: Int,
+    val uid: Int,
     val name: String,
     val company: String?,
     val indication: String?,
@@ -13,14 +13,6 @@ data class Vaccine(
     val adjuvans: String?,
     val thiomersal: String?,
     val refreshRecommendation: String?,
-    val refreshDate: Date?,
+    val active: Boolean
 ) {
-    fun checkRefreshDate(): Boolean {
-        return when (refreshDate) {
-            null -> false
-            else -> {
-                return refreshDate.before(Date())
-            }
-        }
-    }
 }
