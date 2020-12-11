@@ -44,7 +44,6 @@ class VaccinationUserData : AppCompatActivity() {
         val adapter = ArrayAdapter(this, R.layout.list_item, items)
         binding.expires.setAdapter(adapter)
         binding.vaccineDate.setText(dateFormat.format(Date()))
-//        binding.vaccineDate.setText("aasdfasdfdfhf")
         binding.generateQr.setOnClickListener(this::onButtonClick)
     }
 
