@@ -1,80 +1,71 @@
 package com.example.doctor_app.certificate
 
-import android.graphics.Bitmap
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import EditTextDatePicker
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.doctor_app.R
 import com.example.doctor_app.databinding.ActivityVaccinationUserDataBinding
-import com.example.doctor_app.key_management.KeyManager
 import com.example.doctor_app.model.User
+import com.example.doctor_app.model.VaccineInfo
+import com.example.doctor_app.qrcode.QrCode
 import com.google.gson.Gson
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VaccinationUserData : AppCompatActivity() {
 
     private lateinit var binding: ActivityVaccinationUserDataBinding
     private val viewModel = VaccineUserVM()
-    private lateinit var user: User
+    private lateinit var doctor: User
+
+    private val items = listOf("never", "0.5 year", "1 year", "2 years", "5 years")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var gson = Gson()
-        user = gson.fromJson(intent.getStringExtra("user"), User::class.java)
-
+        val gson = Gson()
+        doctor = gson.fromJson(intent.getStringExtra("user"), User::class.java)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_vaccination_user_data)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
+        initView()
+    }
 
+    private fun initView() {
+        EditTextDatePicker(this, binding.vaccineDate.id)
+
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val adapter = ArrayAdapter(this, R.layout.list_item, items)
+        binding.expires.setAdapter(adapter)
+        binding.vaccineDate.setText(dateFormat.format(Date()))
+//        binding.vaccineDate.setText("aasdfasdfdfhf")
         binding.generateQr.setOnClickListener(this::onButtonClick)
-
     }
 
     private fun onButtonClick(v: View) {
-        Toast.makeText(this, viewModel.userId , Toast.LENGTH_SHORT).show();
-        var keyManager = KeyManager()
-        var keyAlias = user.mail + "_secret"
-        var data = viewModel.userId
-        var doctorMail = user.mail//keyManager.getPublicKey(keyAlias)
-        var signature = keyManager.signData(keyAlias, data)
+        val vaccineInfo = VaccineInfo(
+            binding.userId.text.toString(),
+            binding.vaccine.text.toString(),
+            binding.vaccineDate.text.toString(),
+            binding.expires.text.toString(),
+            doctor.mail,
+            doctor.name
+        )
 
-        val params = HashMap<String, String>()
-        params["userid"] = data
-        params["doctor"] = doctorMail
-        params["signature"] = signature
-
-        //val jsonObject = JSONObject(params as Map<*, *>);
         val gson = Gson()
 
-        val qrImage = generateQRCode(gson.toJson(params).toString())
-        binding.qrCode.setImageBitmap(qrImage)
-
+        val intent = Intent(this, QrCode::class.java)
+        intent.putExtra(VACCINE_INFO_KEY, gson.toJson(vaccineInfo).toString())
+        startActivity(intent)
     }
 
-    private fun generateQRCode(text: String): Bitmap {
-        val width = 500
-        val height = 500
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val codeWriter = MultiFormatWriter()
-        try {
-            val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
-                }
-            }
-        } catch (e: WriterException) {
-            Log.d("VaccinationUserData", "generateQRCode: ${e.message}")
-        }
-        return bitmap
+    companion object {
+        const val VACCINE_INFO_KEY = "vaccineInfo";
     }
 }

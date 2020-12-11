@@ -15,5 +15,9 @@
     <string name="login_view">Login View</string>
 
     <string name="vaccineuser_userid">UserID</string>
+    <string name="vaccineuser_vaccine">Vaccine</string>
+    <string name="vaccineuser_date">Vaccination Date</string>
+    <string name="vaccineuser_expires">Expires in</string>
+
     <string name="generate_qr">Generate QR Code</string>
 </resources>
