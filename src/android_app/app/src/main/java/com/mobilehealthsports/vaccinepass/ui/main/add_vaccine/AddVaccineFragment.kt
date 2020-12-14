@@ -1,6 +1,7 @@
 package com.mobilehealthsports.vaccinepass.ui.main.add_vaccine
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,9 @@ import org.koin.core.parameter.parametersOf
 import java.time.LocalDate
 import java.util.*
 
+
 class AddVaccineFragment : DialogFragment() {
+
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val viewModel: AddViewModel by stateViewModel()
@@ -42,6 +45,8 @@ class AddVaccineFragment : DialogFragment() {
 
         binding.addVaccineBtnAdd.setOnClickListener{
             dismissDialog()
+            val intent = Intent(requireContext(), ScanQrCodeActivity::class.java)
+            startActivity(intent)
         }
 
         binding.addVaccineBtnCancel.setOnClickListener {
@@ -56,9 +61,16 @@ class AddVaccineFragment : DialogFragment() {
 
 
             val dpd = context?.let { it1 ->
-                DatePickerDialog(it1, R.style.SpinnerDatePickerStyle, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                    viewModel.setVaccineDate(LocalDate.of(year,month+1,dayOfMonth))
-                }, year, month, day)
+                DatePickerDialog(
+                    it1,
+                    R.style.SpinnerDatePickerStyle,
+                    DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                        viewModel.setVaccineDate(LocalDate.of(year, month + 1, dayOfMonth))
+                    },
+                    year,
+                    month,
+                    day
+                )
             }
 
             dpd?.show()
@@ -72,10 +84,25 @@ class AddVaccineFragment : DialogFragment() {
 
 
             val dpd = context?.let { it1 ->
-                DatePickerDialog(it1, R.style.SpinnerDatePickerStyle, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                    viewModel.addScheduleItem(ScheduleItem(LocalDate.of(year,month+1,dayOfMonth)))
-                    adapter.notifyDataSetChanged()
-                }, year, month, day)
+                DatePickerDialog(
+                    it1,
+                    R.style.SpinnerDatePickerStyle,
+                    DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                        viewModel.addScheduleItem(
+                            ScheduleItem(
+                                LocalDate.of(
+                                    year,
+                                    month + 1,
+                                    dayOfMonth
+                                )
+                            )
+                        )
+                        adapter.notifyDataSetChanged()
+                    },
+                    year,
+                    month,
+                    day
+                )
             }
 
             dpd?.show()
