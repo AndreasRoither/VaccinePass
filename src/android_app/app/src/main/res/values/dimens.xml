@@ -38,6 +38,12 @@
     <dimen name="fragment_add_ic_size">35dp</dimen>
 
     <!--
+    Select User Activity
+    -->
+    <dimen name="activity_select_user_usr_img_radius">30dp</dimen>
+    <dimen name="activity_select_user_usr_img_diameter">60dp</dimen>
+
+    <!--
     Calendar Fragment
     -->
     <dimen name="fragment_calendar_months_bottom_margin">5dp</dimen>
@@ -48,6 +54,7 @@
     <dimen name="fragment_calendar_legend_header_text">16sp</dimen>
     <dimen name="fragment_calendar_padding">15dp</dimen>
     <dimen name="fragment_calendar_selected_header_padding">12dp</dimen>
+    <dimen name="fragment_settings_user_text_size">30sp</dimen>
 
 
 </resources>

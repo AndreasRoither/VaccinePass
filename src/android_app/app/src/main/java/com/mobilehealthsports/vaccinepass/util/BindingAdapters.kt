@@ -1,7 +1,7 @@
 package com.mobilehealthsports.vaccinepass.util
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingConversion
 
 @BindingAdapter("android:boolean_visibility")
 fun booleanVisibility(view: View, visible: Boolean) {
@@ -11,4 +11,9 @@ fun booleanVisibility(view: View, visible: Boolean) {
 @BindingAdapter("android:object_visibility")
 fun objectVisibility(view: View, item: Any?) {
     view.visibility = if (item != null) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("android:src")
+fun loadImage(view: ImageView, resource: Int) {
+    view.setImageResource(resource)
 }

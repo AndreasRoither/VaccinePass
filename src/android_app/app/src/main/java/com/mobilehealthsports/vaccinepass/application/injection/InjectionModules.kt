@@ -3,11 +3,8 @@ package com.mobilehealthsports.vaccinepass.application.injection
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.mobilehealthsports.vaccinepass.business.database.AppDatabase
-import com.mobilehealthsports.vaccinepass.business.repository.*
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.AppMessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNavigationService
@@ -15,9 +12,11 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Navig
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
+import com.mobilehealthsports.vaccinepass.ui.user_select.SelectUserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -51,14 +50,6 @@ object InjectionModules {
             }
         },
 
-        // Database module
-        module {
-            single { Room.databaseBuilder(get(), AppDatabase::class.java, "vaccineDb").build() }
-            single<UserRepository> { UserRepositoryImpl(get()) }
-            single<VaccineRepository> { VaccineRepositoryImpl(get()) }
-            single<VaccinationRepository> { VaccinationRepositoryImpl(get()) }
-        },
-
         // ViewModel module
         module {
             viewModel { TestViewModel() }
@@ -67,6 +58,8 @@ object InjectionModules {
             viewModel { UserViewModel() }
             viewModel { AddViewModel() }
             viewModel { CalendarViewModel() }
+            viewModel { SelectUserViewModel() }
+            viewModel { SettingsViewModel() }
         }
     )
 }

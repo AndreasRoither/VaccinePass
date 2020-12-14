@@ -1,12 +1,11 @@
 package com.mobilehealthsports.vaccinepass.ui.testing
 
 import androidx.lifecycle.ViewModel
+import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
-import com.mobilehealthsports.vaccinepass.presentation.services.navigation.FragmentTestRequest
-import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
-import com.mobilehealthsports.vaccinepass.presentation.services.navigation.PinRequest
-import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.*
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
+import java.util.*
 
 class TestViewModel : ViewModel() {
 
@@ -28,6 +27,10 @@ class TestViewModel : ViewModel() {
     }
 
     fun startMainActivity() {
-        navigationRequest.request(MainRequest)
+        navigationRequest.request(MainRequest(User(0,"John", "Doe", "A neg", Date(1999,10,25), 80f, 180f, 0)))
+    }
+
+    fun startSelectUserActivity() {
+        navigationRequest.request(SelectUserRequest)
     }
 }
