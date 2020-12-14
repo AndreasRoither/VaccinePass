@@ -11,5 +11,7 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+      - name: Set gradle execution rights
+        run: chmod +x ./src/android_app/gradlew
       - name: Build the app
-        run: ./gradlew build
+        run: cd ./src/android_app/ && ./gradlew assembleDebug # gradlew reports different options
