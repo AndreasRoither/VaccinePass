@@ -54,6 +54,7 @@
     <dimen name="fragment_calendar_legend_header_text">16sp</dimen>
     <dimen name="fragment_calendar_padding">15dp</dimen>
     <dimen name="fragment_calendar_selected_header_padding">12dp</dimen>
+    <dimen name="fragment_settings_user_text_size">30sp</dimen>
 
 
 </resources>
