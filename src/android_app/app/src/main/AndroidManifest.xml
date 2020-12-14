@@ -18,6 +18,7 @@
             android:label="@string/title_activity_fragment_test" />
         <activity android:name=".ui.pin.PinActivity" />
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.user_select.SelectUserActivity"/>
 
         <activity
             android:name=".TestActivity"

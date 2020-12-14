@@ -1,6 +1,6 @@
 package com.mobilehealthsports.vaccinepass.presentation.services.navigation
 
-import androidx.fragment.app.Fragment
+import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 
 sealed class NavigationRequest
@@ -9,4 +9,5 @@ sealed class NavigationRequest
 object HomeRequest : NavigationRequest()
 class PinRequest(val state: PinViewModel.PinState, val pinLength: Int) : NavigationRequest()
 class FragmentTestRequest(val fragment: String) : NavigationRequest()
-object MainRequest : NavigationRequest()
+class MainRequest(val user: User) : NavigationRequest()
+object SelectUserRequest : NavigationRequest()

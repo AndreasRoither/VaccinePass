@@ -11,6 +11,7 @@ import androidx.fragment.app.replace
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.mobilehealthsports.vaccinepass.R
+import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.databinding.ActivityMainBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddVaccineFragment
@@ -37,8 +38,11 @@ class MainActivity : AppCompatActivity() {
                 this,
                 R.layout.activity_main
         )
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        viewModel.user = intent.getSerializableExtra(EXTRA_USER) as User
 
         messageService.subscribeToRequests(viewModel.messageRequest)
         disposables.addAll(messageService)
@@ -116,9 +120,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val EXTRA_USER = "User"
+
         // create intent to navigate to this class
-        fun intent(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
+        fun intent(context: Context, user: User): Intent {
+            return Intent(context, MainActivity::class.java).apply {
+                this.putExtra(EXTRA_USER, user)
+            }
         }
     }
 }
