@@ -1,0 +1,17 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Set gradle execution rights
+        run: chmod +x ./src/android_app/gradlew
+      - name: Build the app
+        run: cd ./src/android_app/ && ./gradlew assembleDebug # gradlew reports different options
