@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">doctor_app</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in!</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="qr_code_view">QR-Code View</string>
+    <string name="login_view">Login View</string>
+
+    <string name="vaccineuser_userid">UserID</string>
+    <string name="vaccineuser_vaccine">Vaccine</string>
+    <string name="vaccineuser_date">Vaccination Date</string>
+    <string name="vaccineuser_expires">Expires in</string>
+
+    <string name="generate_qr">Generate QR Code</string>
+</resources>

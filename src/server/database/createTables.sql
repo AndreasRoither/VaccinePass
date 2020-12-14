@@ -14,6 +14,15 @@ CREATE TABLE IF NOT EXISTS users (
     UNIQUE(mail)
 );
 
+CREATE TABLE IF NOT EXISTS doctors (
+	user_id uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
+	name VARCHAR(25) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+    mail VARCHAR(50) NOT NULL,
+    public_key text NOT NULL,
+    UNIQUE(mail)
+);
+
 CREATE TABLE IF NOT EXISTS vaccinations (
 	vaccination_id uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
     name VARCHAR(50) NOT NULL,
