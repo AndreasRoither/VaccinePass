@@ -37,7 +37,7 @@ class UserViewModel : BaseViewModel() {
 
     private var vaccineLength : Int = 10
 
-    private var _user = MutableLiveData(User(0,"Test", "Test", "0 neg", Date(2020,4,5), 75f,180f,1))
+    private var _user = MutableLiveData(User(0,"Test", "Test", "0 neg", LocalDate.of(2020,4,5), 75f,180f,1))
     var user: LiveData<User> = _user
 
     var listItems : MutableList<ListItem> = ArrayList()
