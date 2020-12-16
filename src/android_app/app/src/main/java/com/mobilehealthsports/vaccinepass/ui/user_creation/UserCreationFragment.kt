@@ -131,16 +131,16 @@ class UserCreationFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+    override fun onDestroy() {
+        disposables.dispose()
+        viewModel.themeCallback = null
+        super.onDestroy()
+    }
+
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
 
         @JvmStatic
         fun newInstance() = UserCreationFragment()
-    }
-
-    override fun onDestroy() {
-        disposables.dispose()
-        viewModel.themeCallback = null
-        super.onDestroy()
     }
 }

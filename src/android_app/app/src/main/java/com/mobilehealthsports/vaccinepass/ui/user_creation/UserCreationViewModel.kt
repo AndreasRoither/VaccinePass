@@ -13,8 +13,10 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRe
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -31,16 +33,17 @@ class UserCreationViewModel(
     var themeCallback: ((Int) -> Unit)? = null
     val permissionRequest = MutableLiveData<String>()
 
-    val firstName = MutableLiveData("")
-    val lastName = MutableLiveData("")
-    val bloodType = MutableLiveData("")
-    val weight = MutableLiveData("")
-    val height = MutableLiveData("")
+    private val errorText = "Required"
+    val firstName = NonNullMutableLiveData("")
+    val lastName = NonNullMutableLiveData("")
+    val bloodType = NonNullMutableLiveData("")
+    val weight = NonNullMutableLiveData("")
+    val height = NonNullMutableLiveData("")
 
-    private val _birthDate = MutableLiveData(LocalDate.now())
+    private val _birthDate = NonNullMutableLiveData(LocalDate.now())
     val birthDate: LiveData<LocalDate> = _birthDate
 
-    private val _color = MutableLiveData(ThemeColor.PURPLE)
+    private val _color = NonNullMutableLiveData(ThemeColor.PURPLE)
     val color: LiveData<ThemeColor> = _color
 
     fun setThemeColor(color: ThemeColor) {
@@ -54,6 +57,11 @@ class UserCreationViewModel(
         }
     }
 
+    fun errorTextString(str: String): String {
+        return if (str.isBlank()) errorText
+        else ""
+    }
+
     fun setBirthDate(date: LocalDate?) {
         _birthDate.value = date
     }
@@ -62,17 +70,21 @@ class UserCreationViewModel(
         permissionRequest.value = "camera"
     }
 
+    fun finishBtnEnabled(): Boolean {
+        return firstName.value.isBlank()
+    }
+
     fun finish() {
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val user = User(
                 0,
                 firstName.value,
                 lastName.value,
                 bloodType.value,
-                convertToDateViaInstant(birthDate.value!!),
-                weight.value?.toFloat(),
-                height.value?.toFloat(),
+                birthDate.value,
+                weight.value.toFloatOrNull(),
+                height.value.toFloatOrNull(),
                 color.value!!.value
             )
 
@@ -94,13 +106,5 @@ class UserCreationViewModel(
                 messageRequest.request(ToastRequest("Id null. Could not insert user"))
             }
         }
-    }
-
-    fun convertToDateViaInstant(dateToConvert: LocalDate): Date? {
-        return Date.from(
-            dateToConvert.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant()
-        )
     }
 }

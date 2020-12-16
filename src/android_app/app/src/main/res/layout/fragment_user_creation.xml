@@ -43,6 +43,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/fragment_user_creation_photo_btn"
                     style="@style/PinButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:backgroundTint="@color/app_purple"
                     app:strokeColor="@color/colorPrimary" />
@@ -76,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
                 android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
+                android:error="@{viewModel.errorTextString(viewModel.firstName)}"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/colorPrimaryDark">
@@ -155,7 +158,6 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
                             android:text="@={viewModel.bloodType}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -192,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{viewModel.birthDate.toString()}"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/fragment_user_creation_date_text_size" />
 
                         <TextView
@@ -332,7 +334,8 @@
                 android:onClick="@{() -> viewModel.finish()}"
                 android:text="@string/fragment_user_creation_finish"
                 app:boxStrokeColor="@color/colorPrimary"
-                app:strokeColor="@color/colorPrimary" />
+                app:strokeColor="@color/colorPrimary"
+                android:enabled="@{viewModel.finishBtnEnabled()}"/>
 
         </LinearLayout>
 
