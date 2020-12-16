@@ -3,7 +3,7 @@ package com.mobilehealthsports.vaccinepass.business.database.persistence
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.time.LocalDate
 
 @Entity(tableName = "user")
 data class DbUser(
@@ -11,7 +11,7 @@ data class DbUser(
         @ColumnInfo(name = "first_name") val firstName: String?,
         @ColumnInfo(name = "last_name") val lastName: String?,
         @ColumnInfo(name = "blood_type") val bloodType: String?,
-        @ColumnInfo(name = "birth_day") val birthDay: Date?,
+        @ColumnInfo(name = "birth_day") val birthDay: LocalDate?,
         @ColumnInfo(name = "weight") val weight: Float?,
         @ColumnInfo(name = "height") val height: Float?,
         @ColumnInfo(name = "theme_color") val themeColor: Int,

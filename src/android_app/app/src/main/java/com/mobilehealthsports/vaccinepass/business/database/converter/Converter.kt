@@ -1,16 +1,16 @@
 package com.mobilehealthsports.vaccinepass.business.database.converter
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.time.LocalDate
 
 class Converter {
     @TypeConverter
-    fun toDate(dateLong: Long?): Date? {
-        return dateLong?.let { Date(it) }
+    fun toDate(dateLong: Long?): LocalDate? {
+        return dateLong?.let { LocalDate.ofEpochDay(it) }
     }
 
     @TypeConverter
-    fun fromDate(date: Date?): Long? {
-        return date?.time
+    fun fromDate(date: LocalDate?): Long? {
+        return date?.toEpochDay()
     }
 }

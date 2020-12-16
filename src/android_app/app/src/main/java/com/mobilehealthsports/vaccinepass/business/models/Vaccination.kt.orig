@@ -3,11 +3,19 @@ package com.mobilehealthsports.vaccinepass.business.models
 import java.time.LocalDate
 
 data class Vaccination(
-        val uid: Long,
-        val f_uid: Long,
+<<<<<<< HEAD
+    val uid: Long,
+    val f_uid: Int,
+    val active: Boolean,
+    val refreshDate: Date?,
+    val vaccinationDate: Date?,
+=======
+        val uid: Int,
+        val f_uid: Int,
         val active: Boolean,
         val refreshDate: LocalDate?,
         val vaccinationDate: LocalDate?,
+>>>>>>> main
 ) {
     fun refreshDateInPast(): Boolean {
         return when (refreshDate) {

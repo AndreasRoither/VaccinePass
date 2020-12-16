@@ -6,7 +6,17 @@ import java.io.Serializable
 import java.time.LocalDate
 
 data class User(
-        val uid: Long,
+<<<<<<< HEAD
+    val uid: Long,
+    val firstName: String?,
+    val lastName: String?,
+    val bloodType: String?,
+    val birthDay: Date?,
+    val weight: Float?,
+    val height: Float?,
+    val themeColor: Int,
+=======
+        val uid: Int,
         val firstName: String?,
         val lastName: String?,
         val bloodType: String?,
@@ -14,6 +24,7 @@ data class User(
         val weight: Float?,
         val height: Float?,
         val themeColor: Int,
+>>>>>>> main
 ) : Serializable {
     fun resolveColor(context: Context): Int {
         return ContextCompat.getColor(context, themeColor)

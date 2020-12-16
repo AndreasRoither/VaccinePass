@@ -16,9 +16,17 @@ import java.time.LocalDate
     )]
 )
 data class DbVaccination(
-        @PrimaryKey(autoGenerate = true) val uid: Long,
-        @ColumnInfo(name = "f_uid", index = true) val f_uid: Long,
+<<<<<<< HEAD
+    @PrimaryKey(autoGenerate = true) val uid: Long,
+    @ColumnInfo(name = "f_uid", index = true) val f_uid: Int,
+    @ColumnInfo(name = "active") val active: Boolean,
+    @ColumnInfo(name = "refresh_date") val refreshDate: Date?,
+    @ColumnInfo(name = "vaccination_date") val vaccinationDate: Date?,
+=======
+        @PrimaryKey(autoGenerate = true) val uid: Int,
+        @ColumnInfo(name = "f_uid", index = true) val f_uid: Int,
         @ColumnInfo(name = "active") val active: Boolean,
         @ColumnInfo(name = "refresh_date") val refreshDate: LocalDate?,
         @ColumnInfo(name = "vaccination_date") val vaccinationDate: LocalDate?,
+>>>>>>> main
 )
