@@ -3,6 +3,7 @@ package com.mobilehealthsports.vaccinepass.ui.user_creation
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.business.models.User
@@ -16,6 +17,7 @@ import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,9 +27,11 @@ import java.util.*
 
 
 class UserCreationViewModel(
-    val sharedPreferences: SharedPreferences,
-    val userRepository: UserRepository
+    private val sharedPreferences: SharedPreferences,
+    private val userRepository: UserRepository
 ) : BaseViewModel() {
+    private var disposables = CompositeDisposable()
+
     val messageRequest = ServiceRequest<MessageRequest>()
     val navigationRequest = ServiceRequest<NavigationRequest>()
     var themeCallback: ((Int) -> Unit)? = null
@@ -39,6 +43,10 @@ class UserCreationViewModel(
     val bloodType = NonNullMutableLiveData("")
     val weight = NonNullMutableLiveData("")
     val height = NonNullMutableLiveData("")
+
+    val finishBtnEnabled = Transformations.map(firstName) {
+        it.isNotBlank()
+    }
 
     private val _birthDate = NonNullMutableLiveData(LocalDate.now())
     val birthDate: LiveData<LocalDate> = _birthDate
@@ -71,10 +79,14 @@ class UserCreationViewModel(
     }
 
     fun finishBtnEnabled(): Boolean {
-        return firstName.value.isBlank()
+        return firstName.value.isNotBlank()
     }
 
     fun finish() {
+
+        if (bloodType.value.isBlank()) bloodType.value = "-"
+        if (weight.value.isBlank()) weight.value = "0"
+        if (height.value.isBlank()) height.value = "0"
 
         viewModelScope.launch(Dispatchers.IO) {
             val user = User(

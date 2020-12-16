@@ -18,13 +18,13 @@
         <item name="iconGravity">textStart</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="rippleColor">@color/colorPrimary</item>
+        <item name="rippleColor">?colorPrimary</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.VaccinePass.Rounded</item>
-        <item name="strokeColor">@color/colorPrimary</item>
+        <item name="strokeColor">?colorPrimary</item>
     </style>
 
     <style name="RoundView">
-        <item name="tint">@color/colorPrimary</item>
+        <item name="tint">?colorPrimary</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.VaccinePass.Rounded</item>
     </style>
 

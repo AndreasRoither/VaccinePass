@@ -41,7 +41,7 @@ class SettingsFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.adapter = adapter
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = requireActivity()
 
         messageService.subscribeToRequests(viewModel.messageRequest)
         disposables.addAll(messageService)

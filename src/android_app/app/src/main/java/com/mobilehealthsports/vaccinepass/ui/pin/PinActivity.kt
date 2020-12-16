@@ -11,12 +11,13 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityPinBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
+import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 
-class PinActivity : AppCompatActivity() {
+class PinActivity : BaseActivity() {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val viewModel: PinViewModel by stateViewModel()

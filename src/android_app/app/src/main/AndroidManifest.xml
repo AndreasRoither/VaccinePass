@@ -20,9 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/VaccinePass_purple">
 
-        <activity
-            android:name=".ui.testing.FragmentTestActivity"
-            android:label="@string/title_activity_fragment_test" />
+        <activity android:name=".ui.testing.FragmentTestActivity" />
         <activity android:name=".ui.pin.PinActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.user_select.SelectUserActivity" />

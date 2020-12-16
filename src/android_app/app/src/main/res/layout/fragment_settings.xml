@@ -34,7 +34,7 @@
                 android:layout_margin="20dp"
                 android:innerRadius="0dp"
                 android:shape="ring"
-                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardBackgroundColor="?colorPrimary"
                 app:cardCornerRadius="@dimen/activity_main_usr_img_radius"
                 app:cardElevation="15dp">
 
@@ -70,7 +70,7 @@
             android:id="@+id/fragment_settings_user_barrier"
             android:layout_width="300dp"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"
+            android:background="?colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_settings_user_container" />

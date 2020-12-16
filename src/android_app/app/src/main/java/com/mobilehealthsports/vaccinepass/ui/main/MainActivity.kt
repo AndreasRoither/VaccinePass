@@ -3,7 +3,6 @@ package com.mobilehealthsports.vaccinepass.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
@@ -19,12 +18,13 @@ import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsFragment
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserFragment
 import com.mobilehealthsports.vaccinepass.ui.main.vaccine.VaccineFragment
+import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val viewModel: MainViewModel by stateViewModel()
@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
-                this,
-                R.layout.activity_main
+            this,
+            R.layout.activity_main
         )
 
         binding.viewModel = viewModel
@@ -51,15 +51,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         val radius = resources.getDimension(R.dimen.activity_main_bottom_corner_radius)
-        val bottomNavigationBackground = binding.bottomNavigation.background as MaterialShapeDrawable
+        val bottomNavigationBackground =
+            binding.bottomNavigation.background as MaterialShapeDrawable
         bottomNavigationBackground.shapeAppearanceModel =
-                bottomNavigationBackground.shapeAppearanceModel.toBuilder()
-                        .setTopRightCorner(CornerFamily.ROUNDED, radius)
-                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                        .build()
+            bottomNavigationBackground.shapeAppearanceModel.toBuilder()
+                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                .build()
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.bottom_nav_user -> {
                     supportFragmentManager.commit {
                         setReorderingAllowed(true)
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.ivAdd.setOnClickListener{
+        binding.ivAdd.setOnClickListener {
             it.setBackgroundResource(R.drawable.drawable_btn_background)
             supportFragmentManager.commit {
                 setCustomAnimations(R.anim.slide_up, R.anim.slide_down)

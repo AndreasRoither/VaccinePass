@@ -30,7 +30,7 @@
                 android:layout_marginTop="@dimen/fragment_user_creation_user_setup_top_margin"
                 android:layout_marginBottom="@dimen/fragment_user_creation_user_setup_bottom_margin"
                 android:text="@string/fragment_user_creation_title"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?colorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -45,9 +45,10 @@
                     style="@style/PinButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    app:strokeWidth="0dp"
                     android:layout_gravity="center"
                     android:backgroundTint="@color/app_purple"
-                    app:strokeColor="@color/colorPrimary" />
+                    app:strokeColor="?colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_user_creation_first_name"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,9 +80,9 @@
                 android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
                 android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
                 android:error="@{viewModel.errorTextString(viewModel.firstName)}"
-                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeColor="?colorPrimary"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/colorPrimaryDark">
+                app:endIconTint="?colorPrimaryDark">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -94,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_user_creation_last_name"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -102,9 +103,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
                 android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
-                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeColor="?colorPrimary"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/colorPrimaryDark">
+                app:endIconTint="?colorPrimaryDark">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -142,7 +143,7 @@
                         android:layout_margin="@dimen/fragment_user_creation_image_margin"
                         android:contentDescription="@string/fragment_user_creation_icon_description"
                         android:src="@drawable/ic_heart"
-                        app:tint="@color/colorPrimary" />
+                        app:tint="?colorPrimary" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -151,9 +152,9 @@
                         android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
                         android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
                         android:hint="@string/fragment_user_creation_blood_type"
-                        app:boxStrokeColor="@color/colorPrimary"
+                        app:boxStrokeColor="?colorPrimary"
                         app:endIconMode="clear_text"
-                        app:endIconTint="@color/colorPrimaryDark">
+                        app:endIconTint="?colorPrimaryDark">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -181,7 +182,7 @@
                         android:layout_margin="@dimen/fragment_user_creation_image_margin"
                         android:contentDescription="@string/fragment_user_creation_icon_description"
                         android:src="@drawable/ic_calendar"
-                        app:tint="@color/colorPrimary" />
+                        app:tint="?colorPrimary" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -222,7 +223,7 @@
                         android:layout_margin="@dimen/fragment_user_creation_image_margin"
                         android:contentDescription="@string/fragment_user_creation_icon_description"
                         android:src="@drawable/ic_weight"
-                        app:tint="@color/colorPrimary" />
+                        app:tint="?colorPrimary" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -231,9 +232,9 @@
                         android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
                         android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
                         android:hint="@string/fragment_user_creation_weight"
-                        app:boxStrokeColor="@color/colorPrimary"
+                        app:boxStrokeColor="?colorPrimary"
                         app:endIconMode="clear_text"
-                        app:endIconTint="@color/colorPrimaryDark">
+                        app:endIconTint="?colorPrimaryDark">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -261,7 +262,7 @@
                         android:layout_margin="@dimen/fragment_user_creation_image_margin"
                         android:contentDescription="@string/fragment_user_creation_icon_description"
                         android:src="@drawable/ic_height"
-                        app:tint="@color/colorPrimary" />
+                        app:tint="?colorPrimary" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -270,9 +271,9 @@
                         android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
                         android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
                         android:hint="@string/fragment_user_creation_height"
-                        app:boxStrokeColor="@color/colorPrimary"
+                        app:boxStrokeColor="?colorPrimary"
                         app:endIconMode="clear_text"
-                        app:endIconTint="@color/colorPrimaryDark">
+                        app:endIconTint="?colorPrimaryDark">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -296,7 +297,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_user_creation_select_a_theme"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?colorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -310,19 +311,19 @@
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_purple"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.PURPLE)}"
-                    app:strokeColor="@color/colorPrimary" />
+                    app:strokeWidth="0dp" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_green"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.GREEN)}"
-                    app:strokeColor="@color/colorPrimary" />
+                    app:strokeWidth="0dp" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_orange"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.ORANGE)}"
-                    app:strokeColor="@color/colorPrimary" />
+                    app:strokeWidth="0dp" />
             </LinearLayout>
 
 
@@ -331,11 +332,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:enabled="@{viewModel.finishBtnEnabled}"
                 android:onClick="@{() -> viewModel.finish()}"
                 android:text="@string/fragment_user_creation_finish"
-                app:boxStrokeColor="@color/colorPrimary"
-                app:strokeColor="@color/colorPrimary"
-                android:enabled="@{viewModel.finishBtnEnabled()}"/>
+                android:textColor="?colorPrimary" />
 
         </LinearLayout>
 

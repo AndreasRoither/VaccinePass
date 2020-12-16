@@ -48,7 +48,7 @@ class UserCreationFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         binding = FragmentUserCreationBinding.bind(view)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = requireActivity()
 
         messageService.subscribeToRequests(viewModel.messageRequest)
         navigationService.subscribeToRequests(viewModel.navigationRequest)
