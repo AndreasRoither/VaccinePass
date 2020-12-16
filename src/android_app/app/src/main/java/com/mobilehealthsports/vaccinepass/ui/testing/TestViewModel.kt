@@ -33,4 +33,8 @@ class TestViewModel : ViewModel() {
     fun startSelectUserActivity() {
         navigationRequest.request(SelectUserRequest)
     }
+
+    fun startUserCreationFragment() {
+        navigationRequest.request(UserCreationRequest("UserCreationFragment"))
+    }
 }

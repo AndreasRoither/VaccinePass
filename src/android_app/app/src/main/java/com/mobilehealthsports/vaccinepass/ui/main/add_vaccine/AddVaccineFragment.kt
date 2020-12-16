@@ -56,7 +56,7 @@ class AddVaccineFragment : DialogFragment() {
 
 
             val dpd = context?.let { it1 ->
-                DatePickerDialog(it1, R.style.SpinnerDatePickerStyle, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                DatePickerDialog(it1, R.style.SpinnerDatePickerStyle, { _, year, month, dayOfMonth ->
                     viewModel.setVaccineDate(LocalDate.of(year,month+1,dayOfMonth))
                 }, year, month, day)
             }
@@ -72,7 +72,7 @@ class AddVaccineFragment : DialogFragment() {
 
 
             val dpd = context?.let { it1 ->
-                DatePickerDialog(it1, R.style.SpinnerDatePickerStyle, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                DatePickerDialog(it1, R.style.SpinnerDatePickerStyle, { _, year, month, dayOfMonth ->
                     viewModel.addScheduleItem(ScheduleItem(LocalDate.of(year,month+1,dayOfMonth)))
                     adapter.notifyDataSetChanged()
                 }, year, month, day)

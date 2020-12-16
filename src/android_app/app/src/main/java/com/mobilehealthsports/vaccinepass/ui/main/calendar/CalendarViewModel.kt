@@ -80,7 +80,7 @@ class CalendarViewModel : BaseViewModel() {
                             textView.setBackgroundResource(R.drawable.drawable_circle_full)
                         }
                         selectedDate == day.date -> {
-                            textView.setTextColorRes(R.color.app_primary)
+                            textView.setTextColorRes(R.color.colorPrimary)
                             textView.setBackgroundResource(R.drawable.drawable_circle_border)
                         }
                         else -> {

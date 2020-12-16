@@ -3,7 +3,7 @@ package com.mobilehealthsports.vaccinepass.business.models
 import java.util.*
 
 data class Vaccination(
-    val uid: Int,
+    val uid: Long,
     val f_uid: Int,
     val active: Boolean,
     val refreshDate: Date?,

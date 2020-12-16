@@ -2,7 +2,10 @@ package com.mobilehealthsports.vaccinepass.application
 
 import android.app.Application
 import com.mobilehealthsports.vaccinepass.BuildConfig
+import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.application.injection.InjectionModules
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
+import com.mobilehealthsports.vaccinepass.util.ThemeColor
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +17,7 @@ import timber.log.Timber
  * Plant timber tree for debug
  * Start koin and load modules
  */
-class VaccinePassApplication: Application() {
+class VaccinePassApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -28,6 +31,18 @@ class VaccinePassApplication: Application() {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
+        }
+
+
+        val sharedPrefs = this.getSharedPreferences("appPreferences", MODE_PRIVATE)
+        val color = ThemeColor.fromInt(sharedPrefs["selectedThemeColor", ThemeColor.PURPLE.value]!!)
+
+        // set theme color
+        when (color) {
+            ThemeColor.PURPLE -> setTheme(R.style.VaccinePass_purple)
+            ThemeColor.GREEN -> setTheme(R.style.VaccinePass_green)
+            ThemeColor.ORANGE -> setTheme(R.style.VaccinePass_orange)
+            null -> setTheme(R.style.VaccinePass_purple)
         }
     }
 }

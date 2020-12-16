@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "user")
 data class DbUser(
-        @PrimaryKey(autoGenerate = true) val uid: Int,
+        @PrimaryKey(autoGenerate = true) val uid: Long,
         @ColumnInfo(name = "first_name") val firstName: String?,
         @ColumnInfo(name = "last_name") val lastName: String?,
         @ColumnInfo(name = "blood_type") val bloodType: String?,

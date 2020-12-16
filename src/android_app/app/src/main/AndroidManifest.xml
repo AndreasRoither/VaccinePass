@@ -3,6 +3,13 @@
     package="com.mobilehealthsports.vaccinepass">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- On Android 4.3 and lower, writing to this directory also requires the WRITE_EXTERNAL_STORAGE permission.  -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
 
     <application
         android:name=".application.VaccinePassApplication"
@@ -11,14 +18,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.VaccinePass">
+        android:theme="@style/VaccinePass_purple">
 
         <activity
             android:name=".ui.testing.FragmentTestActivity"
             android:label="@string/title_activity_fragment_test" />
         <activity android:name=".ui.pin.PinActivity" />
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.user_select.SelectUserActivity"/>
+        <activity android:name=".ui.user_select.SelectUserActivity" />
 
         <activity
             android:name=".TestActivity"

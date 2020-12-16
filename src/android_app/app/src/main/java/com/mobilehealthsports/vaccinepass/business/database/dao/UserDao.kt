@@ -14,13 +14,13 @@ interface UserDao {
     fun getAll(): Flowable<List<DbUser>>
 
     @Query("SELECT * FROM user WHERE uid IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): Flowable<List<DbUser>>
+    fun loadAllByIds(userIds: LongArray): Flowable<List<DbUser>>
 
     @Query("SELECT * FROM user WHERE first_name LIKE :first AND last_name LIKE :last LIMIT 1")
     fun findByName(first: String, last: String): Maybe<DbUser>
 
     @Insert
-    fun insertAll(vararg dbUsers: DbUser)
+    fun insertAll(vararg dbUsers: DbUser): List<Long>
 
     @Delete
     fun delete(user: DbUser)

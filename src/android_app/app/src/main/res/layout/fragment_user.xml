@@ -37,7 +37,7 @@
                 android:layout_marginTop="10dp"
                 android:innerRadius="0dp"
                 android:shape="ring"
-                app:cardBackgroundColor="@color/app_primary"
+                app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="@dimen/activity_main_usr_img_radius"
                 app:cardElevation="15dp">
 

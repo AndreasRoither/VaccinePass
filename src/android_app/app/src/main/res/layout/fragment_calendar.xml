@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/fragment_calendar_selected_header_margin"
                     android:text="@string/fragment_calendar_scheduled_vaccinations"
-                    android:textColor="@color/app_dark"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/fragment_calendar_selected_header_text"
                     android:textStyle="bold"
                     tools:text="Scheduled vaccinations" />
@@ -181,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.selectedDayHeader}"
-                    android:textColor="@color/app_dark"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/fragment_calendar_selected_header_text"
                     android:textStyle="bold"
                     tools:text="27.11.2020" />

@@ -1,6 +1,7 @@
 package com.mobilehealthsports.vaccinepass.application.injection
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
@@ -16,6 +17,7 @@ import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
+import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationViewModel
 import com.mobilehealthsports.vaccinepass.ui.user_select.SelectUserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,7 +27,7 @@ object InjectionModules {
 
         // AppModule
         module {
-            single { get<Application>().getSharedPreferences("appPreferences", 0) }
+            single<SharedPreferences> { get<Application>().getSharedPreferences("appPreferences", 0) }
             factory<Gson> { GsonBuilder().create() }
         },
 
@@ -60,6 +62,7 @@ object InjectionModules {
             viewModel { CalendarViewModel() }
             viewModel { SelectUserViewModel() }
             viewModel { SettingsViewModel() }
+            viewModel { UserCreationViewModel(get(), get()) }
         }
     )
 }

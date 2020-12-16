@@ -16,7 +16,7 @@ import java.util.*
     )]
 )
 data class DbVaccination(
-    @PrimaryKey(autoGenerate = true) val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Long,
     @ColumnInfo(name = "f_uid", index = true) val f_uid: Int,
     @ColumnInfo(name = "active") val active: Boolean,
     @ColumnInfo(name = "refresh_date") val refreshDate: Date?,

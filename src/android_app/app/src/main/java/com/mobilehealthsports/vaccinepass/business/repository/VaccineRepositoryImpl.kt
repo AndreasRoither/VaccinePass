@@ -5,9 +5,10 @@ import com.mobilehealthsports.vaccinepass.business.database.extension.toDb
 import com.mobilehealthsports.vaccinepass.business.database.extension.toVaccine
 import com.mobilehealthsports.vaccinepass.business.models.Vaccine
 
-class VaccineRepositoryImpl(private val database: AppDatabase): VaccineRepository {
-    override suspend fun getVaccine(id: Int): Vaccine? {
-        return database.vaccineDao().loadAllByIds(intArrayOf(id)).blockingFirst().firstOrNull()?.toVaccine()
+class VaccineRepositoryImpl(private val database: AppDatabase) : VaccineRepository {
+    override suspend fun getVaccine(id: Long): Vaccine? {
+        return database.vaccineDao().loadAllByIds(longArrayOf(id)).blockingFirst().firstOrNull()
+            ?.toVaccine()
     }
 
     override suspend fun getAllVaccines(): List<Vaccine> {
@@ -18,8 +19,8 @@ class VaccineRepositoryImpl(private val database: AppDatabase): VaccineRepositor
         return database.vaccineDao().findByName(name).blockingGet()?.toVaccine()
     }
 
-    override suspend fun insertVaccine(vaccine: Vaccine) {
-        database.vaccineDao().insertAll(vaccine.toDb())
+    override suspend fun insertVaccine(vaccine: Vaccine): Long? {
+        return database.vaccineDao().insertAll(vaccine.toDb()).firstOrNull()
     }
 
     override suspend fun deleteVaccine(vaccine: Vaccine) {

@@ -14,13 +14,13 @@ interface VaccineDao {
     fun getAll(): Flowable<List<DbVaccine>>
 
     @Query("SELECT * FROM vaccine WHERE uid IN (:vaccineIds)")
-    fun loadAllByIds(vaccineIds: IntArray): Flowable<List<DbVaccine>>
+    fun loadAllByIds(vaccineIds: LongArray): Flowable<List<DbVaccine>>
 
     @Query("SELECT * FROM vaccine WHERE name LIKE :name LIMIT 1")
     fun findByName(name: String): Maybe<DbVaccine>
 
     @Insert
-    fun insertAll(vararg dbVaccine: DbVaccine)
+    fun insertAll(vararg dbVaccine: DbVaccine): List<Long>
 
     @Delete
     fun delete(vaccine: DbVaccine)

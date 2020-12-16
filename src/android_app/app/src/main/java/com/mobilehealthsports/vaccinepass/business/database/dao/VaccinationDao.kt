@@ -17,10 +17,10 @@ interface VaccinationDao {
     fun getAllActive(): Flowable<List<DbVaccination>>
 
     @Query("SELECT * FROM vaccination WHERE uid IN (:vaccineIds)")
-    fun loadAllByIds(vaccineIds: IntArray): Flowable<List<DbVaccination>>
+    fun loadAllByIds(vaccineIds: LongArray): Flowable<List<DbVaccination>>
 
     @Insert
-    fun insertAll(vararg dbVaccine: DbVaccination)
+    fun insertAll(vararg dbVaccine: DbVaccination): List<Long>
 
     @Delete
     fun delete(vaccine: DbVaccination)

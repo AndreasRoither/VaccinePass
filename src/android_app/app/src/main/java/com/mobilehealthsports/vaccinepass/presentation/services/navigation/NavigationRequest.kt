@@ -11,3 +11,4 @@ class PinRequest(val state: PinViewModel.PinState, val pinLength: Int) : Navigat
 class FragmentTestRequest(val fragment: String) : NavigationRequest()
 class MainRequest(val user: User) : NavigationRequest()
 object SelectUserRequest : NavigationRequest()
+class UserCreationRequest(val fragment: String) : NavigationRequest()

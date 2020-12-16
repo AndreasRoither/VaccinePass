@@ -62,5 +62,10 @@ class CalendarFragment : Fragment() {
     companion object {
         fun newInstance() = CalendarFragment()
     }
+
+    override fun onDestroy() {
+        disposables.dispose()
+        super.onDestroy()
+    }
 }
 
