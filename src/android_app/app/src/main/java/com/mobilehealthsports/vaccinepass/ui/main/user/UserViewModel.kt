@@ -20,7 +20,7 @@ enum class ListItemType {
 
 abstract class ListItem(open var type: ListItemType)
 data class HeaderItem(val text: String, override var type: ListItemType = ListItemType.HEADER) : ListItem(type)
-data class Vaccine(val name: String, val date: LocalDate, val state: VaccineState, override var type: ListItemType = ListItemType.VACCINE) : ListItem(type)
+data class VaccineItem(val name: String, val date: LocalDate, val state: VaccineState, override var type: ListItemType = ListItemType.VACCINE) : ListItem(type)
 
 //data class User(val firstName: String, val lastName: String, val bloodType: String, val weight: Int, val height: Int, val birthDate: LocalDate)
 
@@ -42,33 +42,33 @@ class UserViewModel : BaseViewModel() {
 
     var listItems : MutableList<ListItem> = ArrayList()
 
-    private var vaccines : MutableList<Vaccine>
+    private var vaccineItems : MutableList<VaccineItem>
 
     fun setUser(user: User) {
         _user.value = user
     }
 
     init {
-        vaccines = MutableList(vaccineLength) { Vaccine("Hepatitis C", LocalDate.of(2020,11,15), VaccineState.ACTIVE)}
+        vaccineItems = MutableList(vaccineLength) { VaccineItem("Hepatitis C", LocalDate.of(2020,11,15), VaccineState.ACTIVE)}
 
-        val listMap : MutableMap<VaccineState, MutableList<Vaccine>> = toMap(vaccines)
+        val listMap : MutableMap<VaccineState, MutableList<VaccineItem>> = toMap(vaccineItems)
 
         for(state: VaccineState in listMap.keys) {
             val header = HeaderItem(state.text)
             listItems.add(header)
-            for(vac: Vaccine in listMap[state]!!){
+            for(vac: VaccineItem in listMap[state]!!){
                 listItems.add(vac)
             }
         }
     }
 
-    private fun toMap(vacs : MutableList<Vaccine>) : MutableMap<VaccineState, MutableList<Vaccine>> {
-        val map: MutableMap<VaccineState, MutableList<Vaccine>> = EnumMap(VaccineState::class.java)
+    private fun toMap(vacs : MutableList<VaccineItem>) : MutableMap<VaccineState, MutableList<VaccineItem>> {
+        val map: MutableMap<VaccineState, MutableList<VaccineItem>> = EnumMap(VaccineState::class.java)
 
-        for(vaccine: Vaccine in vacs) {
-            val value: MutableList<Vaccine> = map[vaccine.state] ?: ArrayList()
-            map.putIfAbsent(vaccine.state, value)
-            value.add(vaccine)
+        for(vaccineItem: VaccineItem in vacs) {
+            val value: MutableList<VaccineItem> = map[vaccineItem.state] ?: ArrayList()
+            map.putIfAbsent(vaccineItem.state, value)
+            value.add(vaccineItem)
         }
         return map
     }

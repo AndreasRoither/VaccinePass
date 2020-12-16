@@ -8,11 +8,13 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.utils.yearMonth
 import com.mobilehealthsports.vaccinepass.R
+import com.mobilehealthsports.vaccinepass.business.repository.VaccinationRepository
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.user.VaccineViewAdapter
 import com.mobilehealthsports.vaccinepass.util.daysOfWeekFromLocale
 import com.mobilehealthsports.vaccinepass.util.setTextColorRes
 import java.time.LocalDate
@@ -20,7 +22,8 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class CalendarViewModel : BaseViewModel() {
+class CalendarViewModel(private val vaccinationRepository: VaccinationRepository) :
+    BaseViewModel() {
 
     val messageRequest = ServiceRequest<MessageRequest>()
     val navigationRequest = ServiceRequest<NavigationRequest>()
@@ -41,7 +44,7 @@ class CalendarViewModel : BaseViewModel() {
     private var _selectedDayHeader = MutableLiveData(dateFormatter.format(LocalDate.now()))
     var selectedDayHeader: LiveData<String> = _selectedDayHeader
 
-    val eventsAdapter = CalendarDayAdapter {
+    val eventsAdapter = VaccineViewAdapter {
         messageRequest.request(ToastRequest("Clicked " + it.text))
     }
 
@@ -50,13 +53,21 @@ class CalendarViewModel : BaseViewModel() {
         this.calendar = calendar
         val daysOfWeek = daysOfWeekFromLocale()
 
-        // TODO: use repository to get data
         events[LocalDate.now()] = listOf(Event("1", "Hello there", LocalDate.now()))
 
-        eventsAdapter.apply {
-            events.addAll(this@CalendarViewModel.events[LocalDate.now()].orEmpty())
-            notifyDataSetChanged()
-        }
+        // TODO: setup after adding pojo for sql inner join
+        // and load list once, then use filtering down below for
+        /* viewModelScope.launch(Dispatchers.IO) {
+            eventsAdapter.apply {
+                val vaccinations = vaccinationRepository.getAllActiveVaccinations()?.map {
+                    VaccineItem(it)
+                }
+
+                // filter for date
+                items.addAll()
+                notifyDataSetChanged()
+            }
+        }*/
 
         val currentMonth = YearMonth.now()
         val startMonth = currentMonth.minusMonths(10)
@@ -149,7 +160,8 @@ class CalendarViewModel : BaseViewModel() {
     private fun updateAdapterForDate(date: LocalDate) {
         eventsAdapter.apply {
             events.clear()
-            events.addAll(this@CalendarViewModel.events[date].orEmpty())
+            // TODO: update with repo change
+            //events.addAll(this@CalendarViewModel.events[date].orEmpty())
             notifyDataSetChanged()
         }
     }

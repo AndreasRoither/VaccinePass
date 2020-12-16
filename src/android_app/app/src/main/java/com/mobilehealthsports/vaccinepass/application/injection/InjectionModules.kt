@@ -70,7 +70,7 @@ object InjectionModules {
             viewModel { MainViewModel() }
             viewModel { UserViewModel() }
             viewModel { AddViewModel() }
-            viewModel { CalendarViewModel() }
+            viewModel { CalendarViewModel(get()) }
             viewModel { SelectUserViewModel() }
             viewModel { SettingsViewModel() }
             viewModel { UserCreationViewModel(get(), get()) }

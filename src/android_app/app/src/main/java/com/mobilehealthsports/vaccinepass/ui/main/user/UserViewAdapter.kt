@@ -3,24 +3,25 @@ package com.mobilehealthsports.vaccinepass.ui.main.user
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ListItemHeaderBinding
 import com.mobilehealthsports.vaccinepass.databinding.ListItemVaccineBinding
+import com.mobilehealthsports.vaccinepass.ui.main.calendar.Event
 import java.lang.IllegalStateException
 
 
 
 
-class VaccineViewAdapter(private val listItems: List<ListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class VaccineViewAdapter(val onClick: (Event) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    val items : MutableList<ListItem> = mutableListOf()
 
     // This is your ViewHolder class that helps to populate data to the view
     inner class VaccineViewHolder(private val binding: ListItemVaccineBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(vaccine: Vaccine) {
-            binding.item = vaccine
+        fun bind(vaccineItem: VaccineItem) {
+            binding.item = vaccineItem
             //binding.executePendingBindings()
         }
     }
@@ -52,12 +53,12 @@ class VaccineViewAdapter(private val listItems: List<ListItem>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val listItem = listItems[position]
+        val listItem = items[position]
         when (listItem.type) {
             ListItemType.VACCINE -> {
-                val vaccineItem: Vaccine = listItem as Vaccine
+                val vaccineItemItem: VaccineItem = listItem as VaccineItem
                 val holder: VaccineViewHolder = viewHolder as VaccineViewHolder
-                holder.bind(vaccineItem)
+                holder.bind(vaccineItemItem)
             }
             ListItemType.HEADER -> {
                 val headerItem: HeaderItem = listItem as HeaderItem
@@ -74,10 +75,10 @@ class VaccineViewAdapter(private val listItems: List<ListItem>) : RecyclerView.A
         //            ListItemType.VACCINETYPE -> 1
         //  }
         // should however give the same results
-        return listItems[position].type.ordinal
+        return items[position].type.ordinal
     }
 
     override fun getItemCount(): Int {
-        return listItems.count()
+        return items.count()
     }
 }
