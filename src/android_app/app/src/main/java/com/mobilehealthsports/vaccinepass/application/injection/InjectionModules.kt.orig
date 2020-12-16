@@ -1,7 +1,10 @@
 package com.mobilehealthsports.vaccinepass.application.injection
 
+<<<<<<< HEAD
 import android.app.Application
 import android.content.SharedPreferences
+=======
+>>>>>>> main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
@@ -30,7 +33,11 @@ object InjectionModules {
 
         // AppModule
         module {
+<<<<<<< HEAD
             single<SharedPreferences> { get<Application>().getSharedPreferences("appPreferences", 0) }
+=======
+            single { androidApplication().getSharedPreferences("appPreferences", 0) }
+>>>>>>> main
             factory<Gson> { GsonBuilder().create() }
         },
 
