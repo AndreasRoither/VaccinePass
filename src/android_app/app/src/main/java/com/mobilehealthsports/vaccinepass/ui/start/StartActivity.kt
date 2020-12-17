@@ -9,12 +9,13 @@ import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationActivity
+import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import org.koin.android.ext.android.inject
 
 
-class StartActivity : AppCompatActivity() {
+class StartActivity : BaseActivity() {
     private val sharedPreferences: SharedPreferences by inject()
     private var lastUserId: Long = -1L
 
