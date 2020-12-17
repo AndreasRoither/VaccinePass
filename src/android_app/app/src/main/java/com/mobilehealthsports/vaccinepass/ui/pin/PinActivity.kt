@@ -2,8 +2,8 @@ package com.mobilehealthsports.vaccinepass.ui.pin
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -81,7 +81,10 @@ class PinActivity : BaseActivity() {
 
         viewModel.correctPin.observe(this, {
             if (it) {
-                viewModel.messageRequest.request(ToastRequest("Correct PIN!"))
+                val data = Intent().apply {
+                    putExtra("result", true)
+                }
+                setResult(RESULT_OK, data)
                 finish()
             }
         })

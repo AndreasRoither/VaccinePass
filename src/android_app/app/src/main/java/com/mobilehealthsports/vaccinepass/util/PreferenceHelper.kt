@@ -10,6 +10,7 @@ import android.content.SharedPreferences
  *
  */
 object PreferenceHelper {
+    const val LAST_USER_ID_PREF = "lastUserId"
 
     private fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = this.edit()

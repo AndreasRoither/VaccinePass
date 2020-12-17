@@ -64,7 +64,7 @@ class AppNavigationService private constructor(
             is HomeRequest -> startIntent(TestActivity.intent(context))
             is PinRequest -> startIntent(PinActivity.intent(context, request.state, request.pinLength))
             is FragmentTestRequest -> startIntent(FragmentTestActivity.intent(context, request.fragment))
-            is MainRequest -> startIntent(MainActivity.intent(context, request.user))
+            is MainRequest -> startIntent(MainActivity.intent(context))
             is SelectUserRequest -> startIntent(SelectUserActivity.intent(context))
             is UserCreationRequest -> startIntent(FragmentTestActivity.intent(context, request.fragment))
         }

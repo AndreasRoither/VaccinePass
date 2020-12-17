@@ -8,31 +8,28 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.Message
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
-import kotlinx.coroutines.Job
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import java.time.LocalDate
 
-class SelectUserViewModel : BaseViewModel(){
+class SelectUserViewModel(val sharedPreferences: SharedPreferences) : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
-    private var currentErrorCoroutine: Job? = null
-
-    lateinit var sharedPreferences: SharedPreferences
-
     private val _navigationRequest = ServiceRequest<NavigationRequest>()
     val navigationRequest = _navigationRequest
 
-    var userList : MutableList<User> = ArrayList()
+    var userList: MutableList<User> = ArrayList()
 
     inner class ItemClickListener {
         fun onItemClicked(user: User) {
-            navigationRequest.request(MainRequest(user))
+            sharedPreferences[PreferenceHelper.LAST_USER_ID_PREF] = user.uid
+            navigationRequest.request(MainRequest)
         }
     }
 
-    init{
-        userList.add(0,User(1,"John", "Doe", "0 pos", LocalDate.of(1999,5,25),75.5f,178f,0))
-        userList.add(1, User(2, "Bear", "Grylls", "A neg", LocalDate.of(1975,10,5), 84.3f, 184f, 0))
+    init {
+        userList.add(0, User(1, "John", "Doe", "0 pos", LocalDate.of(1999, 5, 25), 75.5f, 178f, 0))
+        userList.add(1, User(2, "Bear", "Grylls", "A neg", LocalDate.of(1975, 10, 5), 84.3f, 184f, 0))
     }
-
 
     companion object {
         const val SHARED_PREF_KEY = "PIN"

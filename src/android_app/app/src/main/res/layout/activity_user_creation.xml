@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.mobilehealthsports.vaccinepass.util.ThemeColor" />
+
+        <variable
+            name="viewModel"
+            type="com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/fragment_user_creation_margin_sides"
+            android:layout_marginEnd="@dimen/fragment_user_creation_margin_sides"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fragment_user_creation_user_setup_top_margin"
+                android:layout_marginBottom="@dimen/fragment_user_creation_user_setup_bottom_margin"
+                android:text="@string/fragment_user_creation_title"
+                android:textColor="?colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.setPhoto()}"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/fragment_user_creation_photo_btn"
+                    style="@style/PinButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:strokeWidth="0dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/app_purple"
+                    app:strokeColor="?colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/fragment_user_creation_photo_text_margin"
+                    android:text="@string/fragment_user_creation_upload_photo"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/fragment_user_creation_vertical_line_margin"
+                android:layout_marginBottom="@dimen/fragment_user_creation_vertical_line_margin"
+                android:background="@color/grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_user_creation_first_name"
+                android:textColor="?colorPrimary" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
+                android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
+                android:error="@{viewModel.errorTextString(viewModel.firstName)}"
+                app:boxStrokeColor="?colorPrimary"
+                app:endIconMode="clear_text"
+                app:endIconTint="?colorPrimaryDark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.firstName}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_user_creation_last_name"
+                android:textColor="?colorPrimary" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
+                android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
+                app:boxStrokeColor="?colorPrimary"
+                app:endIconMode="clear_text"
+                app:endIconTint="?colorPrimaryDark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.lastName}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_user_creation_grid_layout_height"
+                android:layout_marginTop="@dimen/fragment_user_creation_grid_margin_top"
+                android:visibility="visible"
+                app:columnCount="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:rowCount="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_column="0"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1">
+
+                    <ImageView
+                        style="@style/RoundView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/fragment_user_creation_image_margin"
+                        android:contentDescription="@string/fragment_user_creation_icon_description"
+                        android:src="@drawable/ic_heart"
+                        app:tint="?colorPrimary" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
+                        android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
+                        android:hint="@string/fragment_user_creation_blood_type"
+                        app:boxStrokeColor="?colorPrimary"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="?colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewModel.bloodType}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fragment_user_creation_birthDate"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_column="1"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1">
+
+                    <ImageView
+                        style="@style/RoundView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/fragment_user_creation_image_margin"
+                        android:contentDescription="@string/fragment_user_creation_icon_description"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="?colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/add_vaccine_txt_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.birthDate.toString()}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fragment_user_creation_date_text_size" />
+
+                        <TextView
+                            android:id="@+id/add_vaccine_lbl_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_user_creation_birth_date" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_column="0"
+                    app:layout_columnWeight="1"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1">
+
+                    <ImageView
+                        style="@style/RoundView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/fragment_user_creation_image_margin"
+                        android:contentDescription="@string/fragment_user_creation_icon_description"
+                        android:src="@drawable/ic_weight"
+                        app:tint="?colorPrimary" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
+                        android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
+                        android:hint="@string/fragment_user_creation_weight"
+                        app:boxStrokeColor="?colorPrimary"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="?colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="@={viewModel.weight}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_column="1"
+                    app:layout_columnWeight="1"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1">
+
+                    <ImageView
+                        style="@style/RoundView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/fragment_user_creation_image_margin"
+                        android:contentDescription="@string/fragment_user_creation_icon_description"
+                        android:src="@drawable/ic_height"
+                        app:tint="?colorPrimary" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fragment_user_creation_text_input_margin_top"
+                        android:layout_marginBottom="@dimen/fragment_user_creation_text_input_margin_bottom"
+                        android:hint="@string/fragment_user_creation_height"
+                        app:boxStrokeColor="?colorPrimary"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="?colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="@={viewModel.height}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/fragment_user_creation_vertical_line_margin"
+                android:layout_marginBottom="@dimen/fragment_user_creation_vertical_line_margin"
+                android:background="@color/grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_user_creation_select_a_theme"
+                android:textColor="?colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/PinButton"
+                    android:backgroundTint="@color/app_purple"
+                    android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.PURPLE)}"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/PinButton"
+                    android:backgroundTint="@color/app_green"
+                    android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.GREEN)}"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/PinButton"
+                    android:backgroundTint="@color/app_orange"
+                    android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.ORANGE)}"
+                    app:strokeWidth="0dp" />
+            </LinearLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:enabled="@{viewModel.finishBtnEnabled}"
+                android:onClick="@{() -> viewModel.finish()}"
+                android:text="@string/fragment_user_creation_finish"
+                android:textColor="?colorPrimary" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

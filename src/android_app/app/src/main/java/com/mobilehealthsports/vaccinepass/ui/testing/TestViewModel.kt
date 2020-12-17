@@ -27,7 +27,7 @@ class TestViewModel : ViewModel() {
     }
 
     fun startMainActivity() {
-        navigationRequest.request(MainRequest(User(0,"John", "Doe", "A neg", LocalDate.of(1999,10,25), 80f, 180f, 0)))
+        navigationRequest.request(MainRequest)
     }
 
     fun startSelectUserActivity() {

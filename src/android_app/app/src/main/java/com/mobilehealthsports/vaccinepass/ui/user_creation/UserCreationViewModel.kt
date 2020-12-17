@@ -14,7 +14,9 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRe
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.ui.start.StartActivity
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -30,8 +32,6 @@ class UserCreationViewModel(
     private val sharedPreferences: SharedPreferences,
     private val userRepository: UserRepository
 ) : BaseViewModel() {
-    private var disposables = CompositeDisposable()
-
     val messageRequest = ServiceRequest<MessageRequest>()
     val navigationRequest = ServiceRequest<NavigationRequest>()
     var themeCallback: ((Int) -> Unit)? = null
@@ -78,10 +78,6 @@ class UserCreationViewModel(
         permissionRequest.value = "camera"
     }
 
-    fun finishBtnEnabled(): Boolean {
-        return firstName.value.isNotBlank()
-    }
-
     fun finish() {
 
         if (bloodType.value.isBlank()) bloodType.value = "-"
@@ -106,7 +102,8 @@ class UserCreationViewModel(
                 val newUser = userRepository.getUser(id)
 
                 newUser?.let {
-                    navigationRequest.request(MainRequest(it))
+                    sharedPreferences[StartActivity.LAST_USER_ID_PREF] = newUser.uid
+                    navigationRequest.request(MainRequest)
                 }
 
                 if (newUser == null) {

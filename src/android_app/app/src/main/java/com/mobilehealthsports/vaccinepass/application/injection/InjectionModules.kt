@@ -67,11 +67,11 @@ object InjectionModules {
         module {
             viewModel { TestViewModel() }
             viewModel { PinViewModel() }
-            viewModel { MainViewModel() }
             viewModel { UserViewModel() }
+            viewModel { MainViewModel() }
             viewModel { AddViewModel() }
             viewModel { CalendarViewModel(get()) }
-            viewModel { SelectUserViewModel() }
+            viewModel { SelectUserViewModel(get()) }
             viewModel { SettingsViewModel() }
             viewModel { UserCreationViewModel(get(), get()) }
         }
