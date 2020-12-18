@@ -4,7 +4,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.mobilehealthsports.vaccinepass.BuildConfig
 import com.mobilehealthsports.vaccinepass.R
+import com.mobilehealthsports.vaccinepass.TestActivity
 import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
@@ -23,26 +25,31 @@ class StartActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        lastUserId = sharedPreferences[LAST_USER_ID_PREF, -1L]!!
-
-        if (lastUserId != -1L) {
-            // pin check
-            startActivityForResult(
-                PinActivity.intent(
-                    this,
-                    PinViewModel.PinState.CHECK,
-                    PIN_LENGTH
-                ), REQUESTS.PIN.code
-            )
+        if (BuildConfig.DEBUG) {
+            startActivity(TestActivity.intent(this))
+            finish()
         } else {
-            // pin on-boarding
-            startActivityForResult(
-                PinActivity.intent(
-                    this,
-                    PinViewModel.PinState.INITIAL,
-                    PIN_LENGTH
-                ), REQUESTS.PIN.code
-            )
+            lastUserId = sharedPreferences[LAST_USER_ID_PREF, -1L]!!
+
+            if (lastUserId != -1L) {
+                // pin check
+                startActivityForResult(
+                    PinActivity.intent(
+                        this,
+                        PinViewModel.PinState.CHECK,
+                        PIN_LENGTH
+                    ), REQUESTS.PIN.code
+                )
+            } else {
+                // pin on-boarding
+                startActivityForResult(
+                    PinActivity.intent(
+                        this,
+                        PinViewModel.PinState.INITIAL,
+                        PIN_LENGTH
+                    ), REQUESTS.PIN.code
+                )
+            }
         }
     }
 
