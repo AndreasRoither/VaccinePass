@@ -13,7 +13,6 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityUserCreationBinding
-import com.mobilehealthsports.vaccinepass.databinding.FragmentUserCreationBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
@@ -29,13 +28,13 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val navigationService: NavigationService by inject { parametersOf(this) }
-    private lateinit var binding: FragmentUserCreationBinding
+    private lateinit var binding: ActivityUserCreationBinding
     private val viewModel: UserCreationViewModel by stateViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivityUserCreationBinding = DataBindingUtil.setContentView(
+        binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_user_creation
         )
