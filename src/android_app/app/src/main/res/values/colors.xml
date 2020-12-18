@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="app_primary">#9768EB</color>
-    <color name="app_light">#cc97ff</color>
-    <color name="app_dark">#653bb8</color>
-    <color name="app_complementary">#bbeb68</color>
-    <color name="app_background">#F2F4F9</color>
-    <color name="app_triadic">#eb68bb</color>
+    <!-- Primary purple -->
+    <color name="app_purple">#9768EB</color>
+    <color name="app_light_purple">#cc97ff</color>
+    <color name="app_dark_purple">#653bb8</color>
+    <color name="app_complementary_purple">#bbeb68</color>
+    <color name="app_triadic_purple">#eb68bb</color>
 
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <!-- Primary orange -->
+    <color name="app_orange">#ff9800</color>
+    <color name="app_light_orange">#ffc947</color>
+    <color name="app_dark_orange">#c66900</color>
+    <color name="app_complementary_orange">#0066ff</color>
+    <color name="app_triadic_orange">#00ff99</color>
+
+    <!-- Primary green -->
+    <color name="app_green">#4caf50</color>
+    <color name="app_light_green">#80e27e</color>
+    <color name="app_dark_green">#087f23</color>
+    <color name="app_complementary_green">#af4cac</color>
+    <color name="app_triadic_green">#4cacaf</color>
+
+    <!-- Primary dark -->
+    <color name="app_night">#212121</color>
+    <color name="app_light_night">#484848</color>
+    <color name="app_dark_night">#000000</color>
+    <color name="app_complementary_night">#212121</color>
+    <color name="app_triadic_night">#212121</color>
+    <color name="app_background_night">#bdbdbd</color>
+
+    <color name="app_background">#F2F4F9</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#BDBDBD</color>

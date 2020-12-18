@@ -1,10 +1,13 @@
 package com.mobilehealthsports.vaccinepass.application.injection
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.mobilehealthsports.vaccinepass.business.database.AppDatabase
+import com.mobilehealthsports.vaccinepass.business.repository.*
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.AppMessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNavigationService
@@ -16,7 +19,9 @@ import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
+import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationViewModel
 import com.mobilehealthsports.vaccinepass.ui.user_select.SelectUserViewModel
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -25,7 +30,7 @@ object InjectionModules {
 
         // AppModule
         module {
-            single { get<Application>().getSharedPreferences("appPreferences", 0) }
+            single<SharedPreferences> { get<Application>().getSharedPreferences("appPreferences", 0) }
             factory<Gson> { GsonBuilder().create() }
         },
 
@@ -50,16 +55,25 @@ object InjectionModules {
             }
         },
 
+        // database module
+        module {
+            single { AppDatabase.getDatabase(androidApplication()) }
+            single<UserRepository> { UserRepositoryImpl(get()) }
+            single<VaccinationRepository> { VaccinationRepositoryImpl(get()) }
+            single<VaccineRepository> { VaccineRepositoryImpl(get()) }
+        },
+
         // ViewModel module
         module {
             viewModel { TestViewModel() }
             viewModel { PinViewModel() }
-            viewModel { MainViewModel() }
             viewModel { UserViewModel() }
+            viewModel { MainViewModel() }
             viewModel { AddViewModel() }
-            viewModel { CalendarViewModel() }
-            viewModel { SelectUserViewModel() }
+            viewModel { CalendarViewModel(get()) }
+            viewModel { SelectUserViewModel(get()) }
             viewModel { SettingsViewModel() }
+            viewModel { UserCreationViewModel(get(), get()) }
         }
     )
 }

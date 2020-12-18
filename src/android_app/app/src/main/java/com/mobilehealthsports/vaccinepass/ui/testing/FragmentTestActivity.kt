@@ -10,9 +10,11 @@ import androidx.fragment.app.replace
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityFragmentTestBinding
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
+import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationFragment
+import com.mobilehealthsports.vaccinepass.util.BaseActivity
 
 
-class FragmentTestActivity : AppCompatActivity() {
+class FragmentTestActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +27,15 @@ class FragmentTestActivity : AppCompatActivity() {
             "CalendarFragment" -> {
                 CalendarFragment.newInstance()
             }
+            "UserCreationFragment" -> {
+                UserCreationFragment.newInstance()
+            }
             else -> CalendarFragment.newInstance()
         }
 
         supportFragmentManager.commit {
-            replace<CalendarFragment>(R.id.activity_test_fragment_container)
+            replace(R.id.activity_test_fragment_container, fragment)
         }
-
     }
 
     companion object {

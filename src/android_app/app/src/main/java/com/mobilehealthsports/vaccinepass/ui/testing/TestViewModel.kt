@@ -5,7 +5,7 @@ import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.*
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
-import java.util.*
+import java.time.LocalDate
 
 class TestViewModel : ViewModel() {
 
@@ -27,10 +27,14 @@ class TestViewModel : ViewModel() {
     }
 
     fun startMainActivity() {
-        navigationRequest.request(MainRequest(User(0,"John", "Doe", "A neg", Date(1999,10,25), 80f, 180f, 0)))
+        navigationRequest.request(MainRequest)
     }
 
     fun startSelectUserActivity() {
         navigationRequest.request(SelectUserRequest)
+    }
+
+    fun startUserCreationFragment() {
+        navigationRequest.request(UserCreationRequest("UserCreationFragment"))
     }
 }

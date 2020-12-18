@@ -12,13 +12,14 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.Message
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
+import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 
-class TestActivity : AppCompatActivity() {
+class TestActivity : BaseActivity() {
 
     private var disposables = CompositeDisposable()
     private val navigationService: NavigationService by inject { parametersOf(this) }

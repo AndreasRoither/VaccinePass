@@ -4,7 +4,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 data class Vaccine(
-    val uid: Int,
+    val uid: Long,
     val name: String,
     val company: String?,
     val indication: String?,

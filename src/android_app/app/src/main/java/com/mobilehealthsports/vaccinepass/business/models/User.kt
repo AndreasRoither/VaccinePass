@@ -3,14 +3,14 @@ package com.mobilehealthsports.vaccinepass.business.models
 import android.content.Context
 import androidx.core.content.ContextCompat
 import java.io.Serializable
-import java.util.*
+import java.time.LocalDate
 
 data class User(
-        val uid: Int,
+        val uid: Long,
         val firstName: String?,
         val lastName: String?,
         val bloodType: String?,
-        val birthDay: Date?,
+        val birthDay: LocalDate?,
         val weight: Float?,
         val height: Float?,
         val themeColor: Int,

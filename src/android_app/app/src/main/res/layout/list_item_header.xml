@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:text="@{item.text}"
-            android:textColor="@color/app_primary"
+            android:textColor="?colorPrimary"
             android:textStyle="bold" />
 
     </RelativeLayout>

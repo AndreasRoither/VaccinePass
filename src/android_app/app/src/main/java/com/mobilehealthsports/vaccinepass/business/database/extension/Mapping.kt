@@ -30,7 +30,7 @@ fun User.toDb() = DbUser(
     birthDay = birthDay,
     weight = weight,
     height = height,
-    themeColor = R.color.app_primary
+    themeColor = R.color.colorPrimary
 )
 
 /***********************

@@ -2,8 +2,8 @@ package com.mobilehealthsports.vaccinepass.ui.pin
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -11,12 +11,13 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityPinBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
+import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 
-class PinActivity : AppCompatActivity() {
+class PinActivity : BaseActivity() {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val viewModel: PinViewModel by stateViewModel()
@@ -80,7 +81,10 @@ class PinActivity : AppCompatActivity() {
 
         viewModel.correctPin.observe(this, {
             if (it) {
-                viewModel.messageRequest.request(ToastRequest("Correct PIN!"))
+                val data = Intent().apply {
+                    putExtra("result", true)
+                }
+                setResult(RESULT_OK, data)
                 finish()
             }
         })

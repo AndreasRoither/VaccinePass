@@ -6,8 +6,8 @@ import com.mobilehealthsports.vaccinepass.business.database.extension.toUser
 import com.mobilehealthsports.vaccinepass.business.models.User
 
 class UserRepositoryImpl(private val database: AppDatabase) : UserRepository {
-    override suspend fun getUser(id: Int): User? {
-        return database.userDao().loadAllByIds(intArrayOf(id)).blockingFirst().firstOrNull()
+    override suspend fun getUser(id: Long): User? {
+        return database.userDao().loadAllByIds(longArrayOf(id)).blockingFirst().firstOrNull()
             ?.toUser()
     }
 
@@ -19,8 +19,8 @@ class UserRepositoryImpl(private val database: AppDatabase) : UserRepository {
         return database.userDao().findByName(firstName, lastName).blockingGet()?.toUser()
     }
 
-    override suspend fun insertUser(user: User) {
-        database.userDao().insertAll(user.toDb())
+    override suspend fun insertUser(user: User): Long? {
+        return database.userDao().insertAll(user.toDb()).firstOrNull()
     }
 
     override suspend fun deleteUser(user: User) {

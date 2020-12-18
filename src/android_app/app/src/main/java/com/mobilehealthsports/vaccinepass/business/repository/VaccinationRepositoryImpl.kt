@@ -6,8 +6,8 @@ import com.mobilehealthsports.vaccinepass.business.database.extension.toVaccinat
 import com.mobilehealthsports.vaccinepass.business.models.Vaccination
 
 class VaccinationRepositoryImpl(private val database: AppDatabase) : VaccinationRepository {
-    override suspend fun getVaccination(id: Int): Vaccination? {
-        return database.userVaccinationDao().loadAllByIds(intArrayOf(id)).blockingFirst()
+    override suspend fun getVaccination(id: Long): Vaccination? {
+        return database.userVaccinationDao().loadAllByIds(longArrayOf(id)).blockingFirst()
             .firstOrNull()?.toVaccination()
 
     }
@@ -21,8 +21,8 @@ class VaccinationRepositoryImpl(private val database: AppDatabase) : Vaccination
             .map { it.toVaccination() }
     }
 
-    override suspend fun insertVaccination(vaccination: Vaccination) {
-        database.userVaccinationDao().insertAll(vaccination.toDb())
+    override suspend fun insertVaccination(vaccination: Vaccination): Long? {
+        return database.userVaccinationDao().insertAll(vaccination.toDb()).firstOrNull()
     }
 
     override suspend fun deleteVaccination(vaccination: Vaccination) {

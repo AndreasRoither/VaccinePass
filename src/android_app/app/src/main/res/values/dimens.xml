@@ -56,5 +56,19 @@
     <dimen name="fragment_calendar_selected_header_padding">12dp</dimen>
     <dimen name="fragment_settings_user_text_size">30sp</dimen>
 
+    <!--
+    User creation Fragment
+    -->
+    <dimen name="fragment_user_creation_margin_sides">20dp</dimen>
+    <dimen name="fragment_user_creation_text_input_margin_top">5dp</dimen>
+    <dimen name="fragment_user_creation_text_input_margin_bottom">10dp</dimen>
+    <dimen name="fragment_user_creation_grid_margin_top">15dp</dimen>
+    <dimen name="fragment_user_creation_image_margin">10dp</dimen>
+    <dimen name="fragment_user_creation_grid_layout_height">150dp</dimen>
+    <dimen name="fragment_user_creation_photo_text_margin">20dp</dimen>
+    <dimen name="fragment_user_creation_vertical_line_margin">20dp</dimen>
+    <dimen name="fragment_user_creation_user_setup_top_margin">20dp</dimen>
+    <dimen name="fragment_user_creation_user_setup_bottom_margin">20dp</dimen>
 
+    <dimen name="fragment_user_creation_date_text_size">16sp</dimen>
 </resources>

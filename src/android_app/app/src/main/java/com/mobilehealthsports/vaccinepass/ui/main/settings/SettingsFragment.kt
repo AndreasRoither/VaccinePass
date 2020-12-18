@@ -19,9 +19,9 @@ import org.koin.core.parameter.parametersOf
 class SettingsFragment : Fragment() {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
-    private val viewModel: SettingsViewModel by stateViewModel()
     private val mainViewModel: MainViewModel by activityViewModels()
-    private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
+    private val viewModel: SettingsViewModel by stateViewModel()
+    private lateinit var fragmentSettingsBinding: FragmentSettingsBinding
     private lateinit var adapter: SettingsViewAdapter
 
 
@@ -41,7 +41,7 @@ class SettingsFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.adapter = adapter
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = requireActivity()
 
         messageService.subscribeToRequests(viewModel.messageRequest)
         disposables.addAll(messageService)
