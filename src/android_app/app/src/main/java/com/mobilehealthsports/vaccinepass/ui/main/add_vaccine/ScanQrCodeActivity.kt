@@ -40,8 +40,8 @@ class ScanQrCodeActivity : AppCompatActivity() {
 
             val gson = Gson()
 
-            val vaccineSignature = gson.fromJson(it.text, VaccineSignature::class.java)
-            vaccineSignature.signature = Base64.getEncoder().encodeToString(oriString.toByteArray())
+            //val vaccineSignature = gson.fromJson(it.text, VaccineSignature::class.java)
+            //vaccineSignature.signature = Base64.getEncoder().encodeToString(oriString.toByteArray())
             val jsonObject = JSONObject(it.text)
             val request = JsonObjectRequest(
                 Request.Method.POST, URL, jsonObject,

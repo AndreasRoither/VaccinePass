@@ -18,8 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.VaccinePass">
-        <activity android:name=".ui.main.add_vaccine.ScanQrCodeActivity"></activity>
+        android:theme="@style/VaccinePass_purple">
+        <activity android:name=".ui.main.add_vaccine.ScanQrCodeActivity" />
         <activity
             android:name=".ui.testing.FragmentTestActivity"
             android:label="@string/title_activity_fragment_test" />
@@ -28,7 +28,7 @@
         <activity android:name=".ui.user_select.SelectUserActivity" />
         <activity
             android:name=".TestActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" />
         android:theme="@style/VaccinePass_purple">
         <activity android:name=".ui.user_creation.UserCreationActivity" />
         <activity android:name=".ui.start.StartActivity">
@@ -38,11 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.testing.FragmentTestActivity" />
-        <activity android:name=".ui.pin.PinActivity" />
-        <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.user_select.SelectUserActivity" />
-        <activity android:name=".TestActivity" />
     </application>
 
 </manifest>
