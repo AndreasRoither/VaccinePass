@@ -195,28 +195,18 @@ app.post('/addVaccine', (req, response) => {
     client.query(queryString)
         .then(
             res => {
-                console.log("++++++++++++");
-                console.log(receivedSignature);
-                console.log("+++++++++++++++");
 
+                var success = false;
                 var publicKey = CryptoJS.enc.Base64.parse(res.rows[0].public_key);
                 var decryptedMessage = decrypt(receivedSignature, publicKey);
 
+                if (decryptedMessage.localeCompare(receivedData)) {
+                    success = true;
+                }
                 
-
-                var success = true;
                 response.json({success: success})
              
             }).catch(e => console.error(e.stack))
-
-            
-    
-    // get object (data from qr code: vaccine stuff, userid or mail, docker mail, signature)
-    // retrive public key with the docker mail
-    // verify signature with public key
-    // if successful
-    //      - add vaccine to user 
-    //      - send successful response
 })
 
 
@@ -226,10 +216,6 @@ function decrypt(message = '', key = ''){
         padding: CryptoJS.pad.Pkcs7
         });
     var decryptedMessage = code.toString(CryptoJS.enc.Utf8);
-
-    console.log("###########");
-    console.log(decryptedMessage);
-    console.log("###########"); 
 
     return decryptedMessage;
 }
