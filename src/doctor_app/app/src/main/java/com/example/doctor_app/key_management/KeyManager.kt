@@ -1,89 +1,115 @@
 package com.example.doctor_app.key_management
 
-import android.security.keystore.KeyGenParameterSpec
-import android.security.keystore.KeyPermanentlyInvalidatedException
-import android.security.keystore.KeyProperties
-import android.security.keystore.UserNotAuthenticatedException
-import android.util.Base64.DEFAULT
-import android.util.Base64.encodeToString
-import android.util.Log
-import java.math.BigInteger
 import java.security.*
 import java.util.*
-import javax.security.auth.x500.X500Principal
+import javax.crypto.*
+import javax.crypto.spec.SecretKeySpec
 
 class KeyManager {
+    private val STRING_LENGTH = 16;
+    private val charPool = charArrayOf(
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'x',
+        'y',
+        'z',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '0'
+    );
 
-    private lateinit var keyPair: KeyPair
-    private val ANDROID_KEYSTORE = "AndroidKeyStore";
+    public fun generateKey() : String {
+        val randomString = (1..STRING_LENGTH).map { i -> kotlin.random.Random.nextInt(
+            0,
+            charPool.size
+        ) }.map(charPool::get).joinToString("");
 
-    public fun generateKey(key_alias: String) {
-        //We create the start and expiry date for the key
-        val startDate = GregorianCalendar()
-        val endDate = GregorianCalendar()
-        endDate.add(Calendar.YEAR, 1)
-
-        //We are creating a RSA key pair and store it in the Android Keystore
-        val keyPairGenerator: KeyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_RSA, ANDROID_KEYSTORE)
-
-        //We are creating the key pair with sign and verify purposes
-        val parameterSpec: KeyGenParameterSpec = KeyGenParameterSpec.Builder(key_alias,
-                KeyProperties.PURPOSE_SIGN or KeyProperties.PURPOSE_VERIFY).run {
-            setCertificateSerialNumber(BigInteger.valueOf(777))       //Serial number used for the self-signed certificate of the generated key pair, default is 1
-            setCertificateSubject(X500Principal("CN=$key_alias"))     //Subject used for the self-signed certificate of the generated key pair, default is CN=fake
-            setDigests(KeyProperties.DIGEST_SHA256)                         //Set of digests algorithms with which the key can be used
-            setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1) //Set of padding schemes with which the key can be used when signing/verifying
-            setCertificateNotBefore(startDate.time)                         //Start of the validity period for the self-signed certificate of the generated, default Jan 1 1970
-            setCertificateNotAfter(endDate.time)                            //End of the validity period for the self-signed certificate of the generated key, default Jan 1 2048
-            setUserAuthenticationRequired(false)                             //Sets whether this key is authorized to be used only if the user has been authenticated, default false
-            setUserAuthenticationValidityDurationSeconds(30)                //Duration(seconds) for which this key is authorized to be used after the user is successfully authenticated
-            build()
-        }
-
-        //Initialization of key generator with the parameters we have specified above
-        keyPairGenerator.initialize(parameterSpec)
-
-        //Generates the key pair
-        keyPair = keyPairGenerator.genKeyPair()
+        val encoded = Base64.getEncoder().encode(randomString.toByteArray())
+        return String(encoded)
     }
 
-    public fun getPublicKey() : String {
-        val bytePubKey: ByteArray = keyPair.public.encoded
-        val publicKey = encodeToString(bytePubKey, DEFAULT);
-        return publicKey;
+    @Throws(Exception::class)
+    private fun generateKey(secret: String): Key? {
+        val decoded = Base64.getDecoder().decode(secret.toByteArray())
+        return SecretKeySpec(decoded, "AES")
     }
 
-    public fun signData(key_alias: String, data: String) : String {
-        try {
-            //We get the Keystore instance
-            val keyStore: KeyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply {
-                load(null)
-            }
 
-            //Retrieves the private key from the keystore
-            val privateKey: PrivateKey = keyStore.getKey(key_alias, null) as PrivateKey
 
-            //We sign the data with the private key. We use RSA algorithm along SHA-256 digest algorithm
-            val signature: ByteArray? = Signature.getInstance("SHA256withRSA").run {
-                initSign(privateKey)
-                update(data.toByteArray())
-                sign()
-            }
+    public fun signData(strToEncrypt: String, secret_key: String) : String {
 
-            if (signature != null) {
-                //We encode and store in a variable the value of the signature
-                return encodeToString(signature, DEFAULT)
-            }
+        val key: Key = generateKey(secret_key)!!
+        val c = Cipher.getInstance("AES")
+        c.init(Cipher.ENCRYPT_MODE, key)
+        val encVal = c.doFinal(strToEncrypt.toByteArray())
+        return Base64.getEncoder().encodeToString(encVal)
 
-        } catch (e: UserNotAuthenticatedException) {
-            Log.e("TAG", "Error: " + e)
-            //Exception thrown when the user has not been authenticated
-        } catch (e: KeyPermanentlyInvalidatedException) {
-            Log.e("TAG", "Error: " + e)
-            //Exception thrown when the key has been invalidated for example when lock screen has been disabled.
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
-        return "";
+
+
+//        Security.addProvider(BouncyCastleProvider())
+//        var keyBytes: ByteArray
+//
+//        try {
+//            keyBytes = secret_key.toByteArray(charset("UTF8"))
+//            val skey = SecretKeySpec(keyBytes, "AES")
+//            val input = strToEncrypt.toByteArray(charset("UTF8"))
+//
+//            synchronized(Cipher::class.java) {
+//                val cipher = Cipher.getInstance("AES/ECB/PKCS7Padding")
+//                cipher.init(Cipher.ENCRYPT_MODE, skey)
+//
+//                val cipherText = ByteArray(cipher.getOutputSize(input.size))
+//                var ctLength = cipher.update(
+//                    input, 0, input.size,
+//                    cipherText, 0
+//                )
+//                ctLength += cipher.doFinal(cipherText, ctLength)
+//
+//                return Base64.getEncoder().encodeToString(cipherText)
+//            }
+//        } catch (uee: UnsupportedEncodingException) {
+//            uee.printStackTrace()
+//        } catch (ibse: IllegalBlockSizeException) {
+//            ibse.printStackTrace()
+//        } catch (bpe: BadPaddingException) {
+//            bpe.printStackTrace()
+//        } catch (ike: InvalidKeyException) {
+//            ike.printStackTrace()
+//        } catch (nspe: NoSuchPaddingException) {
+//            nspe.printStackTrace()
+//        } catch (nsae: NoSuchAlgorithmException) {
+//            nsae.printStackTrace()
+//        } catch (e: ShortBufferException) {
+//            e.printStackTrace()
+//        }
+//
+//        return "";
     }
 }

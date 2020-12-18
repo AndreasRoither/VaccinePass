@@ -1,5 +1,6 @@
 package com.example.doctor_app.qrcode
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -46,11 +47,11 @@ class QrCode : AppCompatActivity() {
 
     private fun getSignDataString(vacInfoString: String): String {
         val gson = Gson()
-        val vaccineInfo = gson.fromJson(vacInfoString, VaccineInfo::class.java)
+        //val vaccineInfo = gson.fromJson(vacInfoString, VaccineInfo::class.java)
 
         val keyManager = KeyManager()
-        val keyAlias = vaccineInfo.doctorId + "_secret"
-        val signature = keyManager.signData(keyAlias, vacInfoString)
+        val key = applicationContext.getSharedPreferences("keys", Context.MODE_PRIVATE).getString("secret_key", "")
+        val signature = keyManager.signData(vacInfoString, key!!)
 
         val params = HashMap<String, String>()
         params["data"] = vacInfoString

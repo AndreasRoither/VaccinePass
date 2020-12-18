@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const { Client } = require('pg');
 const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+var CryptoJS = require("crypto-js");
 const constants = require('constants');
 
 var connectionString = "postgres://admin:123@database:5432/postgres";
@@ -181,7 +181,7 @@ app.post('/loginDoctor', (req, response) => {
 
 app.post('/addVaccine', (req, response) => {
     var success = true;
-    response.json({success: success})
+
 
 
     console.log("received vacccine!!!!!!!!!");
@@ -195,40 +195,18 @@ app.post('/addVaccine', (req, response) => {
     client.query(queryString)
         .then(
             res => {
-                var publicKey = res.rows[0].public_key;
+                console.log("++++++++++++");
+                console.log(receivedSignature);
+                console.log("+++++++++++++++");
 
+                var publicKey = CryptoJS.enc.Base64.parse(res.rows[0].public_key);
+                var decryptedMessage = decrypt(receivedSignature, publicKey);
 
-                const padding = constants.RSA_PKCS1_PADDING;
                 
-                //var clr = crypto.publicDecrypt({ key: pub, padding: padding  }, sig)
-
-
-                // encode as UTF-8
-                const msgBuffer = new TextEncoder().encode(receivedData);                    
-
-                // hash the message
-                const hashBuffer = crypto.subtle.digest('SHA-256', msgBuffer).result();
-
-                // convert ArrayBuffer to Array
-                const hashArray = Array.from(new Uint8Array(hashBuffer));
-                console.log(hashArray);
-
-
-
-                console.log(`-----BEGIN PUBLIC KEY-----\n${publicKey.trim()}\n-----END PUBLIC KEY-----`)
-
-
-                var msg = crypto.publicDecrypt(`-----BEGIN PUBLIC KEY-----\n${publicKey.trim()}\n-----END PUBLIC KEY-----`, Buffer.from(receivedSignature.trim(), 'base64'));
-                console.log("##################"); 
-                console.log(msg.toString()); 
-                console.log("##################"); 
-
-
 
                 var success = true;
                 response.json({success: success})
-
-                                       
+             
             }).catch(e => console.error(e.stack))
 
             
@@ -240,6 +218,21 @@ app.post('/addVaccine', (req, response) => {
     //      - add vaccine to user 
     //      - send successful response
 })
+
+
+function decrypt(message = '', key = ''){
+    var code = CryptoJS.AES.decrypt(message, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+        });
+    var decryptedMessage = code.toString(CryptoJS.enc.Utf8);
+
+    console.log("###########");
+    console.log(decryptedMessage);
+    console.log("###########"); 
+
+    return decryptedMessage;
+}
 
 
 app.listen(3000, () => {

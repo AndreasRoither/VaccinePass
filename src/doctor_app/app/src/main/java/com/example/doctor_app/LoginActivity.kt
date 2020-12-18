@@ -1,5 +1,6 @@
 package com.example.doctor_app
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -93,9 +94,9 @@ class LoginActivity : AppCompatActivity() {
             params["mail"] = mail.text.toString();
             params["password"] = password.text.toString();
             if(params["name"] != "" && params["mail"] != "" && params["password"] != ""){
-                var secretAlias = params["mail"] + "_secret";
-                keyManager.generateKey(secretAlias);
-                var publicKey = keyManager.getPublicKey();
+                var publicKey = keyManager.generateKey();
+                val sharedPref = applicationContext.getSharedPreferences("keys", Context.MODE_PRIVATE);
+                sharedPref.edit().putString("secret_key", publicKey).apply();
                 params["publicKey"] = publicKey;
                 val jsonObject = JSONObject(params as Map<*, *>);
                 val request = JsonObjectRequest(Request.Method.POST, url, jsonObject,
