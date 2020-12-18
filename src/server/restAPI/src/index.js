@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const { Client } = require('pg');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const constants = require('constants');
 
 var connectionString = "postgres://admin:123@database:5432/postgres";
 
@@ -34,7 +36,7 @@ app.post('/register', (req, response) => {
             if (err !== undefined && err != null) {
                 response.json({name: user.name, mail: user.mail, success: false});
                 // log the error to console
-                console.log("Postgres INSERT error:", err);
+                console.log("Postgres INSERT error:", err); 
             
                 // get the keys for the error
                 var keys = Object.keys(err);
@@ -177,7 +179,60 @@ app.post('/loginDoctor', (req, response) => {
 });
 
 
-app.post('/addVaccine', (req, res) => {
+app.post('/addVaccine', (req, response) => {
+    var success = true;
+    response.json({success: success})
+
+
+    console.log("received vacccine!!!!!!!!!");
+    var signedVaccinationObject = JSON.parse(JSON.stringify(req.body))
+    var receivedSignature = signedVaccinationObject.signature;
+    var receivedData = signedVaccinationObject.data;
+    var receivedDataObject = JSON.parse(receivedData);
+
+    var queryString = "SELECT public_key FROM doctors WHERE mail = " + "'" + receivedDataObject.doctorId + "'";
+
+    client.query(queryString)
+        .then(
+            res => {
+                var publicKey = res.rows[0].public_key;
+
+
+                const padding = constants.RSA_PKCS1_PADDING;
+                
+                //var clr = crypto.publicDecrypt({ key: pub, padding: padding  }, sig)
+
+
+                // encode as UTF-8
+                const msgBuffer = new TextEncoder().encode(receivedData);                    
+
+                // hash the message
+                const hashBuffer = crypto.subtle.digest('SHA-256', msgBuffer).result();
+
+                // convert ArrayBuffer to Array
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                console.log(hashArray);
+
+
+
+                console.log(`-----BEGIN PUBLIC KEY-----\n${publicKey.trim()}\n-----END PUBLIC KEY-----`)
+
+
+                var msg = crypto.publicDecrypt(`-----BEGIN PUBLIC KEY-----\n${publicKey.trim()}\n-----END PUBLIC KEY-----`, Buffer.from(receivedSignature.trim(), 'base64'));
+                console.log("##################"); 
+                console.log(msg.toString()); 
+                console.log("##################"); 
+
+
+
+                var success = true;
+                response.json({success: success})
+
+                                       
+            }).catch(e => console.error(e.stack))
+
+            
+    
     // get object (data from qr code: vaccine stuff, userid or mail, docker mail, signature)
     // retrive public key with the docker mail
     // verify signature with public key
