@@ -6,6 +6,8 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.SelectUserRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import java.time.LocalDate
 
@@ -19,6 +21,15 @@ class SettingsViewModel : BaseViewModel() {
     var user: LiveData<User> = _user
 
     var listItems: MutableList<SettingsItem> = ArrayList()
+
+    private val _navigationRequest = ServiceRequest<NavigationRequest>()
+    val navigationRequest = _navigationRequest
+
+    inner class CardClickListener {
+        fun onCardClicked() {
+            navigationRequest.request(SelectUserRequest)
+        }
+    }
 
     init {
         listItems.add(SettingsItem(R.drawable.ic_shield, "Account", "Security, reset"))

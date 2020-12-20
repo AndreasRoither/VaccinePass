@@ -11,6 +11,10 @@
         <variable
             name="adapter"
             type="com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsViewAdapter" />
+
+        <variable
+            name="cardClicked"
+            type="com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsViewModel.CardClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +28,8 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> cardClicked.onCardClicked()}">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/fragment_settings_user_picture"
@@ -42,7 +47,7 @@
                     android:layout_width="@dimen/activity_main_usr_img_diameter"
                     android:layout_height="@dimen/activity_main_usr_img_diameter"
                     android:contentDescription="@string/activity_main_user_pic_description"
-                    android:src="@drawable/img_user" />
+                    android:src="@drawable/img_user"/>
             </androidx.cardview.widget.CardView>
 
             <TextView

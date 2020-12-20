@@ -11,6 +11,9 @@
         <variable
             name="adapter"
             type="com.mobilehealthsports.vaccinepass.ui.main.user.VaccineViewAdapter" />
+        <variable
+            name="cardClick"
+            type="com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel.CardClicked"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +29,8 @@
             android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> cardClick.onCardClicked()}">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"

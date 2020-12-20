@@ -17,6 +17,7 @@
             android:id="@+id/select_user_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/activity_select_user_header"
             android:textColor="?colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
