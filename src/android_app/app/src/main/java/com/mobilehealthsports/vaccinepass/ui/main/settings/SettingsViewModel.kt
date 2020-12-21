@@ -15,7 +15,7 @@ class SettingsViewModel : BaseViewModel() {
 
     val messageRequest = ServiceRequest<MessageRequest>()
 
-    private var _user = MutableLiveData(User(0, "Test", "Test", "0 neg", LocalDate.of(2020, 4, 5), 75f, 180f, 1))
+    private var _user = MutableLiveData(User(0, "Test", "Test", "0 neg", LocalDate.of(2020, 4, 5), 75f, 180f, 1, null))
     var user: LiveData<User> = _user
 
     var listItems: MutableList<SettingsItem> = ArrayList()

@@ -43,6 +43,9 @@ class UserCreationViewModel(
     val bloodType = NonNullMutableLiveData("")
     val weight = NonNullMutableLiveData("")
     val height = NonNullMutableLiveData("")
+    val photoTaken = NonNullMutableLiveData(false)
+
+    val currentPhotoPath: MutableLiveData<String?> = MutableLiveData(null)
 
     val finishBtnEnabled = Transformations.map(firstName) {
         it.isNotBlank()
@@ -93,7 +96,8 @@ class UserCreationViewModel(
                 birthDate.value,
                 weight.value.toFloatOrNull(),
                 height.value.toFloatOrNull(),
-                color.value!!.value
+                color.value!!.value,
+                currentPhotoPath.value
             )
 
             val id = userRepository.insertUser(user)

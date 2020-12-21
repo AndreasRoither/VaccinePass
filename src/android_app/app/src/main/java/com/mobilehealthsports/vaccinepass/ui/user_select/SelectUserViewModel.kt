@@ -27,8 +27,8 @@ class SelectUserViewModel(val sharedPreferences: SharedPreferences) : BaseViewMo
     }
 
     init {
-        userList.add(0, User(1, "John", "Doe", "0 pos", LocalDate.of(1999, 5, 25), 75.5f, 178f, 0))
-        userList.add(1, User(2, "Bear", "Grylls", "A neg", LocalDate.of(1975, 10, 5), 84.3f, 184f, 0))
+        userList.add(0, User(1, "John", "Doe", "0 pos", LocalDate.of(1999, 5, 25), 75.5f, 178f, 0, null))
+        userList.add(1, User(2, "Bear", "Grylls", "A neg", LocalDate.of(1975, 10, 5), 84.3f, 184f, 0, null))
     }
 
     companion object {

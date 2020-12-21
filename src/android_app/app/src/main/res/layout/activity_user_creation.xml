@@ -40,21 +40,23 @@
                 android:onClick="@{() -> viewModel.setPhoto()}"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/fragment_user_creation_photo_btn"
-                    style="@style/PinButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:strokeWidth="0dp"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/fragment_user_creation_photo"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:backgroundTint="@color/app_purple"
-                    app:strokeColor="?colorPrimary" />
+                    android:src="@drawable/ic_user"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:strokeColor="?colorPrimary"
+                    app:strokeWidth="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/fragment_user_creation_photo_text_margin"
+                    android:boolean_visibility="@{!viewModel.photoTaken}"
                     android:text="@string/fragment_user_creation_upload_photo"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
