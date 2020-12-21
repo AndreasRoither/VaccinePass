@@ -35,15 +35,21 @@
                 android:layout_marginTop="10dp"
                 android:innerRadius="0dp"
                 android:shape="ring"
-                app:cardBackgroundColor="?colorPrimary"
                 app:cardCornerRadius="@dimen/activity_main_usr_img_radius"
                 app:cardElevation="15dp">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/fragment_user_photo"
                     android:layout_width="@dimen/activity_main_usr_img_diameter"
                     android:layout_height="@dimen/activity_main_usr_img_diameter"
                     android:contentDescription="@string/activity_main_user_pic_description"
-                    android:src="@drawable/img_user" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_user"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:strokeColor="?colorPrimary"
+                    app:strokeWidth="2dp" />
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView

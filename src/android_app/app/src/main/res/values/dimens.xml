@@ -69,6 +69,8 @@
     <dimen name="fragment_user_creation_vertical_line_margin">20dp</dimen>
     <dimen name="fragment_user_creation_user_setup_top_margin">20dp</dimen>
     <dimen name="fragment_user_creation_user_setup_bottom_margin">20dp</dimen>
+    <dimen name="fragment_user_creation_image_border">2dp</dimen>
 
     <dimen name="fragment_user_creation_date_text_size">16sp</dimen>
+    <dimen name="fragment_user_creation_photo_txt_size">18sp</dimen>
 </resources>

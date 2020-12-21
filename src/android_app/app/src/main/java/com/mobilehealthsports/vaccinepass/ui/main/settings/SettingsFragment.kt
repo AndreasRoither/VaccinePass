@@ -10,6 +10,7 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.FragmentSettingsBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
+import com.mobilehealthsports.vaccinepass.util.ScaledBitmapLoader
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
@@ -37,11 +38,19 @@ class SettingsFragment : Fragment() {
         fragmentSettingsBinding = binding
 
         adapter = SettingsViewAdapter(viewModel.listItems)
-        viewModel.setUser(mainViewModel.user)
 
         binding.viewModel = viewModel
         binding.adapter = adapter
         binding.lifecycleOwner = requireActivity()
+
+        mainViewModel.user.observe(viewLifecycleOwner, { user ->
+            user?.let {
+                viewModel.setUser(it)
+                it.photoPath?.let { photoPath ->
+                    ScaledBitmapLoader.setPic(photoPath, 100, 100, binding.fragmentSettingsUserPhoto)
+                }
+            }
+        })
 
         messageService.subscribeToRequests(viewModel.messageRequest)
         disposables.addAll(messageService)

@@ -16,16 +16,11 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Navig
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.ui.start.StartActivity
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
-import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.ZoneId
-import java.util.*
 
 
 class UserCreationViewModel(
