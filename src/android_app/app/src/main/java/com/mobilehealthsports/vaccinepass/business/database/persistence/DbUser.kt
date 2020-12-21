@@ -15,5 +15,6 @@ data class DbUser(
         @ColumnInfo(name = "weight") val weight: Float?,
         @ColumnInfo(name = "height") val height: Float?,
         @ColumnInfo(name = "theme_color") val themeColor: Int,
+        @ColumnInfo(name = "photo_path") val photoPath: String?,
 )
 

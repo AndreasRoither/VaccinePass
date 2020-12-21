@@ -19,7 +19,8 @@ fun DbUser.toUser() = User(
     birthDay = birthDay,
     weight = weight,
     height = height,
-    themeColor = themeColor
+    themeColor = themeColor,
+    photoPath = photoPath
 )
 
 fun User.toDb() = DbUser(
@@ -30,7 +31,8 @@ fun User.toDb() = DbUser(
     birthDay = birthDay,
     weight = weight,
     height = height,
-    themeColor = R.color.colorPrimary
+    themeColor = R.color.colorPrimary,
+    photoPath = photoPath
 )
 
 /***********************
