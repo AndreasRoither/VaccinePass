@@ -7,6 +7,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.UserCreationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
@@ -20,6 +21,10 @@ class SelectUserViewModel(val sharedPreferences: SharedPreferences, private val 
     val navigationRequest = _navigationRequest
 
     var userList: MutableList<User> = ArrayList()
+
+    fun startUserCreation() {
+        navigationRequest.request(UserCreationRequest("UserCreationFragment"))
+    }
 
     inner class ItemClickListener {
         fun onItemClicked(user: User) {

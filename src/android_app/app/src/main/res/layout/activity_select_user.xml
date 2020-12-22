@@ -33,6 +33,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/select_user_header" />
 
+        <Button
+            android:id="@+id/select_user_btn_add"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="20dp"
+            android:text="@string/select_user_btn_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_user_recyclerview"
+            android:onClick="@{() -> viewModel.startUserCreation()}"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
