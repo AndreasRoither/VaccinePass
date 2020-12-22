@@ -8,11 +8,18 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.doctor_app.R
+import com.example.doctor_app.business.database.AppDatabase
+import com.example.doctor_app.business.models.Vaccine
+import com.example.doctor_app.business.repository.VaccineRepository
+import com.example.doctor_app.business.repository.VaccineRepositoryImpl
 import com.example.doctor_app.databinding.ActivityVaccinationUserDataBinding
 import com.example.doctor_app.model.User
 import com.example.doctor_app.model.VaccineInfo
 import com.example.doctor_app.qrcode.QrCode
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,6 +28,8 @@ class VaccinationUserData : AppCompatActivity() {
     private lateinit var binding: ActivityVaccinationUserDataBinding
     private val viewModel = VaccineUserVM()
     private lateinit var doctor: User
+
+    private val vaccineRepository = VaccineRepositoryImpl(null)
 
     private val items = listOf("never", "0.5 year", "1 year", "2 years", "5 years")
 
@@ -41,8 +50,16 @@ class VaccinationUserData : AppCompatActivity() {
         EditTextDatePicker(this, binding.vaccineDate.id)
 
         val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-        val adapter = ArrayAdapter(this, R.layout.list_item, items)
-        binding.expires.setAdapter(adapter)
+        val expiredAdapter = ArrayAdapter(this, R.layout.list_item, items)
+        binding.expires.setAdapter(expiredAdapter)
+
+        var vaccines = ArrayList<Vaccine>()
+        runBlocking { launch {
+            vaccines = vaccineRepository.getAllVaccines() as ArrayList<Vaccine>
+        } }
+        val vaccineAdapter = ArrayAdapter(this, R.layout.list_item, vaccines.map{"" + it.name})
+        binding.product.setAdapter(vaccineAdapter)
+
         binding.vaccineDate.setText(dateFormat.format(Date()))
         binding.generateQr.setOnClickListener(this::onButtonClick)
     }
@@ -50,7 +67,7 @@ class VaccinationUserData : AppCompatActivity() {
     private fun onButtonClick(v: View) {
         val vaccineInfo = VaccineInfo(
             binding.userId.text.toString(),
-            binding.vaccine.text.toString(),
+            binding.product.text.toString(),
             binding.vaccineDate.text.toString(),
             binding.expires.text.toString(),
             doctor.mail,

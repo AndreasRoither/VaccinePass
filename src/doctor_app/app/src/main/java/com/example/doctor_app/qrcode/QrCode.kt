@@ -39,7 +39,7 @@ class QrCode : AppCompatActivity() {
 
     private fun updateUI(qrImage: Bitmap, vaccineInfo: VaccineInfo) {
         binding.qrCode.setImageBitmap(qrImage)
-        binding.vaccine.text = vaccineInfo.vaccine
+        binding.vaccine.text = vaccineInfo.productName
         binding.userId.text = vaccineInfo.userId
         binding.date.text = vaccineInfo.vaccinationDate
         binding.doctor.text = vaccineInfo.doctorName

@@ -39,24 +39,21 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/vaccine_layout"
+            android:id="@+id/product_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:hint="@string/vaccineuser_vaccine"
+            android:hint="@string/vaccineuser_producthint"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_id_layout">
+            app:layout_constraintTop_toBottomOf="@id/user_id_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
-            <EditText
-                android:id="@+id/vaccine"
+            <AutoCompleteTextView
+                android:id="@+id/product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:nextFocusDown="@+id/vaccine_date"
-                android:text="@={viewmodel.vaccine}"
-                android:importantForAutofill="no"
-                android:inputType="text" />
+                android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +65,7 @@
             android:hint="@string/vaccineuser_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vaccine_layout">
+            app:layout_constraintTop_toBottomOf="@id/product_layout">
 
             <EditText
                 android:id="@+id/vaccine_date"
