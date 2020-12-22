@@ -200,8 +200,9 @@ app.post('/addVaccine', (req, response) => {
                 var publicKey = CryptoJS.enc.Base64.parse(res.rows[0].public_key);
                 var decryptedMessage = decrypt(receivedSignature, publicKey);
 
-                if (decryptedMessage.localeCompare(receivedData)) {
+                if (decryptedMessage === receivedData) {
                     success = true;
+                    console.log("Vaccine verified!!!");
                 }
                 
                 response.json({success: success})

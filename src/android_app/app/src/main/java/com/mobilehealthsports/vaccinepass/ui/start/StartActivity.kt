@@ -25,31 +25,26 @@ class StartActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        if (BuildConfig.DEBUG) {
-            startActivity(TestActivity.intent(this))
-            finish()
-        } else {
-            lastUserId = sharedPreferences[LAST_USER_ID_PREF, -1L]!!
+        lastUserId = sharedPreferences[LAST_USER_ID_PREF, -1L]!!
 
-            if (lastUserId != -1L) {
-                // pin check
-                startActivityForResult(
-                    PinActivity.intent(
-                        this,
-                        PinViewModel.PinState.CHECK,
-                        PIN_LENGTH
-                    ), REQUESTS.PIN.code
-                )
-            } else {
-                // pin on-boarding
-                startActivityForResult(
-                    PinActivity.intent(
-                        this,
-                        PinViewModel.PinState.INITIAL,
-                        PIN_LENGTH
-                    ), REQUESTS.PIN.code
-                )
-            }
+        if (lastUserId != -1L) {
+            // pin check
+            startActivityForResult(
+                PinActivity.intent(
+                    this,
+                    PinViewModel.PinState.CHECK,
+                    PIN_LENGTH
+                ), REQUESTS.PIN.code
+            )
+        } else {
+            // pin on-boarding
+            startActivityForResult(
+                PinActivity.intent(
+                    this,
+                    PinViewModel.PinState.INITIAL,
+                    PIN_LENGTH
+                ), REQUESTS.PIN.code
+            )
         }
     }
 

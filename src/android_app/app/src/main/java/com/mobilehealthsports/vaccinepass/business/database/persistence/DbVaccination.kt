@@ -20,5 +20,10 @@ data class DbVaccination(
         @ColumnInfo(name = "f_uid", index = true) val f_uid: Long,
         @ColumnInfo(name = "active") val active: Boolean,
         @ColumnInfo(name = "refresh_date") val refreshDate: LocalDate?,
+        @ColumnInfo(name = "userId") val userId: String,
         @ColumnInfo(name = "vaccination_date") val vaccinationDate: LocalDate?,
+        @ColumnInfo(name = "expiresIn") val expiresIn: String,
+        @ColumnInfo(name = "doctorId") val doctorId: String,
+        @ColumnInfo(name = "doctorName") val doctorName: String,
+        @ColumnInfo(name = "signature") val signature: String,
 )
