@@ -78,4 +78,6 @@
     <string name="fragment_user_creation_select_a_theme">Select a theme</string>
     <string name="fragment_user_creation_upload_photo">Upload photo</string>
     <string name="fragment_user_creation_finish">Finish</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

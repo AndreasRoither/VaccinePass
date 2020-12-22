@@ -21,6 +21,7 @@ import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
 import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationViewModel
 import com.mobilehealthsports.vaccinepass.ui.user_select.SelectUserViewModel
+import com.mobilehealthsports.vaccinepass.ui.vaccination.VaccinationViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -65,15 +66,16 @@ object InjectionModules {
 
         // ViewModel module
         module {
-            viewModel { TestViewModel() }
-            viewModel { PinViewModel() }
-            viewModel { UserViewModel() }
-            viewModel { MainViewModel() }
             viewModel { AddViewModel() }
             viewModel { CalendarViewModel(get()) }
+            viewModel { TestViewModel() }
+            viewModel { MainViewModel() }
+            viewModel { PinViewModel() }
             viewModel { SelectUserViewModel(get()) }
             viewModel { SettingsViewModel() }
             viewModel { UserCreationViewModel(get(), get()) }
+            viewModel { UserViewModel() }
+            viewModel { VaccinationViewModel(get()) }
         }
     )
 }
