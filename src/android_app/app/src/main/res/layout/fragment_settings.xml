@@ -46,7 +46,7 @@
                     android:layout_width="@dimen/activity_main_usr_img_diameter"
                     android:layout_height="@dimen/activity_main_usr_img_diameter"
                     android:layout_gravity="center"
-                    android:contentDescription="@string/activity_main_user_pic_description
+                    android:contentDescription="@string/activity_main_user_pic_description"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_user"
                     app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
