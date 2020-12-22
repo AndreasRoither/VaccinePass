@@ -14,6 +14,7 @@ data class User(
         val weight: Float?,
         val height: Float?,
         val themeColor: Int,
+        val photoPath: String?
 ) : Serializable {
     fun resolveColor(context: Context): Int {
         return ContextCompat.getColor(context, themeColor)

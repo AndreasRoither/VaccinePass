@@ -2,26 +2,31 @@ package com.mobilehealthsports.vaccinepass.ui.user_creation
 
 import android.Manifest
 import android.app.DatePickerDialog
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toDrawable
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityUserCreationBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
+import com.mobilehealthsports.vaccinepass.util.ScaledBitmapLoader
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 import pub.devrel.easypermissions.EasyPermissions
+import java.io.File
+import java.io.IOException
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
@@ -30,6 +35,7 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
     private val navigationService: NavigationService by inject { parametersOf(this) }
     private lateinit var binding: ActivityUserCreationBinding
     private val viewModel: UserCreationViewModel by stateViewModel()
+    lateinit var currentPhotoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,21 +108,57 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
+            viewModel.currentPhotoPath.value = currentPhotoPath
 
-            application?.let { ctx ->
-                binding.fragmentUserCreationPhotoBtn.background =
-                    imageBitmap.toDrawable(ctx.resources)
-            }
+            ScaledBitmapLoader.setPic(currentPhotoPath, binding.fragmentUserCreationPhoto.width, binding.fragmentUserCreationPhoto.height, binding.fragmentUserCreationPhoto)
+            viewModel.photoTaken.value = true
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val today = LocalDateTime.now()
+        val timeStamp = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
+
+        // path that is returned corresponds to the path specified in res/xml/file_paths.xml
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
         }
     }
 
     private fun dispatchTakePictureIntent() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-        } catch (e: ActivityNotFoundException) {
-            messageService.executeRequest(ToastRequest("Could not start camera"))
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    // Error occurred while creating the File
+                    messageService.executeRequest(ToastRequest("Could not create photo file"))
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        this,
+                        "com.example.android.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                }
+
+                if (photoFile == null) messageService.executeRequest(ToastRequest("Could not take picture"))
+            }
         }
     }
 

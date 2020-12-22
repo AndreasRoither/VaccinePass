@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "vaccine")
 data class DbVaccine(
-    @PrimaryKey val uid: Long,
+    @PrimaryKey(autoGenerate = true) val uid: Long,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "active") val active: Boolean,
     @ColumnInfo(name = "company") val company: String?,

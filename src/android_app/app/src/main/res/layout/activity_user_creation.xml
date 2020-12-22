@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fragment_user_creation_margin_sides"
             android:layout_marginEnd="@dimen/fragment_user_creation_margin_sides"
             android:orientation="vertical">
@@ -40,24 +40,26 @@
                 android:onClick="@{() -> viewModel.setPhoto()}"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/fragment_user_creation_photo_btn"
-                    style="@style/PinButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:strokeWidth="0dp"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/fragment_user_creation_photo"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:backgroundTint="@color/app_purple"
-                    app:strokeColor="?colorPrimary" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_user"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:strokeColor="?colorPrimary"
+                    app:strokeWidth="@dimen/fragment_user_creation_image_border" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/fragment_user_creation_photo_text_margin"
+                    android:boolean_visibility="@{!viewModel.photoTaken}"
                     android:text="@string/fragment_user_creation_upload_photo"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/fragment_user_creation_photo_txt_size" />
             </LinearLayout>
 
             <View
@@ -311,19 +313,22 @@
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_purple"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.PURPLE)}"
-                    app:strokeWidth="0dp" />
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="@{viewModel.strokeWidthPurple}" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_green"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.GREEN)}"
-                    app:strokeWidth="0dp" />
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="@{viewModel.strokeWidthGreen}" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_orange"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.ORANGE)}"
-                    app:strokeWidth="0dp" />
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="@{viewModel.strokeWidthOrange}" />
             </LinearLayout>
 
 
