@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.FragmentSettingsBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
 import com.mobilehealthsports.vaccinepass.util.ScaledBitmapLoader
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -20,6 +21,7 @@ import org.koin.core.parameter.parametersOf
 class SettingsFragment : Fragment() {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
+    private val navigationService: NavigationService by inject { parametersOf(this) }
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: SettingsViewModel by stateViewModel()
     private lateinit var fragmentSettingsBinding: FragmentSettingsBinding
@@ -39,6 +41,10 @@ class SettingsFragment : Fragment() {
 
         adapter = SettingsViewAdapter(viewModel.listItems)
 
+        navigationService.subscribeToRequests(viewModel.navigationRequest)
+
+        binding.cardClicked = viewModel.CardClickListener()
+
         binding.viewModel = viewModel
         binding.adapter = adapter
         binding.lifecycleOwner = requireActivity()
@@ -53,7 +59,7 @@ class SettingsFragment : Fragment() {
         })
 
         messageService.subscribeToRequests(viewModel.messageRequest)
-        disposables.addAll(messageService)
+        disposables.addAll(messageService,navigationService)
     }
 
     override fun onDestroy() {
