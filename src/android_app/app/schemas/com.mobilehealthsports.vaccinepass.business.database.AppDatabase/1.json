@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "89172140c073291bf885e7a981a32901",
+    "identityHash": "b1aae61a55f1b7a4fb03f54714bd2077",
     "entities": [
       {
         "tableName": "user",
@@ -74,7 +74,7 @@
       },
       {
         "tableName": "vaccine",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `name` TEXT NOT NULL, `active` INTEGER NOT NULL, `company` TEXT, `indication` TEXT, `target_group` TEXT, `note` TEXT, `adjuvans` TEXT, `thiomersal` TEXT, `refresh_recommendation` TEXT, PRIMARY KEY(`uid`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `active` INTEGER NOT NULL, `company` TEXT, `indication` TEXT, `target_group` TEXT, `note` TEXT, `adjuvans` TEXT, `thiomersal` TEXT, `refresh_recommendation` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -141,7 +141,7 @@
           "columnNames": [
             "uid"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -215,7 +215,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '89172140c073291bf885e7a981a32901')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b1aae61a55f1b7a4fb03f54714bd2077')"
     ]
   }
 }

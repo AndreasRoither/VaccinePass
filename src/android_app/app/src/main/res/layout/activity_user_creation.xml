@@ -42,11 +42,11 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/fragment_user_creation_photo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_user"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/ic_user"
                     app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                     app:strokeColor="?colorPrimary"
                     app:strokeWidth="@dimen/fragment_user_creation_image_border" />
@@ -313,19 +313,22 @@
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_purple"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.PURPLE)}"
-                    app:strokeWidth="0dp" />
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="@{viewModel.strokeWidthPurple}" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_green"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.GREEN)}"
-                    app:strokeWidth="0dp" />
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="@{viewModel.strokeWidthGreen}" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/PinButton"
                     android:backgroundTint="@color/app_orange"
                     android:onClick="@{() -> viewModel.setThemeColor(ThemeColor.ORANGE)}"
-                    app:strokeWidth="0dp" />
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="@{viewModel.strokeWidthOrange}" />
             </LinearLayout>
 
 

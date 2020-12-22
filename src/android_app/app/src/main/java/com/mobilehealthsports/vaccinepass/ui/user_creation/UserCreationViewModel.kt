@@ -40,6 +40,10 @@ class UserCreationViewModel(
     val height = NonNullMutableLiveData("")
     val photoTaken = NonNullMutableLiveData(false)
 
+    val strokeWidthPurple = MutableLiveData(3)
+    val strokeWidthGreen = MutableLiveData(0)
+    val strokeWidthOrange = MutableLiveData(0)
+
     val currentPhotoPath: MutableLiveData<String?> = MutableLiveData(null)
 
     val finishBtnEnabled = Transformations.map(firstName) {
@@ -56,10 +60,23 @@ class UserCreationViewModel(
         sharedPreferences["selectedThemeColor"] = color.value
         _color.value = color
 
+        strokeWidthPurple.value = 0
+        strokeWidthGreen.value = 0
+        strokeWidthOrange.value = 0
+
         when (color) {
-            ThemeColor.PURPLE -> themeCallback?.invoke(R.style.VaccinePass_purple)
-            ThemeColor.GREEN -> themeCallback?.invoke(R.style.VaccinePass_green)
-            ThemeColor.ORANGE -> themeCallback?.invoke(R.style.VaccinePass_orange)
+            ThemeColor.PURPLE -> {
+                themeCallback?.invoke(R.style.VaccinePass_purple)
+                strokeWidthPurple.value = 3
+            }
+            ThemeColor.GREEN -> {
+                themeCallback?.invoke(R.style.VaccinePass_green)
+                strokeWidthGreen.value = 3
+            }
+            ThemeColor.ORANGE -> {
+                themeCallback?.invoke(R.style.VaccinePass_orange)
+                strokeWidthOrange.value = 3
+            }
         }
     }
 
