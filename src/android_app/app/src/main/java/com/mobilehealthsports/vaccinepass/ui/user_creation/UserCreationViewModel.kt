@@ -16,16 +16,11 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Navig
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.ui.start.StartActivity
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
-import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.ZoneId
-import java.util.*
 
 
 class UserCreationViewModel(
@@ -43,6 +38,13 @@ class UserCreationViewModel(
     val bloodType = NonNullMutableLiveData("")
     val weight = NonNullMutableLiveData("")
     val height = NonNullMutableLiveData("")
+    val photoTaken = NonNullMutableLiveData(false)
+
+    val strokeWidthPurple = MutableLiveData(3)
+    val strokeWidthGreen = MutableLiveData(0)
+    val strokeWidthOrange = MutableLiveData(0)
+
+    val currentPhotoPath: MutableLiveData<String?> = MutableLiveData(null)
 
     val finishBtnEnabled = Transformations.map(firstName) {
         it.isNotBlank()
@@ -58,10 +60,23 @@ class UserCreationViewModel(
         sharedPreferences["selectedThemeColor"] = color.value
         _color.value = color
 
+        strokeWidthPurple.value = 0
+        strokeWidthGreen.value = 0
+        strokeWidthOrange.value = 0
+
         when (color) {
-            ThemeColor.PURPLE -> themeCallback?.invoke(R.style.VaccinePass_purple)
-            ThemeColor.GREEN -> themeCallback?.invoke(R.style.VaccinePass_green)
-            ThemeColor.ORANGE -> themeCallback?.invoke(R.style.VaccinePass_orange)
+            ThemeColor.PURPLE -> {
+                themeCallback?.invoke(R.style.VaccinePass_purple)
+                strokeWidthPurple.value = 3
+            }
+            ThemeColor.GREEN -> {
+                themeCallback?.invoke(R.style.VaccinePass_green)
+                strokeWidthGreen.value = 3
+            }
+            ThemeColor.ORANGE -> {
+                themeCallback?.invoke(R.style.VaccinePass_orange)
+                strokeWidthOrange.value = 3
+            }
         }
     }
 
@@ -93,7 +108,8 @@ class UserCreationViewModel(
                 birthDate.value,
                 weight.value.toFloatOrNull(),
                 height.value.toFloatOrNull(),
-                color.value!!.value
+                color.value!!.value,
+                currentPhotoPath.value
             )
 
             val id = userRepository.insertUser(user)

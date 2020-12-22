@@ -3,7 +3,6 @@ package com.mobilehealthsports.vaccinepass.ui.user_select
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivitySelectUserBinding
@@ -40,7 +39,7 @@ class SelectUserActivity  : BaseActivity() {
         binding.lifecycleOwner = this
 
         messageService.subscribeToRequests(viewModel.messageRequest)
-        disposables.addAll(messageService)
+        disposables.addAll(messageService,navigationService)
     }
 
     override fun onDestroy() {

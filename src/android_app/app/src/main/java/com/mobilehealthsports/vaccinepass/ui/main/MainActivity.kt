@@ -47,7 +47,8 @@ class MainActivity : BaseActivity() {
         val lastUserId: Long = sharedPreferences[PreferenceHelper.LAST_USER_ID_PREF, -1L]!!
         lifecycle.coroutineScope.launch(Dispatchers.IO) {
             userRepository.getUser(lastUserId)?.let {
-                viewModel.user = it
+                // we are in the background thread, and mutable live data can only be set synchronous
+                viewModel.user.postValue(it)
             }
         }
 

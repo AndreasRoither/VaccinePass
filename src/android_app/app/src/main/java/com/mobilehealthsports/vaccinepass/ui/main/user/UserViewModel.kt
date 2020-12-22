@@ -7,6 +7,8 @@ import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.SelectUserRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import java.time.LocalDate
 import java.util.*
@@ -34,15 +36,25 @@ class UserViewModel : BaseViewModel() {
     val vaccineAdapter = VaccineViewAdapter {
         messageRequest.request(ToastRequest("Clicked"))
     }
+
+    private val _navigationRequest = ServiceRequest<NavigationRequest>()
+    val navigationRequest = _navigationRequest
+
     private var vaccineLength: Int = 10
     private var vaccineItems: MutableList<VaccineItem>
-    private var _user = MutableLiveData(User(0, "Test", "Test", "0 neg", LocalDate.of(2020, 4, 5), 75f, 180f, 1))
+    private var _user = MutableLiveData(User(0, "Test", "Test", "0 neg", LocalDate.of(2020, 4, 5), 75f, 180f, 1, null))
     var user: LiveData<User> = _user
     var listItems: MutableList<ListItem> = ArrayList()
 
     fun setUser(user: User?) {
         user?.let {
             _user.value = user
+        }
+    }
+
+    inner class CardClicked {
+        fun onCardClicked() {
+            navigationRequest.request(SelectUserRequest)
         }
     }
 
