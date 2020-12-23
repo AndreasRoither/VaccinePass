@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.PersistableBundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -36,6 +37,16 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
     private lateinit var binding: ActivityUserCreationBinding
     private val viewModel: UserCreationViewModel by stateViewModel()
     lateinit var currentPhotoPath: String
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        currentPhotoPath =  savedInstanceState.getString("currentPhotoPath", "")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("currentPhotoPath", currentPhotoPath)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +121,7 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             viewModel.currentPhotoPath.value = currentPhotoPath
 
-            ScaledBitmapLoader.setPic(currentPhotoPath, binding.fragmentUserCreationPhoto.width, binding.fragmentUserCreationPhoto.height, binding.fragmentUserCreationPhoto)
+            ScaledBitmapLoader.setPic(currentPhotoPath, 100, 100, binding.fragmentUserCreationPhoto)
             viewModel.photoTaken.value = true
         }
     }
@@ -150,7 +161,7 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
                 photoFile?.also {
                     val photoURI: Uri = FileProvider.getUriForFile(
                         this,
-                        "com.example.android.fileprovider",
+                        "com.mobilehealthsports.fileprovider",
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)

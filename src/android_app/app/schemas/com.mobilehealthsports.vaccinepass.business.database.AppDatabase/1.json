@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b1aae61a55f1b7a4fb03f54714bd2077",
+    "identityHash": "f9638c8be07c1b746c1a9a1f10790f35",
     "entities": [
       {
         "tableName": "user",
@@ -148,7 +148,7 @@
       },
       {
         "tableName": "vaccination",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `f_uid` INTEGER NOT NULL, `active` INTEGER NOT NULL, `refresh_date` INTEGER, `vaccination_date` INTEGER, FOREIGN KEY(`f_uid`) REFERENCES `vaccine`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `f_uid` INTEGER NOT NULL, `active` INTEGER NOT NULL, `refresh_date` INTEGER, `userId` TEXT NOT NULL, `vaccination_date` INTEGER, `expiresIn` TEXT NOT NULL, `doctorId` TEXT NOT NULL, `doctorName` TEXT NOT NULL, `signature` TEXT NOT NULL, FOREIGN KEY(`f_uid`) REFERENCES `vaccine`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "uid",
@@ -175,10 +175,40 @@
             "notNull": false
           },
           {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "vaccinationDate",
             "columnName": "vaccination_date",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "expiresIn",
+            "columnName": "expiresIn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "doctorId",
+            "columnName": "doctorId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "doctorName",
+            "columnName": "doctorName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "signature",
+            "columnName": "signature",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -215,7 +245,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b1aae61a55f1b7a4fb03f54714bd2077')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f9638c8be07c1b746c1a9a1f10790f35')"
     ]
   }
 }
