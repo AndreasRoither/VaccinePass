@@ -3,15 +3,13 @@ package com.mobilehealthsports.vaccinepass.ui.pin
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class PinViewModel : BaseViewModel() {
@@ -83,13 +81,16 @@ class PinViewModel : BaseViewModel() {
 
                 _pin.value?.let { pin ->
                     val count = pin.count()
+                    _pinCount.value = count
 
                     if (pin.count() >= pinLength) {
-                        _pinState.value = PinState.CONFIRM
-                        setText()
-                        _pinCount.value = 0
-                    } else {
-                        _pinCount.value = count
+                        viewModelScope.launch(Dispatchers.Main) {
+                            delay(DELAY_MS)
+
+                            _pinState.value = PinState.CONFIRM
+                            setText()
+                            _pinCount.value = 0
+                        }
                     }
                 }
             }
@@ -100,23 +101,27 @@ class PinViewModel : BaseViewModel() {
                     _pinCount.value = pin.count()
 
                     if (pin.count() >= pinLength) {
-                        if (_pin.value.equals(_pinConfirm.value)) {
-                            savePin()
-                            _pinConfirm.value = ""
-                            _pinCount.value = 0
-                            _correctPin.value = true
-                        } else {
-                            _pinConfirm.value = ""
-                            _pinCount.value = 0
+                        viewModelScope.launch(Dispatchers.Main) {
+                            delay(DELAY_MS)
+                            if (_pin.value.equals(_pinConfirm.value)) {
+                                savePin()
+                                _pinConfirm.value = ""
+                                _pinCount.value = 0
+                                _correctPin.value = true
 
-                            currentErrorCoroutine?.cancel()
-                            currentErrorCoroutine = GlobalScope.launch {
-                                // important: call postValue since its also asynchronous
-                                _titleColor.postValue(ERROR_COLOR)
-                                _titleText.postValue(R.string.pin_title_error)
-                                delay(ERROR_DELAY)
-                                _titleColor.postValue(DEFAULT_COLOR)
-                                _titleText.postValue(R.string.pin_title_confirm)
+                            } else {
+                                _pinConfirm.value = ""
+                                _pinCount.value = 0
+
+                                currentErrorCoroutine?.cancel()
+                                currentErrorCoroutine = GlobalScope.launch {
+                                    // important: call postValue since its also asynchronous
+                                    _titleColor.postValue(ERROR_COLOR)
+                                    _titleText.postValue(R.string.pin_title_error)
+                                    delay(ERROR_DELAY)
+                                    _titleColor.postValue(DEFAULT_COLOR)
+                                    _titleText.postValue(R.string.pin_title_confirm)
+                                }
                             }
                         }
                     }
@@ -128,23 +133,26 @@ class PinViewModel : BaseViewModel() {
                 _pin.value?.let { pin ->
                     _pinCount.value = pin.count()
 
-                    if (pin.count() >= pinLength) {
-                        val correctPin =
-                            sharedPreferences.getString(SHARED_PREF_KEY, "").equals(pin)
+                    viewModelScope.launch(Dispatchers.Main) {
+                        delay(DELAY_MS)
+                        if (pin.count() >= pinLength) {
+                            val correctPin =
+                                sharedPreferences.getString(SHARED_PREF_KEY, "").equals(pin)
 
-                        _correctPin.value = correctPin
-                        _pin.value = ""
-                        _pinCount.value = 0
+                            _correctPin.value = correctPin
+                            _pin.value = ""
+                            _pinCount.value = 0
 
-                        if (!correctPin) {
-                            currentErrorCoroutine?.cancel()
-                            currentErrorCoroutine = GlobalScope.launch {
-                                // important: call postValue since its also asynchronous
-                                _titleColor.postValue(ERROR_COLOR)
-                                _titleText.postValue(R.string.pin_title_error)
-                                delay(ERROR_DELAY)
-                                _titleColor.postValue(DEFAULT_COLOR)
-                                _titleText.postValue(R.string.pin_title)
+                            if (!correctPin) {
+                                currentErrorCoroutine?.cancel()
+                                currentErrorCoroutine = GlobalScope.launch {
+                                    // important: call postValue since its also asynchronous
+                                    _titleColor.postValue(ERROR_COLOR)
+                                    _titleText.postValue(R.string.pin_title_error)
+                                    delay(ERROR_DELAY)
+                                    _titleColor.postValue(DEFAULT_COLOR)
+                                    _titleText.postValue(R.string.pin_title)
+                                }
                             }
                         }
                     }
@@ -201,6 +209,7 @@ class PinViewModel : BaseViewModel() {
     }
 
     companion object {
+        private const val DELAY_MS = 200L
         const val SHARED_PREF_KEY = "PIN"
         const val DEFAULT_COLOR = R.color.black
         const val ERROR_COLOR = R.color.error_red
