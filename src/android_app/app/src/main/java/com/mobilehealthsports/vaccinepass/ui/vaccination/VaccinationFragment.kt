@@ -64,10 +64,10 @@ class VaccinationFragment : Fragment() {
          * @return A new instance of fragment VaccinationFragment.
          */
         @JvmStatic
-        fun newInstance(vaccinationId: String) =
+        fun newInstance(vaccinationId: Long) =
             VaccinationFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM_ID, vaccinationId)
+                    putLong(ARG_PARAM_ID, vaccinationId)
                 }
             }
     }

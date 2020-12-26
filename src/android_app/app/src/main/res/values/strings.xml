@@ -63,6 +63,7 @@
     -->
     <string name="activity_select_user_pic_description">Picture for UserSelection</string>
     <string name="activity_select_user_header">Select User:</string>
+    <string name="select_user_btn_add">Add User</string>
 
     <!--
     User creation Fragment
@@ -78,5 +79,15 @@
     <string name="fragment_user_creation_select_a_theme">Select a theme</string>
     <string name="fragment_user_creation_upload_photo">Upload photo</string>
     <string name="fragment_user_creation_finish">Finish</string>
-    <string name="select_user_btn_add">Add User</string>
+
+
+    <!--
+    Vaccination Fragment
+    -->
+    <string name="fragment_vaccination_date">Vaccination Date</string>
+    <string name="fragment_vaccination_vaccination">Vaccination</string>
+    <string name="fragment_vaccination_refresh_date">Refresh Date</string>
+    <string name="fragment_vaccination_expire_date">Expire Date</string>
+    <string name="fragment_vaccination_doctor">Doctor</string>
+
 </resources>

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.business.repository.UserRepository
 import com.mobilehealthsports.vaccinepass.databinding.FragmentUserBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
+import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
 import com.mobilehealthsports.vaccinepass.util.ScaledBitmapLoader
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -46,7 +46,6 @@ class UserFragment : Fragment() {
         navigationService.subscribeToRequests(viewModel.navigationRequest)
 
         binding.cardClick = viewModel.CardClicked()
-      
         binding.viewModel = viewModel
         binding.lifecycleOwner = requireActivity()
 
@@ -59,8 +58,18 @@ class UserFragment : Fragment() {
             }
         })
 
+        viewModel.selectedId.observe(viewLifecycleOwner, {
+            if (it < 0) return@observe
+
+            when(activity) {
+                is MainActivity -> {
+                    (activity as MainActivity).replaceWithVaccinationFragment(it)
+                }
+            }
+        })
+
         messageService.subscribeToRequests(viewModel.messageRequest)
-        disposables.addAll(messageService,navigationService)
+        disposables.addAll(messageService, navigationService)
     }
 
     override fun onDestroy() {

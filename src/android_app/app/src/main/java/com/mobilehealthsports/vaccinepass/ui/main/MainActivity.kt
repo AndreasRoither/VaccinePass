@@ -19,6 +19,7 @@ import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsFragment
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserFragment
 import com.mobilehealthsports.vaccinepass.ui.main.vaccine.VaccineFragment
+import com.mobilehealthsports.vaccinepass.ui.vaccination.VaccinationFragment
 import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
@@ -132,6 +133,14 @@ class MainActivity : BaseActivity() {
                 add<AddVaccineFragment>(R.id.dialog_container_view, AddVaccineFragment.TAG)
             }
             it.isEnabled = false
+        }
+    }
+
+    fun replaceWithVaccinationFragment(id: Long) {
+        val fragment = VaccinationFragment.newInstance(id)
+
+        supportFragmentManager.commit {
+            replace(R.id.fragment_container_view, fragment)
         }
     }
 

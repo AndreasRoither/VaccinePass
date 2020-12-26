@@ -1,21 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.text.TextUtils" />
 
         <variable
             name="viewModel"
             type="com.mobilehealthsports.vaccinepass.ui.vaccination.VaccinationViewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_vaccine_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawable_layout_round_border"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.vaccineName}"
+                        android:textColor="?colorPrimary"
+                        android:textSize="30sp"
+                        tools:text="Vaccine Name" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.vaccineCompany}"
+                        android:textColor="?colorPrimary"
+                        android:textSize="15sp"
+                        tools:text="Vaccine Company" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.userId}"
+                        android:textColor="?colorPrimary"
+                        android:textSize="15sp"
+                        tools:text="User Id" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/add_vaccine_ic_syringe"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/fragment_vaccination_vaccination"
+                        android:src="@drawable/ic_vial" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/fragment_add_margins"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/fragment_add_ic_size"
+                                android:layout_height="@dimen/fragment_add_ic_size"
+                                android:layout_gravity="center"
+                                android:background="@drawable/drawable_add_vaccine_ic_background"
+                                android:contentDescription="@string/add_vaccine_ic_calendar_description"
+                                android:padding="5dp"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="@color/white" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/fragment_add_margins"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{viewModel.vaccinationDate}"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp"
+                                        tools:text="22.10.2020" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/fragment_vaccination_date"
+                                        android:textColor="@color/grey" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/fragment_add_margins"
+                                    android:layout_marginTop="15dp"
+                                    android:boolean_visibility="@{!viewModel.refreshDate.empty}"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{viewModel.refreshDate}"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp"
+                                        tools:text="22.10.2020" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/fragment_vaccination_refresh_date"
+                                        android:textColor="@color/grey" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/fragment_add_margins"
+                                    android:layout_marginTop="15dp"
+                                    android:boolean_visibility="@{!viewModel.expiresIn.empty}"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{viewModel.expiresIn}"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp"
+                                        tools:text="22.10.2020" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/fragment_vaccination_expire_date"
+                                        android:textColor="@color/grey" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/fragment_add_ic_size"
+                                android:layout_height="@dimen/fragment_add_ic_size"
+                                android:layout_gravity="center"
+                                android:background="@drawable/drawable_add_vaccine_ic_background"
+                                android:contentDescription="@string/add_vaccine_ic_calendar_description"
+                                android:padding="5dp"
+                                android:src="@drawable/ic_user"
+                                app:tint="@color/white" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/fragment_add_margins"
+                                    android:boolean_visibility="@{!viewModel.expiresIn.empty}"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{viewModel.doctorName}"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp"
+                                        tools:text="Dr. Test" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/fragment_vaccination_doctor"
+                                        android:textColor="@color/grey" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

@@ -7,10 +7,13 @@ import com.mobilehealthsports.vaccinepass.business.models.Vaccination
 import com.mobilehealthsports.vaccinepass.business.repository.VaccinationRepository
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class VaccinationViewModel(private val vaccinationRepository: VaccinationRepository) : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
@@ -18,6 +21,14 @@ class VaccinationViewModel(private val vaccinationRepository: VaccinationReposit
 
     val vaccinationId: MutableLiveData<Long?> = MutableLiveData(null)
     val vaccination: MutableLiveData<Vaccination?> = MutableLiveData(null)
+
+    val vaccineName: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+    val vaccineCompany: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+    val vaccinationDate: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+    val refreshDate: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+    val expiresIn: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+    val userId: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+    val doctorName: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
 
     private var observer: Observer<Long?>
 
@@ -32,7 +43,11 @@ class VaccinationViewModel(private val vaccinationRepository: VaccinationReposit
 
     private fun queryVaccination(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            vaccination.postValue(vaccinationRepository.getVaccination(id))
+            try {
+                vaccination.postValue(vaccinationRepository.getVaccination(id))
+            } catch(ex: Exception) {
+                messageRequest.request(ToastRequest("Could not load vaccination"))
+            }
         }
     }
 
