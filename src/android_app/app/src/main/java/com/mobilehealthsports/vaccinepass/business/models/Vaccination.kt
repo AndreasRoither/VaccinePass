@@ -7,7 +7,13 @@ data class Vaccination(
         val f_uid: Long,
         val active: Boolean,
         val refreshDate: LocalDate?,
+        val userId: String,
         val vaccinationDate: LocalDate?,
+        val expiresIn: String,
+        val doctorId: String,
+        val doctorName: String,
+        val signature: String,
+
 ) {
     fun refreshDateInPast(): Boolean {
         return when (refreshDate) {

@@ -1,6 +1,6 @@
-package com.example.doctor_app.model
+package com.mobilehealthsports.vaccinepass.ui.main.add_vaccine
 
-data class VaccineInfo(
+data class ReceivedVaccineInfo(
     val userId: String,
     val productName: String,
     val vaccinationDate: String,

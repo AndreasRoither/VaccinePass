@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const { Client } = require('pg');
 const bcrypt = require('bcrypt');
+var CryptoJS = require("crypto-js");
+const constants = require('constants');
 
 var connectionString = "postgres://admin:123@database:5432/postgres";
 
@@ -34,7 +36,7 @@ app.post('/register', (req, response) => {
             if (err !== undefined && err != null) {
                 response.json({name: user.name, mail: user.mail, success: false});
                 // log the error to console
-                console.log("Postgres INSERT error:", err);
+                console.log("Postgres INSERT error:", err); 
             
                 // get the keys for the error
                 var keys = Object.keys(err);
@@ -177,14 +179,47 @@ app.post('/loginDoctor', (req, response) => {
 });
 
 
-app.post('/addVaccine', (req, res) => {
-    // get object (data from qr code: vaccine stuff, userid or mail, docker mail, signature)
-    // retrive public key with the docker mail
-    // verify signature with public key
-    // if successful
-    //      - add vaccine to user 
-    //      - send successful response
+app.post('/addVaccine', (req, response) => {
+    var success = true;
+
+
+
+    console.log("received vacccine!!!!!!!!!");
+    var signedVaccinationObject = JSON.parse(JSON.stringify(req.body))
+    var receivedSignature = signedVaccinationObject.signature;
+    var receivedData = signedVaccinationObject.data;
+    var receivedDataObject = JSON.parse(receivedData);
+
+    var queryString = "SELECT public_key FROM doctors WHERE mail = " + "'" + receivedDataObject.doctorId + "'";
+
+    client.query(queryString)
+        .then(
+            res => {
+
+                var success = false;
+                var publicKey = CryptoJS.enc.Base64.parse(res.rows[0].public_key);
+                var decryptedMessage = decrypt(receivedSignature, publicKey);
+
+                if (decryptedMessage === receivedData) {
+                    success = true;
+                    console.log("Vaccine verified!!!");
+                }
+                
+                response.json({success: success})
+             
+            }).catch(e => console.error(e.stack))
 })
+
+
+function decrypt(message = '', key = ''){
+    var code = CryptoJS.AES.decrypt(message, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+        });
+    var decryptedMessage = code.toString(CryptoJS.enc.Utf8);
+
+    return decryptedMessage;
+}
 
 
 app.listen(3000, () => {

@@ -1,6 +1,5 @@
 package com.mobilehealthsports.vaccinepass.presentation.services.navigation
 
-import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 
 sealed class NavigationRequest

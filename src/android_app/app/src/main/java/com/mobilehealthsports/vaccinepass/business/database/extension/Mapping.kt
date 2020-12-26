@@ -73,7 +73,12 @@ fun DbVaccination.toVaccination() = Vaccination(
     f_uid = f_uid,
     active = active,
     refreshDate = refreshDate,
-    vaccinationDate = vaccinationDate
+    userId = userId,
+    vaccinationDate = vaccinationDate,
+    expiresIn = expiresIn,
+    doctorId = doctorId,
+    doctorName = doctorName,
+    signature = signature
 )
 
 fun Vaccination.toDb() = DbVaccination(
@@ -81,5 +86,10 @@ fun Vaccination.toDb() = DbVaccination(
     f_uid = f_uid,
     active = active,
     refreshDate = refreshDate,
-    vaccinationDate = vaccinationDate
+    userId = userId,
+    vaccinationDate = vaccinationDate,
+    expiresIn = expiresIn,
+    doctorId = doctorId,
+    doctorName = doctorName,
+    signature = signature
 )

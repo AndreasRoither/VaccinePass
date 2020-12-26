@@ -68,10 +68,14 @@ object InjectionModules {
         module {
             viewModel { AddViewModel() }
             viewModel { CalendarViewModel(get()) }
+<<<<<<< HEAD
             viewModel { TestViewModel() }
             viewModel { MainViewModel() }
             viewModel { PinViewModel() }
+            viewModel { SelectUserViewModel(get()) }
+=======
             viewModel { SelectUserViewModel(get(), get()) }
+>>>>>>> main
             viewModel { SettingsViewModel() }
             viewModel { UserCreationViewModel(get(), get()) }
             viewModel { UserViewModel() }
