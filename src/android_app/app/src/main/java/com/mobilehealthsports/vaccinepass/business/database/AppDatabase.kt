@@ -23,6 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         // Singleton prevents multiple instances of database opening at the
         // same time.
+
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
@@ -34,7 +35,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                )
+                    .createFromAsset("database/init.db")
+                    .build()
                 INSTANCE = instance
                 // return instance
                 instance
