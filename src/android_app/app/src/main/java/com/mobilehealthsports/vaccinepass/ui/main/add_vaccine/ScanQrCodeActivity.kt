@@ -130,7 +130,7 @@ class ScanQrCodeActivity : BaseActivity() {
             signature)
     }
 
-    private fun calculateExpirationDate(vaccintationDate: LocalDate, expiresIn: String): LocalDate {
+    private fun calculateExpirationDate(vaccinationDate: LocalDate, expiresIn: String): LocalDate {
         val months: Long = when(expiresIn) {
             "never" -> 1200
             "0.5 year" -> 6
@@ -140,7 +140,7 @@ class ScanQrCodeActivity : BaseActivity() {
             else -> 0
         }
 
-        return vaccintationDate.plusMonths(months)
+        return vaccinationDate.plusMonths(months)
     }
 
     private fun insertDummyVaccine() {

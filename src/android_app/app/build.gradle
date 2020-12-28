@@ -148,4 +148,7 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 
+    // qr code generation
+    implementation 'com.google.zxing:core:3.4.0'
+
 }
