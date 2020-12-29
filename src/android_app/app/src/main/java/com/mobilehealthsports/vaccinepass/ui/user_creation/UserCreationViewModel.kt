@@ -33,6 +33,8 @@ class UserCreationViewModel(
     val permissionRequest = MutableLiveData<String>()
 
     private val errorText = "Required"
+    private val errorTextValidity = "Contains non valid characters"
+
     val firstName = NonNullMutableLiveData("")
     val lastName = NonNullMutableLiveData("")
     val bloodType = NonNullMutableLiveData("")
@@ -81,8 +83,18 @@ class UserCreationViewModel(
     }
 
     fun errorTextString(str: String): String {
-        return if (str.isBlank()) errorText
-        else ""
+        return when {
+            str.isBlank() -> errorText
+            str.matches("[*/\\\'%;\"]+".toRegex()) -> errorTextValidity
+            else -> ""
+        }
+    }
+
+    fun errorTextStringWithoutBlank(str: String): String {
+        return when {
+            str.matches("[*/\\\'%;\"]+".toRegex()) -> errorTextValidity
+            else -> ""
+        }
     }
 
     fun setBirthDate(date: LocalDate?) {
@@ -95,21 +107,28 @@ class UserCreationViewModel(
 
     fun finish() {
 
-        if (bloodType.value.isBlank()) bloodType.value = "-"
-        if (weight.value.isBlank()) weight.value = "0"
-        if (height.value.isBlank()) height.value = "0"
+        if (bloodType.value.isEmpty()) bloodType.value = "-"
+        if (weight.value.isEmpty()) weight.value = "0"
+        if (height.value.isEmpty()) height.value = "0"
 
         viewModelScope.launch(Dispatchers.IO) {
+
+            val tempFirst = sanitizeString(firstName.value)
+            val tempLast = sanitizeString(lastName.value)
+            val tempType = sanitizeString(bloodType.value)
+            val tempWeight = weight.value.toFloatOrNull()
+            val tempHeight = height.value.toFloatOrNull()
+
             val user = User(
-                0,
-                firstName.value,
-                lastName.value,
-                bloodType.value,
-                birthDate.value,
-                weight.value.toFloatOrNull(),
-                height.value.toFloatOrNull(),
-                color.value!!.value,
-                currentPhotoPath.value
+                uid = 0,
+                firstName = tempFirst,
+                lastName = tempLast,
+                bloodType = tempType,
+                weight = tempWeight,
+                height = tempHeight,
+                birthDay = birthDate.value,
+                themeColor = _color.value.value,
+                photoPath = currentPhotoPath.value
             )
 
             val id = userRepository.insertUser(user)
@@ -131,5 +150,14 @@ class UserCreationViewModel(
                 messageRequest.request(ToastRequest("Id null. Could not insert user"))
             }
         }
+    }
+
+    private fun sanitizeString(str: String): String {
+        return str.replace("\\", "")
+            .replace(";", "")
+            .replace("%", "")
+            .replace("\"", "")
+            .replace("\'", "")
+            .replace("*", "")
     }
 }
