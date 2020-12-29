@@ -89,5 +89,6 @@
     <string name="fragment_vaccination_refresh_date">Refresh Date</string>
     <string name="fragment_vaccination_expire_date">Expire Date</string>
     <string name="fragment_vaccination_doctor">Doctor</string>
+    <string name="qr_code_view">qr_code</string>
 
 </resources>

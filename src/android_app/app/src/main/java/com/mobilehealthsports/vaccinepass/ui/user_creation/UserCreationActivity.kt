@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.PersistableBundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -36,11 +35,11 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
     private val navigationService: NavigationService by inject { parametersOf(this) }
     private lateinit var binding: ActivityUserCreationBinding
     private val viewModel: UserCreationViewModel by stateViewModel()
-    lateinit var currentPhotoPath: String
+    private var currentPhotoPath: String = ""
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        currentPhotoPath =  savedInstanceState.getString("currentPhotoPath", "")
+        currentPhotoPath = savedInstanceState.getString("currentPhotoPath", "")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

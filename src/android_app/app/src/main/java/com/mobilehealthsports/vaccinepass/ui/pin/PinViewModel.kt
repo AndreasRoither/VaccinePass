@@ -8,6 +8,7 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import kotlinx.coroutines.*
 
@@ -40,7 +41,7 @@ class PinViewModel : BaseViewModel() {
     private var _pin = MutableLiveData("")
     private var _pinConfirm = MutableLiveData("")
 
-    private var _pinCount = MutableLiveData(0)
+    private var _pinCount = NonNullMutableLiveData(0)
     val pinCount: LiveData<Int> = _pinCount
 
     private var _correctPin = MutableLiveData(false)
@@ -74,6 +75,7 @@ class PinViewModel : BaseViewModel() {
     }
 
     fun onPin(digit: Char) {
+        if (_pinCount.value >= pinLength) return
 
         when (_pinState.value) {
             PinState.INITIAL -> {

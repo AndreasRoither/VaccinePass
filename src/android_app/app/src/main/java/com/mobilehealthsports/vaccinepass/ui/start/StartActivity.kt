@@ -3,7 +3,6 @@ package com.mobilehealthsports.vaccinepass.ui.start
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.mobilehealthsports.vaccinepass.BuildConfig
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.TestActivity
@@ -25,26 +24,31 @@ class StartActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        lastUserId = sharedPreferences[LAST_USER_ID_PREF, -1L]!!
-
-        if (lastUserId != -1L) {
-            // pin check
-            startActivityForResult(
-                PinActivity.intent(
-                    this,
-                    PinViewModel.PinState.CHECK,
-                    PIN_LENGTH
-                ), REQUESTS.PIN.code
-            )
+        if (BuildConfig.DEBUG) {
+            startActivity(TestActivity.intent(this))
+            finish()
         } else {
-            // pin on-boarding
-            startActivityForResult(
-                PinActivity.intent(
-                    this,
-                    PinViewModel.PinState.INITIAL,
-                    PIN_LENGTH
-                ), REQUESTS.PIN.code
-            )
+            lastUserId = sharedPreferences[LAST_USER_ID_PREF, -1L]!!
+
+            if (lastUserId != -1L) {
+                // pin check
+                startActivityForResult(
+                    PinActivity.intent(
+                        this,
+                        PinViewModel.PinState.CHECK,
+                        PIN_LENGTH
+                    ), REQUESTS.PIN.code
+                )
+            } else {
+                // pin on-boarding
+                startActivityForResult(
+                    PinActivity.intent(
+                        this,
+                        PinViewModel.PinState.INITIAL,
+                        PIN_LENGTH
+                    ), REQUESTS.PIN.code
+                )
+            }
         }
     }
 
@@ -55,7 +59,13 @@ class StartActivity : BaseActivity() {
             REQUESTS.PIN.code -> {
                 // if result code is not ok restart
                 if (resultCode != RESULT_OK) {
-                    startActivityForResult(PinActivity.intent(this, PinViewModel.PinState.INITIAL, PIN_LENGTH), REQUESTS.PIN.code)
+                    startActivityForResult(
+                        PinActivity.intent(
+                            this,
+                            PinViewModel.PinState.INITIAL,
+                            PIN_LENGTH
+                        ), REQUESTS.PIN.code
+                    )
                 }
 
                 val result: Boolean = data?.getBooleanExtra("result", false) == true
@@ -68,7 +78,13 @@ class StartActivity : BaseActivity() {
                     finish()
                 } else {
                     // just restart pin on-boarding again
-                    startActivityForResult(PinActivity.intent(this, PinViewModel.PinState.INITIAL, PIN_LENGTH), REQUESTS.PIN.code)
+                    startActivityForResult(
+                        PinActivity.intent(
+                            this,
+                            PinViewModel.PinState.INITIAL,
+                            PIN_LENGTH
+                        ), REQUESTS.PIN.code
+                    )
                 }
             }
             REQUESTS.USER.code -> {
@@ -80,7 +96,7 @@ class StartActivity : BaseActivity() {
 
                 if (result != -1L) {
                     sharedPreferences[LAST_USER_ID_PREF] = result
-                    startActivity(MainActivity.intent(this, ))
+                    startActivity(MainActivity.intent(this))
                     finish()
                 }
 
@@ -89,7 +105,13 @@ class StartActivity : BaseActivity() {
                     startActivityForResult(UserCreationActivity.intent(this), REQUESTS.USER.code)
                 } else {
                     // just restart pin on-boarding again
-                    startActivityForResult(PinActivity.intent(this, PinViewModel.PinState.INITIAL, PIN_LENGTH), REQUESTS.PIN.code)
+                    startActivityForResult(
+                        PinActivity.intent(
+                            this,
+                            PinViewModel.PinState.INITIAL,
+                            PIN_LENGTH
+                        ), REQUESTS.PIN.code
+                    )
                 }
             }
         }

@@ -53,7 +53,9 @@ class UserFragment : Fragment() {
             user?.let {
                 viewModel.setUser(it)
                 it.photoPath?.let { photoPath ->
-                    ScaledBitmapLoader.setPic(photoPath, 100, 100, binding.fragmentUserPhoto)
+                    if (photoPath.isNotEmpty()) {
+                        ScaledBitmapLoader.setPic(photoPath, 100, 100, binding.fragmentUserPhoto)
+                    }
                 }
             }
         })

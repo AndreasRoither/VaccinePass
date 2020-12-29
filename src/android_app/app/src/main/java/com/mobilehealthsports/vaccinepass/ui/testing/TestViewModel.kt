@@ -1,10 +1,18 @@
 package com.mobilehealthsports.vaccinepass.ui.testing
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import com.mobilehealthsports.vaccinepass.business.models.User
+import com.mobilehealthsports.vaccinepass.business.models.Vaccination
+import com.mobilehealthsports.vaccinepass.business.models.Vaccine
+import com.mobilehealthsports.vaccinepass.business.repository.VaccinationRepository
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.*
+import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ReceivedVaccineInfo
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class TestViewModel : ViewModel() {
@@ -36,5 +44,11 @@ class TestViewModel : ViewModel() {
 
     fun startUserCreationFragment() {
         navigationRequest.request(UserCreationRequest("UserCreationFragment"))
+    }
+
+    fun addActiveVaccination() {
+        navigationRequest.request(
+            FragmentTestRequest("AddVaccination")
+        )
     }
 }

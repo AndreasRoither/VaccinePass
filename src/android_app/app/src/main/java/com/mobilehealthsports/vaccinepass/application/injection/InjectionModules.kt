@@ -74,8 +74,8 @@ object InjectionModules {
             viewModel { SelectUserViewModel(get(), get()) }
             viewModel { SettingsViewModel() }
             viewModel { UserCreationViewModel(get(), get()) }
-            viewModel { UserViewModel() }
-            viewModel { VaccinationViewModel(get()) }
+            viewModel { UserViewModel(get(), get()) }
+            viewModel { VaccinationViewModel(get(), get()) }
         }
     )
 }
