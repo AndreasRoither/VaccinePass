@@ -23,21 +23,21 @@ class SelectUserActivity  : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter = SelectUserViewAdapter(viewModel.userList, viewModel.ItemClickListener())
 
         val binding: ActivitySelectUserBinding = DataBindingUtil.setContentView(
                 this,
                 R.layout.activity_select_user
         )
         binding.viewModel = viewModel
-
-
-        navigationService.subscribeToRequests(viewModel.navigationRequest)
-
-        adapter = SelectUserViewAdapter(viewModel.userList, viewModel.ItemClickListener())
-
         binding.selectUserRecyclerview.adapter = adapter
         binding.lifecycleOwner = this
 
+        viewModel.userChanged.observe(this, {
+            adapter.notifyDataSetChanged()
+        })
+
+        navigationService.subscribeToRequests(viewModel.navigationRequest)
         messageService.subscribeToRequests(viewModel.messageRequest)
         disposables.addAll(messageService,navigationService)
     }

@@ -9,6 +9,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainR
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.UserCreationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,7 @@ class SelectUserViewModel(val sharedPreferences: SharedPreferences, private val 
     val navigationRequest = _navigationRequest
 
     var userList: MutableList<User> = ArrayList()
+    var userChanged: NonNullMutableLiveData<Boolean> = NonNullMutableLiveData(false)
 
     fun startUserCreation() {
         navigationRequest.request(UserCreationRequest())
@@ -37,7 +39,9 @@ class SelectUserViewModel(val sharedPreferences: SharedPreferences, private val 
     init {
         GlobalScope.launch(Dispatchers.IO) {
             userRepository.getAllUsers().let {
+                userList.clear()
                 userList.addAll(it)
+                userChanged.postValue(true)
             }
         }
     }
