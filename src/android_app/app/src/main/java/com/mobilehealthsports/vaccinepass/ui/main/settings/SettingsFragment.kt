@@ -53,7 +53,7 @@ class SettingsFragment : Fragment() {
             user?.let {
                 viewModel.setUser(it)
                 it.photoPath?.let { photoPath ->
-                    ScaledBitmapLoader.setPic(photoPath, 100, 100, binding.fragmentSettingsUserPhoto)
+                    ScaledBitmapLoader.setPic(photoPath, 70, 70, binding.fragmentSettingsUserPhoto)
                 }
             }
         })
