@@ -12,6 +12,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.AppMess
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNavigationService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
+import com.mobilehealthsports.vaccinepass.ui.introduction.IntroductionViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarViewModel
@@ -68,7 +69,7 @@ object InjectionModules {
         module {
             viewModel { AddViewModel() }
             viewModel { CalendarViewModel(get()) }
-            viewModel { TestViewModel() }
+            viewModel { TestViewModel(get()) }
             viewModel { MainViewModel() }
             viewModel { PinViewModel() }
             viewModel { SelectUserViewModel(get(), get()) }
@@ -76,6 +77,7 @@ object InjectionModules {
             viewModel { UserCreationViewModel(get(), get()) }
             viewModel { UserViewModel(get(), get()) }
             viewModel { VaccinationViewModel(get(), get()) }
+            viewModel { IntroductionViewModel() }
         }
     )
 }

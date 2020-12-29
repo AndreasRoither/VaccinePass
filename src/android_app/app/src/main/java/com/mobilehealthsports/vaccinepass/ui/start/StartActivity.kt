@@ -1,11 +1,13 @@
 package com.mobilehealthsports.vaccinepass.ui.start
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.mobilehealthsports.vaccinepass.BuildConfig
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.TestActivity
+import com.mobilehealthsports.vaccinepass.ui.introduction.IntroductionActivity
 import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
@@ -24,7 +26,9 @@ class StartActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        if (BuildConfig.DEBUG) {
+        val buildConfigExtra = intent.getBooleanExtra(EXTRA_1, true)
+
+        if (BuildConfig.DEBUG && buildConfigExtra) {
             startActivity(TestActivity.intent(this))
             finish()
         } else {
@@ -40,13 +44,11 @@ class StartActivity : BaseActivity() {
                     ), REQUESTS.PIN.code
                 )
             } else {
-                // pin on-boarding
+                // introduction
                 startActivityForResult(
-                    PinActivity.intent(
-                        this,
-                        PinViewModel.PinState.INITIAL,
-                        PIN_LENGTH
-                    ), REQUESTS.PIN.code
+                    IntroductionActivity.intent(
+                        this
+                    ), REQUESTS.INTRO.code
                 )
             }
         }
@@ -114,17 +116,36 @@ class StartActivity : BaseActivity() {
                     )
                 }
             }
+            REQUESTS.INTRO.code -> {
+                // start pin on-boarding
+                startActivityForResult(
+                    PinActivity.intent(
+                        this,
+                        PinViewModel.PinState.INITIAL,
+                        PIN_LENGTH
+                    ), REQUESTS.PIN.code
+                )
+            }
         }
     }
 
     enum class REQUESTS(val code: Int) {
         PIN(1),
-        USER(2)
+        USER(2),
+        INTRO(3)
     }
 
     companion object {
+        private const val EXTRA_1 = "ignoreBuild"
         const val PIN_LENGTH = 4
         const val LAST_USER_ID_PREF = "lastUserId"
+
+        // create intent to navigate to this class
+        fun intent(context: Context, buildFlag: Boolean): Intent {
+            return Intent(context, StartActivity::class.java).apply {
+                putExtra(EXTRA_1, buildFlag)
+            }
+        }
     }
 }
 
