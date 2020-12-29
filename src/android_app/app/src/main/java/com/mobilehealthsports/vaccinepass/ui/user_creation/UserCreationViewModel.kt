@@ -33,8 +33,9 @@ class UserCreationViewModel(
     var themeCallback: ((Int) -> Unit)? = null
     val permissionRequest = MutableLiveData<String>()
 
-    private val errorText = "Required"
-    private val errorTextValidity = "Contains non valid characters"
+    val errorText = NonNullMutableLiveData("")
+    val errorTextValidity = NonNullMutableLiveData("")
+
     private val regex = "[*/\\\'%;\"]+".toRegex()
 
     val firstName = NonNullMutableLiveData("")
@@ -86,15 +87,15 @@ class UserCreationViewModel(
 
     fun errorTextString(str: String): String {
         return when {
-            str.isBlank() -> errorText
-            regex.containsMatchIn(str) -> errorTextValidity
+            str.isBlank() -> errorText.value
+            regex.containsMatchIn(str) -> errorTextValidity.value
             else -> ""
         }
     }
 
     fun errorTextStringWithoutBlank(str: String): String {
         return when {
-            regex.containsMatchIn(str) -> errorTextValidity
+            regex.containsMatchIn(str) -> errorTextValidity.value
             else -> ""
         }
     }
@@ -120,7 +121,6 @@ class UserCreationViewModel(
             val tempType = sanitizeString(bloodType.value)
             val tempWeight = weight.value.toFloatOrNull()
             val tempHeight = height.value.toFloatOrNull()
-            val themeColor = _color.value.value
 
             val user = User(
                 uid = 0,

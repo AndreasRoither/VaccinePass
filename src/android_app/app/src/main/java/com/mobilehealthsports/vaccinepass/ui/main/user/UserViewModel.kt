@@ -44,6 +44,7 @@ data class VaccineItem(
 }
 
 enum class VaccineState(val text: String) {
+    ALL("All"),
     ACTIVE("Active Vaccinations"),
     SCHEDULED("Scheduled Vaccinations"),
     NOT_SCHEDULED("Expired Vaccinations"),
@@ -51,7 +52,7 @@ enum class VaccineState(val text: String) {
 }
 
 class UserViewModel(
-    private val vaccinationRespository: VaccinationRepository,
+    private val vaccinationRepository: VaccinationRepository,
     private val vaccineRepository: VaccineRepository
 ) : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
@@ -85,21 +86,21 @@ class UserViewModel(
         }
     }
 
-    suspend fun loadVaccinations(currentUser: User) {
-        var vaccinations: List<Vaccination>? = vaccinationRespository.getAllActiveVaccinations()
+    private suspend fun loadVaccinations(currentUser: User) {
+        val vaccinations: List<Vaccination>? = vaccinationRepository.getAllActiveVaccinations()
         vaccinations?.let { list ->
             list.filter {
-                it.userId.toLong().equals(currentUser.uid)
+                it.userId.toLong() == currentUser.uid
             }
 
             val itemsList = mutableListOf<VaccineItem>()
 
             list.forEach { item ->
                 val vaccine: Vaccine? = vaccineRepository.getVaccine(item.f_uid)
-                vaccine?.let { vaccine ->
+                vaccine?.let { vac ->
                     val vacItem = VaccineItem(
                         item.uid,
-                        vaccine.name,
+                        vac.name,
                         item.vaccinationDate!!,
                         VaccineState.ACTIVE,
                         this::onItemClick
@@ -109,7 +110,6 @@ class UserViewModel(
             }
             mapListItems(itemsList)
         }
-
     }
 
     private fun mapListItems(vaccineItems: MutableList<VaccineItem>) {

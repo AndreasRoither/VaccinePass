@@ -66,6 +66,9 @@ class UserCreationActivity : BaseActivity(), EasyPermissions.PermissionCallbacks
             application?.setTheme(themeId)
         }
 
+        viewModel.errorText.value = getString(R.string.fragment_user_creation_error_required)
+        viewModel.errorTextValidity.value = getString(R.string.fragment_user_creation_error_invalid)
+
         binding.fragmentUserCreationBirthDate.setOnClickListener {
             val c = Calendar.getInstance()
 

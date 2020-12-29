@@ -18,6 +18,7 @@ import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.vaccine.VaccineViewModel
 import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
 import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationViewModel
@@ -78,6 +79,7 @@ object InjectionModules {
             viewModel { UserViewModel(get(), get()) }
             viewModel { VaccinationViewModel(get(), get()) }
             viewModel { IntroductionViewModel() }
+            viewModel { VaccineViewModel(get(), get()) }
         }
     )
 }
