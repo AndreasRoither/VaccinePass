@@ -79,6 +79,8 @@
     <string name="fragment_user_creation_select_a_theme">Select a theme</string>
     <string name="fragment_user_creation_upload_photo">Upload photo</string>
     <string name="fragment_user_creation_finish">Finish</string>
+    <string name="fragment_user_creation_error_required">Required</string>
+    <string name="fragment_user_creation_error_invalid">Contains non valid characters</string>
 
     <!--
     Vaccination Fragment
@@ -97,6 +99,19 @@
     <string name="fragment_intro_introduction">Information</string>
     <string name="fragment_intro_notice_1">In the next step you will have to set a PIN. In order to use this app, a PIN is needed to secure your data.</string>
     <string name="fragment_intro_notice_2">In case you forget your PIN, the app has to be reset for security reasons.</string>
-    <string name="fragment_intro_btn">Ok</string>
+    <string name="fragment_intro_btn">OK</string>
+
+    <!--
+    Menu sort by
+    -->
+    <string name="menu_sort_by_all">All</string>
+    <string name="menu_sort_by_scheduled">Scheduled</string>
+    <string name="menu_sort_by_not_scheduled">Not scheduled</string>
+    <string name="menu_sort_by_not_vaccinated">Not vaccinated</string>
+
+    <!--
+    vaccine fragment
+    -->
+    <string name="vaccine_nothing_found">No vaccinations</string>
 
 </resources>
