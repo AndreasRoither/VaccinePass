@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import com.mobilehealthsports.vaccinepass.R
@@ -16,12 +15,14 @@ import com.mobilehealthsports.vaccinepass.databinding.ActivityUserCreationBindin
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
+import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import com.mobilehealthsports.vaccinepass.util.ScaledBitmapLoader
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 import pub.devrel.easypermissions.EasyPermissions
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.time.LocalDate
@@ -29,7 +30,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+class UserCreationActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val navigationService: NavigationService by inject { parametersOf(this) }
@@ -120,7 +121,11 @@ class UserCreationActivity : AppCompatActivity(), EasyPermissions.PermissionCall
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             viewModel.currentPhotoPath.value = currentPhotoPath
 
-            ScaledBitmapLoader.setPic(currentPhotoPath, 100, 100, binding.fragmentUserCreationPhoto)
+            try {
+                ScaledBitmapLoader.setPic(currentPhotoPath, 80, 80, binding.fragmentUserCreationPhoto)
+            } catch (ex: Exception) {
+                Timber.e(ex)
+            }
             viewModel.photoTaken.value = true
         }
     }

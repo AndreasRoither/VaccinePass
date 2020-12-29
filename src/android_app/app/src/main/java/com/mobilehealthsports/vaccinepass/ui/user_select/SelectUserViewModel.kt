@@ -29,6 +29,7 @@ class SelectUserViewModel(val sharedPreferences: SharedPreferences, private val 
     inner class ItemClickListener {
         fun onItemClicked(user: User) {
             sharedPreferences[PreferenceHelper.LAST_USER_ID_PREF] = user.uid
+            sharedPreferences[PreferenceHelper.THEME_COLOR] = user.themeColor
             navigationRequest.request(MainRequest)
         }
     }

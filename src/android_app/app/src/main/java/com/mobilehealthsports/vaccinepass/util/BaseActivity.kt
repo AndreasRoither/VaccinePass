@@ -8,8 +8,23 @@ import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setThemeColor()
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        setThemeColor()
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onResume() {
+        setThemeColor()
+        super.onResume()
+    }
+
+    protected fun setThemeColor() {
         val sharedPrefs = this.getSharedPreferences("appPreferences", MODE_PRIVATE)
-        val color = ThemeColor.fromInt(sharedPrefs["selectedThemeColor", ThemeColor.PURPLE.value]!!)
+        val color = ThemeColor.fromInt(sharedPrefs[PreferenceHelper.THEME_COLOR, ThemeColor.PURPLE.value]!!)
 
         // set theme color
         when (color) {
@@ -18,12 +33,5 @@ open class BaseActivity : AppCompatActivity() {
             ThemeColor.ORANGE -> setTheme(R.style.VaccinePass_orange)
             null -> setTheme(R.style.VaccinePass_purple)
         }
-
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // TODO: recreate if color is not the same
     }
 }

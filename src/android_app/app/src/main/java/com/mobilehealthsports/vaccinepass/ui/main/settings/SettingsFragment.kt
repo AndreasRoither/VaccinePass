@@ -16,6 +16,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
+import timber.log.Timber
 
 
 class SettingsFragment : Fragment() {
@@ -53,7 +54,11 @@ class SettingsFragment : Fragment() {
             user?.let {
                 viewModel.setUser(it)
                 it.photoPath?.let { photoPath ->
-                    ScaledBitmapLoader.setPic(photoPath, 70, 70, binding.fragmentSettingsUserPhoto)
+                    try {
+                        ScaledBitmapLoader.setPic(photoPath, 80, 80, binding.fragmentSettingsUserPhoto)
+                    } catch (ex: Exception) {
+                        Timber.e(ex)
+                    }
                 }
             }
         })

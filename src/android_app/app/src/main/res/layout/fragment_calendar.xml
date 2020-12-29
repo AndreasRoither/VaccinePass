@@ -195,6 +195,7 @@
                 android:adapter="@{viewModel.eventsAdapter}"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
                 tools:listitem="@layout/list_item_vaccine_event" />
 
         </LinearLayout>

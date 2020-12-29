@@ -62,25 +62,25 @@ class ScanQrCodeActivity : BaseActivity() {
 
             val jsonObject = JSONObject(it.text)
             val request = JsonObjectRequest(Request.Method.POST, URL, jsonObject, { response ->
-                    // Process the json
-                    try {
-                        val success = gson.fromJson(response.toString(), AddVaccineResult::class.java)
-                        if (success.success) {
-                            val id = getVaccineUid(receivedVaccineInfo.productName)
-                            val vaccination = createVaccination(id, receivedVaccineInfo, vaccineSignature.signature)
-                            addVaccinationToDatabase(vaccination)
+                // Process the json
+                try {
+                    val success = gson.fromJson(response.toString(), AddVaccineResult::class.java)
+                    if (success.success) {
+                        val id = getVaccineUid(receivedVaccineInfo.productName)
+                        val vaccination = createVaccination(id, receivedVaccineInfo, vaccineSignature.signature)
+                        addVaccinationToDatabase(vaccination)
 
-                            Toast.makeText(applicationContext, "Added vaccination successful", Toast.LENGTH_SHORT).show()
-                            finish()
-                        }
-                    } catch (e: Exception) {
-                        println("Exception: $e")
+                        Toast.makeText(applicationContext, "Added vaccination successful", Toast.LENGTH_SHORT).show()
+                        finish()
                     }
+                } catch (e: Exception) {
+                    println("Exception: $e")
+                }
 
-                }, {
-                    // Error in request
-                    println("Volley error: $it")
-                })
+            }, {
+                // Error in request
+                println("Volley error: $it")
+            })
             request.retryPolicy = DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 // 0 means no retry
@@ -127,11 +127,12 @@ class ScanQrCodeActivity : BaseActivity() {
             receivedVaccineInfo.expiresIn,
             receivedVaccineInfo.doctorId,
             receivedVaccineInfo.doctorName,
-            signature)
+            signature
+        )
     }
 
     private fun calculateExpirationDate(vaccinationDate: LocalDate, expiresIn: String): LocalDate {
-        val months: Long = when(expiresIn) {
+        val months: Long = when (expiresIn) {
             "never" -> 1200
             "0.5 year" -> 6
             "1 year" -> 12
@@ -156,7 +157,8 @@ class ScanQrCodeActivity : BaseActivity() {
                     "Aluminiumhydroxid ",
                     "Nein",
                     "",
-                    false)
+                    false
+                )
             )
         }
     }

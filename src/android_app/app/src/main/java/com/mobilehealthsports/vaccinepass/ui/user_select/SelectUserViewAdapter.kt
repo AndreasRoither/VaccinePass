@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.databinding.ListItemUserBinding
+import com.mobilehealthsports.vaccinepass.util.ScaledBitmapLoader
+import timber.log.Timber
 
-class SelectUserViewAdapter(private val users: List<User>, private val clickListener: SelectUserViewModel.ItemClickListener) : RecyclerView.Adapter<SelectUserViewAdapter.ViewHolder>() {
+class SelectUserViewAdapter(private val users: List<User>, private val clickListener: SelectUserViewModel.ItemClickListener) :
+    RecyclerView.Adapter<SelectUserViewAdapter.ViewHolder>() {
 
     // This method creates views for the RecyclerView by inflating the layout
     // Into the viewHolders which helps to display the items in the RecyclerView
@@ -16,20 +19,22 @@ class SelectUserViewAdapter(private val users: List<User>, private val clickList
         val layoutInflater = LayoutInflater.from(parent.context)
 
         // Inflate the layout view you have created for the list rows here
-        val binding : ListItemUserBinding = DataBindingUtil.inflate(layoutInflater,R.layout.list_item_user, parent, false)
-
-
+        val binding: ListItemUserBinding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item_user, parent, false)
         return ViewHolder(binding)
     }
-
-
-
 
     // This is your ViewHolder class that helps to populate data to the view
     inner class ViewHolder(private val binding: ListItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User, clickListener: SelectUserViewModel.ItemClickListener) {
             binding.item = user
             binding.itemClick = clickListener
+            user.photoPath?.let { photoPath ->
+                try {
+                    ScaledBitmapLoader.setPic(photoPath, 80, 80, binding.fragmentUserPhoto)
+                } catch (ex: Exception) {
+                    Timber.e(ex)
+                }
+            }
         }
     }
 

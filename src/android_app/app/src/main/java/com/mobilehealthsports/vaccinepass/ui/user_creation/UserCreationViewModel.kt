@@ -16,6 +16,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Navig
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.ui.start.StartActivity
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,7 @@ class UserCreationViewModel(
 
     private val errorText = "Required"
     private val errorTextValidity = "Contains non valid characters"
+    private val regex = "[*/\\\'%;\"]+".toRegex()
 
     val firstName = NonNullMutableLiveData("")
     val lastName = NonNullMutableLiveData("")
@@ -59,7 +61,7 @@ class UserCreationViewModel(
     val color: LiveData<ThemeColor> = _color
 
     fun setThemeColor(color: ThemeColor) {
-        sharedPreferences["selectedThemeColor"] = color.value
+        sharedPreferences[PreferenceHelper.THEME_COLOR] = color.value
         _color.value = color
 
         strokeWidthPurple.value = 0
@@ -85,14 +87,14 @@ class UserCreationViewModel(
     fun errorTextString(str: String): String {
         return when {
             str.isBlank() -> errorText
-            str.matches("[*/\\\'%;\"]+".toRegex()) -> errorTextValidity
+            regex.containsMatchIn(str) -> errorTextValidity
             else -> ""
         }
     }
 
     fun errorTextStringWithoutBlank(str: String): String {
         return when {
-            str.matches("[*/\\\'%;\"]+".toRegex()) -> errorTextValidity
+            regex.containsMatchIn(str) -> errorTextValidity
             else -> ""
         }
     }
@@ -118,6 +120,7 @@ class UserCreationViewModel(
             val tempType = sanitizeString(bloodType.value)
             val tempWeight = weight.value.toFloatOrNull()
             val tempHeight = height.value.toFloatOrNull()
+            val themeColor = _color.value.value
 
             val user = User(
                 uid = 0,

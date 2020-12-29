@@ -4,6 +4,7 @@ import android.app.Application
 import com.mobilehealthsports.vaccinepass.BuildConfig
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.application.injection.InjectionModules
+import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
 import org.koin.android.ext.koin.androidContext
@@ -21,7 +22,7 @@ class VaccinePassApplication : Application() {
 
     override fun onCreate() {
         val sharedPrefs = this.getSharedPreferences("appPreferences", MODE_PRIVATE)
-        val color = ThemeColor.fromInt(sharedPrefs["selectedThemeColor", ThemeColor.PURPLE.value]!!)
+        val color = ThemeColor.fromInt(sharedPrefs[PreferenceHelper.THEME_COLOR, ThemeColor.PURPLE.value]!!)
 
         // set theme color
         when (color) {
