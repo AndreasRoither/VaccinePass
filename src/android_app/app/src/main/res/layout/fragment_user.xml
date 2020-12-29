@@ -68,8 +68,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="70dp"
                     android:text="@{viewModel.user.firstName + ' ' + viewModel.user.lastName}"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:singleLine="false"
                     android:textColor="@color/black"
                     android:textSize="30sp" />
 
