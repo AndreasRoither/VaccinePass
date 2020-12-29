@@ -7,6 +7,7 @@ import com.mobilehealthsports.vaccinepass.TestActivity
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinActivity
+import com.mobilehealthsports.vaccinepass.ui.start.StartActivity
 import com.mobilehealthsports.vaccinepass.ui.testing.FragmentTestActivity
 import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationActivity
 import com.mobilehealthsports.vaccinepass.ui.user_select.SelectUserActivity
@@ -69,6 +70,7 @@ class AppNavigationService private constructor(
             is SelectUserRequest -> startIntent(SelectUserActivity.intent(context))
             is UserCreationRequest -> startIntent(UserCreationActivity.intent(context))
             is VaccineRequest -> startIntent(FragmentTestActivity.intent(context, "vaccineFragment"))
+            is InitActivityRequest -> startIntent(StartActivity.intent(context, request.flag))
         }
     }
 

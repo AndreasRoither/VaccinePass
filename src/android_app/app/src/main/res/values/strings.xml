@@ -80,7 +80,6 @@
     <string name="fragment_user_creation_upload_photo">Upload photo</string>
     <string name="fragment_user_creation_finish">Finish</string>
 
-
     <!--
     Vaccination Fragment
     -->
@@ -90,5 +89,14 @@
     <string name="fragment_vaccination_expire_date">Expire Date</string>
     <string name="fragment_vaccination_doctor">Doctor</string>
     <string name="qr_code_view">qr_code</string>
+    <string name="title_activity_introduction">IntroductionActivity</string>
+
+    <!--
+    Information Activity
+    -->
+    <string name="fragment_intro_introduction">Information</string>
+    <string name="fragment_intro_notice_1">In the next step you will have to set a PIN. In order to use this app, a PIN is needed to secure your data.</string>
+    <string name="fragment_intro_notice_2">In case you forget your PIN, the app has to be reset for security reasons.</string>
+    <string name="fragment_intro_btn">Ok</string>
 
 </resources>
