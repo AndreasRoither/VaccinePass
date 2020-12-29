@@ -43,7 +43,7 @@ class TestViewModel : ViewModel() {
     }
 
     fun startUserCreationFragment() {
-        navigationRequest.request(UserCreationRequest("UserCreationFragment"))
+        navigationRequest.request(UserCreationRequest())
     }
 
     fun addActiveVaccination() {

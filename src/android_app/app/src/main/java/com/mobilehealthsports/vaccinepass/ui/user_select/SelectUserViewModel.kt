@@ -23,7 +23,7 @@ class SelectUserViewModel(val sharedPreferences: SharedPreferences, private val 
     var userList: MutableList<User> = ArrayList()
 
     fun startUserCreation() {
-        navigationRequest.request(UserCreationRequest("UserCreationFragment"))
+        navigationRequest.request(UserCreationRequest())
     }
 
     inner class ItemClickListener {

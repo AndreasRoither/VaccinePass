@@ -3,18 +3,12 @@ package com.mobilehealthsports.vaccinepass
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.snackbar.Snackbar
-import com.mobilehealthsports.vaccinepass.business.repository.UserRepository
 import com.mobilehealthsports.vaccinepass.databinding.ActivityTestBinding
-import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
-import com.mobilehealthsports.vaccinepass.ui.pin.PinViewModel
 import com.mobilehealthsports.vaccinepass.ui.testing.TestViewModel
 import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
@@ -24,7 +18,6 @@ class TestActivity : BaseActivity() {
     private var disposables = CompositeDisposable()
     private val navigationService: NavigationService by inject { parametersOf(this) }
     private val viewModel: TestViewModel by stateViewModel()
-    private val userRepository : UserRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,20 +25,10 @@ class TestActivity : BaseActivity() {
         navigationService.subscribeToRequests(viewModel.navigationRequest)
         disposables.add(navigationService)
 
-        // TODO: just a test, remove later
-        val result = GlobalScope.async {
-            userRepository.getAllUsers()
-        }
-
         // The layout for this activity is a Data Binding layout so it needs to be inflated using
         // DataBindingUtil.
         val binding: ActivityTestBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_test)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
 
         binding.viewModel = viewModel
     }

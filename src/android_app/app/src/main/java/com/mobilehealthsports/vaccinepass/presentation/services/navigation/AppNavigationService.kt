@@ -8,6 +8,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinActivity
 import com.mobilehealthsports.vaccinepass.ui.testing.FragmentTestActivity
+import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationActivity
 import com.mobilehealthsports.vaccinepass.ui.user_select.SelectUserActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -66,7 +67,8 @@ class AppNavigationService private constructor(
             is FragmentTestRequest -> startIntent(FragmentTestActivity.intent(context, request.fragment))
             is MainRequest -> startIntent(MainActivity.intent(context))
             is SelectUserRequest -> startIntent(SelectUserActivity.intent(context))
-            is UserCreationRequest -> startIntent(FragmentTestActivity.intent(context, request.fragment))
+            is UserCreationRequest -> startIntent(UserCreationActivity.intent(context))
+            is VaccineRequest -> startIntent(FragmentTestActivity.intent(context, "vaccineFragment"))
         }
     }
 

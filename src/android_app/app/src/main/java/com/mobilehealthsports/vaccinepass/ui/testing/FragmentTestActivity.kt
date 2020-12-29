@@ -36,6 +36,9 @@ class FragmentTestActivity:
             "CalendarFragment" -> {
                 CalendarFragment.newInstance()
             }
+            "vaccineFragment" -> {
+                VaccinationFragment.newInstance(1)
+            }
             "AddVaccination" -> {
                 val vaccination = Vaccination(
                     1, 1, true, LocalDate.of(2025, 12, 3), "1",
@@ -53,7 +56,6 @@ class FragmentTestActivity:
                 VaccinationFragment.newInstance(1)
             }
             else -> CalendarFragment.newInstance()
-
         }
 
         supportFragmentManager.commit {
