@@ -17,6 +17,7 @@ import com.mobilehealthsports.vaccinepass.business.repository.UserRepository
 import com.mobilehealthsports.vaccinepass.databinding.ActivityMainBinding
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddVaccineFragment
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ScanQrCodeActivity
+import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ScanQrCodeFragment
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsFragment
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserFragment
@@ -143,6 +144,7 @@ class MainActivity : BaseActivity() {
             } else if (binding.addVacQr.visibility == View.GONE) {
                 binding.addVacQr.visibility = View.VISIBLE
                 binding.addVacManual.visibility = View.VISIBLE
+                binding.checkVaccination.visibility = View.VISIBLE
 
             } else {
                 hideAddVaccineButtons()
@@ -165,6 +167,15 @@ class MainActivity : BaseActivity() {
 
             val intent = Intent(this, ScanQrCodeActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.checkVaccination.setOnClickListener {
+            hideAddVaccineButtons()
+            supportFragmentManager.commit {
+                setCustomAnimations(R.anim.slide_up, R.anim.slide_down)
+                setReorderingAllowed(true)
+                replace<ScanQrCodeFragment>(R.id.fragment_container_view, ScanQrCodeFragment.TAG)
+            }
         }
     }
 
@@ -192,6 +203,7 @@ class MainActivity : BaseActivity() {
     private fun hideAddVaccineButtons() {
         binding.addVacQr.visibility = View.GONE
         binding.addVacManual.visibility = View.GONE
+        binding.checkVaccination.visibility = View.GONE
     }
 
     companion object {

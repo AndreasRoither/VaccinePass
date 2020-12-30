@@ -99,9 +99,9 @@ class ScanQrCodeActivity : BaseActivity() {
             }
         }
 
-        scannerView.setOnClickListener {
-            codeScanner.startPreview()
-        }
+
+        // Start scanner
+        codeScanner.startPreview()
     }
 
     private fun addVaccinationToDatabase(vaccination: Vaccination) {

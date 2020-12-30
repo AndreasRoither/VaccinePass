@@ -114,4 +114,11 @@
     -->
     <string name="vaccine_nothing_found">No vaccinations</string>
 
+
+    <!--
+    Acitivity verification
+    -->
+    <string name="activity_verification_verified_by">Verified by</string>
+    <string name="activity_verification_not_verified">Not verified!</string>
+
 </resources>
