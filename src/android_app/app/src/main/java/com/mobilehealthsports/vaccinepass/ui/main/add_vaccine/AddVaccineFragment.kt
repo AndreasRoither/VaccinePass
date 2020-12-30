@@ -1,7 +1,6 @@
 package com.mobilehealthsports.vaccinepass.ui.main.add_vaccine
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,8 +44,7 @@ class AddVaccineFragment : DialogFragment() {
 
         binding.addVaccineBtnAdd.setOnClickListener{
             dismissDialog()
-            val intent = Intent(requireContext(), ScanQrCodeActivity::class.java)
-            startActivity(intent)
+            //TODO add the selected vaccine to db
         }
 
         binding.addVaccineBtnCancel.setOnClickListener {
@@ -90,7 +88,7 @@ class AddVaccineFragment : DialogFragment() {
         disposables.addAll(messageService)
     }
 
-    private fun dismissDialog() {
+    fun dismissDialog() {
         val button = activity?.findViewById<ImageView>(R.id.iv_add)
         button?.isEnabled = true
         button?.background = null

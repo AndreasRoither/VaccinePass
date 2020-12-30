@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -15,6 +17,7 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.business.repository.UserRepository
 import com.mobilehealthsports.vaccinepass.databinding.ActivityMainBinding
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddVaccineFragment
+import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ScanQrCodeActivity
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsFragment
 import com.mobilehealthsports.vaccinepass.ui.main.user.UserFragment
@@ -126,13 +129,43 @@ class MainActivity : BaseActivity() {
         }
 
         binding.ivAdd.setOnClickListener {
-            it.setBackgroundResource(R.drawable.drawable_btn_background)
+            val fragList = supportFragmentManager.fragments
+            if (fragList.size >= 2 && hasAddVaccineFragmentInList(fragList)) {
+                // Comment to devs: I know not clean and efficient but it works
+                fragList.forEach {
+                    if (it is AddVaccineFragment) {
+                        it.dismissDialog()
+                    }
+                }
+
+            } else if (binding.addVacQr.visibility == View.GONE) {
+                binding.addVacQr.visibility = View.VISIBLE
+                binding.addVacManual.visibility = View.VISIBLE
+
+            } else {
+                binding.addVacQr.visibility = View.GONE
+                binding.addVacManual.visibility = View.GONE
+            }
+        }
+
+        binding.addVacManual.setOnClickListener {
+            binding.addVacQr.visibility = View.GONE
+            binding.addVacManual.visibility = View.GONE
+
+            binding.ivAdd.setBackgroundResource(R.drawable.drawable_btn_background)
             supportFragmentManager.commit {
                 setCustomAnimations(R.anim.slide_up, R.anim.slide_down)
                 setReorderingAllowed(true)
                 add<AddVaccineFragment>(R.id.dialog_container_view, AddVaccineFragment.TAG)
             }
-            it.isEnabled = false
+        }
+
+        binding.addVacQr.setOnClickListener {
+            binding.addVacQr.visibility = View.GONE
+            binding.addVacManual.visibility = View.GONE
+
+            val intent = Intent(this, ScanQrCodeActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -142,6 +175,15 @@ class MainActivity : BaseActivity() {
         supportFragmentManager.commit {
             replace(R.id.fragment_container_view, fragment)
         }
+    }
+
+    private fun hasAddVaccineFragmentInList(fragments: List<Fragment>): Boolean {
+        for (f in fragments) {
+            if (f is AddVaccineFragment) {
+                return true;
+            }
+        }
+        return false;
     }
 
     companion object {
