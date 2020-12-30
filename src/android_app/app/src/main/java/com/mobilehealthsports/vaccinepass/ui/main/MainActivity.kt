@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -37,11 +36,12 @@ class MainActivity : BaseActivity() {
     private val sharedPreferences: SharedPreferences by inject()
     private val userRepository: UserRepository by inject()
     private var oldNavigationItem = 1
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+        binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_main
         )
@@ -74,7 +74,8 @@ class MainActivity : BaseActivity() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_nav_user -> {
-
+                    closeAddVaccineFragmentIfPossible()
+                    hideAddVaccineButtons()
                     supportFragmentManager.commit {
                         if (oldNavigationItem > 1) {
                             setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -87,6 +88,8 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 R.id.bottom_nav_vaccine -> {
+                    closeAddVaccineFragmentIfPossible()
+                    hideAddVaccineButtons()
                     supportFragmentManager.commit {
                         if (oldNavigationItem > 2) {
                             setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -101,6 +104,8 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 R.id.bottom_nav_calendar -> {
+                    closeAddVaccineFragmentIfPossible()
+                    hideAddVaccineButtons()
                     supportFragmentManager.commit {
                         if (oldNavigationItem > 3) {
                             setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -114,6 +119,8 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 R.id.bottom_nav_settings -> {
+                    closeAddVaccineFragmentIfPossible()
+                    hideAddVaccineButtons()
                     supportFragmentManager.commit {
                         if (oldNavigationItem < 4) {
                             setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -129,28 +136,21 @@ class MainActivity : BaseActivity() {
         }
 
         binding.ivAdd.setOnClickListener {
-            val fragList = supportFragmentManager.fragments
-            if (fragList.size >= 2 && hasAddVaccineFragmentInList(fragList)) {
-                // Comment to devs: I know not clean and efficient but it works
-                fragList.forEach {
-                    if (it is AddVaccineFragment) {
-                        it.dismissDialog()
-                    }
-                }
+            val gotDismissed = closeAddVaccineFragmentIfPossible()
+            if (gotDismissed) {
+                //do nothing - I know bad design
 
             } else if (binding.addVacQr.visibility == View.GONE) {
                 binding.addVacQr.visibility = View.VISIBLE
                 binding.addVacManual.visibility = View.VISIBLE
 
             } else {
-                binding.addVacQr.visibility = View.GONE
-                binding.addVacManual.visibility = View.GONE
+                hideAddVaccineButtons()
             }
         }
 
         binding.addVacManual.setOnClickListener {
-            binding.addVacQr.visibility = View.GONE
-            binding.addVacManual.visibility = View.GONE
+            hideAddVaccineButtons()
 
             binding.ivAdd.setBackgroundResource(R.drawable.drawable_btn_background)
             supportFragmentManager.commit {
@@ -161,8 +161,7 @@ class MainActivity : BaseActivity() {
         }
 
         binding.addVacQr.setOnClickListener {
-            binding.addVacQr.visibility = View.GONE
-            binding.addVacManual.visibility = View.GONE
+            hideAddVaccineButtons()
 
             val intent = Intent(this, ScanQrCodeActivity::class.java)
             startActivity(intent)
@@ -177,13 +176,22 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun hasAddVaccineFragmentInList(fragments: List<Fragment>): Boolean {
+    private fun closeAddVaccineFragmentIfPossible(): Boolean {
+        var gotDismissed = false;
+        val fragments = supportFragmentManager.fragments
         for (f in fragments) {
             if (f is AddVaccineFragment) {
-                return true;
+                //somehow popBackStackImmediate is not working
+                f.dismissDialog()
+                gotDismissed = true;
             }
         }
-        return false;
+        return gotDismissed
+    }
+
+    private fun hideAddVaccineButtons() {
+        binding.addVacQr.visibility = View.GONE
+        binding.addVacManual.visibility = View.GONE
     }
 
     companion object {
