@@ -8,4 +8,5 @@ interface UserRepository {
     suspend fun getUserByNames(firstName: String, lastName: String): User?
     suspend fun insertUser(user: User): Long?
     suspend fun deleteUser(user: User)
+    suspend fun deleteAllUser()
 }

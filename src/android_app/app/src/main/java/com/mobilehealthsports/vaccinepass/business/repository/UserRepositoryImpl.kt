@@ -26,4 +26,8 @@ class UserRepositoryImpl(private val database: AppDatabase) : UserRepository {
     override suspend fun deleteUser(user: User) {
         database.userDao().delete(user.toDb())
     }
+
+    override suspend fun deleteAllUser() {
+        database.userDao().deleteAll()
+    }
 }

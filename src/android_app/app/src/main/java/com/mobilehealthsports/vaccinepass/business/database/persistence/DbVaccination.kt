@@ -23,7 +23,7 @@ data class DbVaccination(
         @ColumnInfo(name = "userId") val userId: String,
         @ColumnInfo(name = "vaccination_date") val vaccinationDate: LocalDate?,
         @ColumnInfo(name = "expiresIn") val expiresIn: String,
-        @ColumnInfo(name = "doctorId") val doctorId: String,
-        @ColumnInfo(name = "doctorName") val doctorName: String,
-        @ColumnInfo(name = "signature") val signature: String,
+        @ColumnInfo(name = "doctorId") val doctorId: String?,
+        @ColumnInfo(name = "doctorName") val doctorName: String?,
+        @ColumnInfo(name = "signature") val signature: String?,
 )

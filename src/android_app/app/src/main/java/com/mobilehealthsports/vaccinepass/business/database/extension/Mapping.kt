@@ -1,9 +1,10 @@
 package com.mobilehealthsports.vaccinepass.business.database.extension
 
-import com.mobilehealthsports.vaccinepass.R
+import com.mobilehealthsports.vaccinepass.business.database.persistence.DbReminder
 import com.mobilehealthsports.vaccinepass.business.database.persistence.DbUser
 import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccination
 import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccine
+import com.mobilehealthsports.vaccinepass.business.models.Reminder
 import com.mobilehealthsports.vaccinepass.business.models.User
 import com.mobilehealthsports.vaccinepass.business.models.Vaccination
 import com.mobilehealthsports.vaccinepass.business.models.Vaccine
@@ -92,4 +93,20 @@ fun Vaccination.toDb() = DbVaccination(
     doctorId = doctorId,
     doctorName = doctorName,
     signature = signature
+)
+
+/***********************
+ * REMINDER
+ ************************/
+
+fun DbReminder.toReminder() = Reminder(
+        uid = uid,
+        reminderDate = reminderDate,
+        vaccination_uid = vaccination_uid
+)
+
+fun Reminder.toDb() = DbReminder(
+        uid = uid,
+        reminderDate = reminderDate,
+        vaccination_uid = vaccination_uid
 )

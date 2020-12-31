@@ -25,7 +25,15 @@ class VaccinationRepositoryImpl(private val database: AppDatabase) : Vaccination
         return database.userVaccinationDao().insertAll(vaccination.toDb()).firstOrNull()
     }
 
+    override suspend fun updateVaccination(vaccination: Vaccination) {
+        database.userVaccinationDao().update(vaccination.toDb())
+    }
+
     override suspend fun deleteVaccination(vaccination: Vaccination) {
         database.userVaccinationDao().delete(vaccination.toDb())
+    }
+
+    override suspend fun deleteAllVaccinations() {
+        database.userVaccinationDao().deleteAll()
     }
 }

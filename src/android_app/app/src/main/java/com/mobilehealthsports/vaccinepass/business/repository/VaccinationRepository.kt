@@ -7,5 +7,7 @@ interface VaccinationRepository {
     suspend fun getAllVaccinations(): List<Vaccination>
     suspend fun getAllActiveVaccinations(): List<Vaccination>?
     suspend fun insertVaccination(vaccination: Vaccination): Long?
+    suspend fun updateVaccination(vaccination: Vaccination)
     suspend fun deleteVaccination(vaccination: Vaccination)
+    suspend fun deleteAllVaccinations()
 }

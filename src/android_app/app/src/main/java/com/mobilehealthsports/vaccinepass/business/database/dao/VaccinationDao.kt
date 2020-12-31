@@ -1,9 +1,6 @@
 package com.mobilehealthsports.vaccinepass.business.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccination
 import io.reactivex.rxjava3.core.Flowable
 
@@ -22,6 +19,12 @@ interface VaccinationDao {
     @Insert
     fun insertAll(vararg dbVaccine: DbVaccination): List<Long>
 
+    @Update
+    fun update(vararg dbVaccine: DbVaccination)
+
     @Delete
     fun delete(vaccine: DbVaccination)
+
+    @Query("DELETE FROM vaccination")
+    fun deleteAll()
 }
