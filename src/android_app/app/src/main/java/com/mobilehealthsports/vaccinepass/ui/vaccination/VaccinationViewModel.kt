@@ -1,15 +1,9 @@
 package com.mobilehealthsports.vaccinepass.ui.vaccination
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.util.Log
-import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-
 import com.mobilehealthsports.vaccinepass.business.models.Vaccination
 import com.mobilehealthsports.vaccinepass.business.models.Vaccine
 import com.mobilehealthsports.vaccinepass.business.repository.VaccinationRepository
@@ -23,7 +17,6 @@ import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ReceivedVaccineInf
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 class VaccinationViewModel(private val vaccinationRepository: VaccinationRepository, private val vaccineRepository: VaccineRepository) : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
@@ -32,6 +25,7 @@ class VaccinationViewModel(private val vaccinationRepository: VaccinationReposit
     val vaccinationId: MutableLiveData<Long?> = MutableLiveData(null)
     var vaccination: MutableLiveData<Vaccination?> = MutableLiveData(null)
     val qrJson: MutableLiveData<String> = MutableLiveData("")
+    val doctorName: MutableLiveData<String?> = MutableLiveData("")
 
     val vaccineName: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
     val vaccineCompany: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
@@ -39,7 +33,6 @@ class VaccinationViewModel(private val vaccinationRepository: VaccinationReposit
     val refreshDate: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
     val expiresIn: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
     val userId: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
-    val doctorName: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
 
     private var observer: Observer<Long?>
 
@@ -84,7 +77,7 @@ class VaccinationViewModel(private val vaccinationRepository: VaccinationReposit
             vaccination.expiresIn, vaccination.doctorId, vaccination.doctorName)
         val vaccineInfoString = gson.toJson(receivedVaccineInfo).toString();
 
-        val params = HashMap<String, String>()
+        val params = HashMap<String, String?>()
         params["data"] = vaccineInfoString
         params["signature"] = vaccination.signature
 

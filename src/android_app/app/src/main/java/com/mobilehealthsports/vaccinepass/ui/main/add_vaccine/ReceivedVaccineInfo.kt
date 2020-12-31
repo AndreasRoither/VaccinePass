@@ -5,6 +5,6 @@ data class ReceivedVaccineInfo(
     val productName: String,
     val vaccinationDate: String,
     val expiresIn: String,
-    val doctorId: String,
-    val doctorName: String
+    val doctorId: String?,
+    val doctorName: String?
 )

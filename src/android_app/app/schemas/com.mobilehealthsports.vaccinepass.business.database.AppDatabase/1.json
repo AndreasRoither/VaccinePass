@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f9638c8be07c1b746c1a9a1f10790f35",
+    "identityHash": "b71db21bb6d55e4c5ec657d8496d0a32",
     "entities": [
       {
         "tableName": "user",
@@ -148,7 +148,7 @@
       },
       {
         "tableName": "vaccination",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `f_uid` INTEGER NOT NULL, `active` INTEGER NOT NULL, `refresh_date` INTEGER, `userId` TEXT NOT NULL, `vaccination_date` INTEGER, `expiresIn` TEXT NOT NULL, `doctorId` TEXT NOT NULL, `doctorName` TEXT NOT NULL, `signature` TEXT NOT NULL, FOREIGN KEY(`f_uid`) REFERENCES `vaccine`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `f_uid` INTEGER NOT NULL, `active` INTEGER NOT NULL, `refresh_date` INTEGER, `userId` TEXT NOT NULL, `vaccination_date` INTEGER, `expiresIn` TEXT NOT NULL, `doctorId` TEXT, `doctorName` TEXT, `signature` TEXT, FOREIGN KEY(`f_uid`) REFERENCES `vaccine`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "uid",
@@ -196,19 +196,19 @@
             "fieldPath": "doctorId",
             "columnName": "doctorId",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "doctorName",
             "columnName": "doctorName",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "signature",
             "columnName": "signature",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -240,12 +240,53 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "reminder",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reminder_date` INTEGER NOT NULL, `vaccination_uid` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reminderDate",
+            "columnName": "reminder_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vaccination_uid",
+            "columnName": "vaccination_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_reminder_vaccination_uid",
+            "unique": false,
+            "columnNames": [
+              "vaccination_uid"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_reminder_vaccination_uid` ON `${TABLE_NAME}` (`vaccination_uid`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f9638c8be07c1b746c1a9a1f10790f35')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b71db21bb6d55e4c5ec657d8496d0a32')"
     ]
   }
 }

@@ -64,6 +64,7 @@ object InjectionModules {
             single<UserRepository> { UserRepositoryImpl(get()) }
             single<VaccinationRepository> { VaccinationRepositoryImpl(get()) }
             single<VaccineRepository> { VaccineRepositoryImpl(get()) }
+            single<ReminderRepository> { ReminderRepositoryImpl(get()) }
         },
 
         // ViewModel module
