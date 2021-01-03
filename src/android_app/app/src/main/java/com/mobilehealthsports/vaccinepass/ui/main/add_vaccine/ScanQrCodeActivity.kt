@@ -18,7 +18,6 @@ import com.mobilehealthsports.vaccinepass.ui.main.utils.VolleySingleton
 import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -66,9 +65,7 @@ class ScanQrCodeActivity : BaseActivity() {
                 try {
                     val success = gson.fromJson(response.toString(), AddVaccineResult::class.java)
                     if (success.success) {
-                        val id = getVaccineUid(receivedVaccineInfo.productName)
-                        val vaccination = createVaccination(id, receivedVaccineInfo, vaccineSignature.signature)
-                        addVaccinationToDatabase(vaccination)
+                        addVaccine(receivedVaccineInfo.productName, receivedVaccineInfo, vaccineSignature.signature)
 
                         Toast.makeText(applicationContext, "Added vaccination successful", Toast.LENGTH_SHORT).show()
                         finish()
@@ -113,7 +110,7 @@ class ScanQrCodeActivity : BaseActivity() {
     }
 
     private fun createVaccination(id: Long, receivedVaccineInfo: ReceivedVaccineInfo, signature: String): Vaccination {
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val formatter = DateTimeFormatter.ofPattern("dd.M.yyyy")
         val vaccinationDate = LocalDate.parse(receivedVaccineInfo.vaccinationDate, formatter)
         val expiresIn = calculateExpirationDate(vaccinationDate, receivedVaccineInfo.expiresIn)
 
@@ -163,13 +160,11 @@ class ScanQrCodeActivity : BaseActivity() {
         }
     }
 
-    private fun getVaccineUid(productName: String): Long {
-        var vaccine = Vaccine()
-        runBlocking {
-            lifecycleScope.launch(Dispatchers.IO) {
-                vaccine = vaccineRespositry.getVaccineByName(productName)!!
-            }
+    private fun addVaccine(productName: String, receivedVaccineInfo: ReceivedVaccineInfo, vaccineSignature:String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val vaccine = vaccineRespositry.getVaccineByName(productName)!!
+            val vaccination = createVaccination(vaccine.uid, receivedVaccineInfo, vaccineSignature)
+            addVaccinationToDatabase(vaccination)
         }
-        return vaccine.uid
     }
 }
