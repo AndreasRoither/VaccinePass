@@ -143,7 +143,7 @@ class MainActivity : BaseActivity() {
 
             } else if (binding.addVacQr.visibility == View.GONE) {
                 binding.addVacQr.visibility = View.VISIBLE
-                binding.addVacManual.visibility = View.VISIBLE
+               // binding.addVacManual.visibility = View.VISIBLE
                 binding.checkVaccination.visibility = View.VISIBLE
 
             } else {
@@ -151,7 +151,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        binding.addVacManual.setOnClickListener {
+       /* binding.addVacManual.setOnClickListener {
             hideAddVaccineButtons()
 
             binding.ivAdd.setBackgroundResource(R.drawable.drawable_btn_background)
@@ -160,7 +160,7 @@ class MainActivity : BaseActivity() {
                 setReorderingAllowed(true)
                 add<AddVaccineFragment>(R.id.dialog_container_view, AddVaccineFragment.TAG)
             }
-        }
+        }*/
 
         binding.addVacQr.setOnClickListener {
             hideAddVaccineButtons()
@@ -202,7 +202,6 @@ class MainActivity : BaseActivity() {
 
     private fun hideAddVaccineButtons() {
         binding.addVacQr.visibility = View.GONE
-        binding.addVacManual.visibility = View.GONE
         binding.checkVaccination.visibility = View.GONE
     }
 

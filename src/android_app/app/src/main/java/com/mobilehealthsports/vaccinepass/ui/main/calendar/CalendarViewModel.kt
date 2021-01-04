@@ -15,6 +15,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRe
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.user.VaccineViewAdapter
+import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.daysOfWeekFromLocale
 import com.mobilehealthsports.vaccinepass.util.setTextColorRes
 import java.time.LocalDate
@@ -28,12 +29,13 @@ class CalendarViewModel(private val vaccinationRepository: VaccinationRepository
     val messageRequest = ServiceRequest<MessageRequest>()
     val navigationRequest = ServiceRequest<NavigationRequest>()
 
-    private var selectedDate = LocalDate.now()
+    public var selectedDate = LocalDate.now()
     private var lastSelectedDay: CalendarDay? = null
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.YY")
     private val events = mutableMapOf<LocalDate, List<Event>>()
     private lateinit var calendar: com.kizitonwose.calendarview.CalendarView
+    val addEntry = NonNullMutableLiveData(false)
 
     private var _month = MutableLiveData(monthTitleFormatter.format(LocalDate.now().yearMonth))
     var month: LiveData<String> = _month
@@ -164,5 +166,9 @@ class CalendarViewModel(private val vaccinationRepository: VaccinationRepository
             //events.addAll(this@CalendarViewModel.events[date].orEmpty())
             notifyDataSetChanged()
         }
+    }
+
+    public fun addEntry() {
+        addEntry.value = true;
     }
 }

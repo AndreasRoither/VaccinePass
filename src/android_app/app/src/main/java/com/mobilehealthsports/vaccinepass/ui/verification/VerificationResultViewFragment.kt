@@ -1,10 +1,10 @@
 package com.mobilehealthsports.vaccinepass.ui.verification
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.business.repository.UserRepository
@@ -14,7 +14,6 @@ import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ReceivedVaccineInf
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ScanQrCodeFragment
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
-
 
 class VerificationResultViewFragment : Fragment() {
 
@@ -70,7 +69,7 @@ class VerificationResultViewFragment : Fragment() {
         var userName = ""
         runBlocking {
             userRepository.getUser(vaccinationInfo.userId.toLong())?.let {
-            //userRepository.getUser(1)?.let { //just for testing purposes
+                //userRepository.getUser(1)?.let { //just for testing purposes
                 userName = it.firstName + " " + it.lastName
             }
         }
@@ -81,7 +80,7 @@ class VerificationResultViewFragment : Fragment() {
         var userName = ""
         runBlocking {
             userRepository.getUser(vaccinationInfo.userId.toLong())?.let {
-            //userRepository.getUser(1)?.let { //just for testing purposes
+                //userRepository.getUser(1)?.let { //just for testing purposes
                 userName = it.firstName + " " + it.lastName
             }
         }

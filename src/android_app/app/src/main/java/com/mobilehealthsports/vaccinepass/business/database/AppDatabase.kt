@@ -6,22 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mobilehealthsports.vaccinepass.business.database.converter.Converter
-import com.mobilehealthsports.vaccinepass.business.database.dao.ReminderDao
-import com.mobilehealthsports.vaccinepass.business.database.dao.UserDao
-import com.mobilehealthsports.vaccinepass.business.database.dao.VaccinationDao
-import com.mobilehealthsports.vaccinepass.business.database.dao.VaccineDao
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbReminder
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbUser
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccination
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccine
+import com.mobilehealthsports.vaccinepass.business.database.dao.*
+import com.mobilehealthsports.vaccinepass.business.database.persistence.*
 
-@Database(entities = [DbUser::class, DbVaccine::class, DbVaccination::class, DbReminder::class], version = 1)
+@Database(entities = [DbUser::class, DbVaccine::class, DbVaccination::class, DbReminder::class, DbAppointment::class], version = 1)
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun vaccineDao(): VaccineDao
     abstract fun userVaccinationDao(): VaccinationDao
     abstract fun reminderDao(): ReminderDao
+    abstract fun appointmentDao(): AppointmentDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

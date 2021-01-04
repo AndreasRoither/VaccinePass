@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b71db21bb6d55e4c5ec657d8496d0a32",
+    "identityHash": "54587735cc5491ea15b5344fe02f9a60",
     "entities": [
       {
         "tableName": "user",
@@ -281,12 +281,56 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "appointment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `place` TEXT, `appointment_date` INTEGER, `reminder` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "place",
+            "columnName": "place",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "appointment_date",
+            "columnName": "appointment_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reminder",
+            "columnName": "reminder",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b71db21bb6d55e4c5ec657d8496d0a32')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54587735cc5491ea15b5344fe02f9a60')"
     ]
   }
 }
