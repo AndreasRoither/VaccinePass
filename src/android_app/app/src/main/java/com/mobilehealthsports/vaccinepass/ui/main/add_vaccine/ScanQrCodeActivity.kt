@@ -29,7 +29,7 @@ class ScanQrCodeActivity : BaseActivity() {
 
     private val URL = "http://192.168.0.110:3000/addVaccine"
     private lateinit var codeScanner: CodeScanner
-    private val vaccineRespositry: VaccineRepository by inject()
+    private val vaccineRepository: VaccineRepository by inject()
     private val vaccinationRepository: VaccinationRepository by inject()
 
 
@@ -143,7 +143,7 @@ class ScanQrCodeActivity : BaseActivity() {
 
     private fun insertDummyVaccine() {
         lifecycleScope.launch(Dispatchers.IO) {
-            vaccineRespositry.insertVaccine(
+            vaccineRepository.insertVaccine(
                 Vaccine(
                     Random.nextLong(2, 999999999),
                     "DTaP-IPV-Vakzine SS",
@@ -162,7 +162,7 @@ class ScanQrCodeActivity : BaseActivity() {
 
     private fun addVaccine(productName: String, receivedVaccineInfo: ReceivedVaccineInfo, vaccineSignature:String) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val vaccine = vaccineRespositry.getVaccineByName(productName)!!
+            val vaccine = vaccineRepository.getVaccineByName(productName)!!
             val vaccination = createVaccination(vaccine.uid, receivedVaccineInfo, vaccineSignature)
             addVaccinationToDatabase(vaccination)
         }
