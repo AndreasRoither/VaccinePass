@@ -8,6 +8,11 @@ fun booleanVisibility(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("android:boolean_invisibility")
+fun booleanInVisibility(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+}
+
 @BindingAdapter("android:object_visibility")
 fun objectVisibility(view: View, item: Any?) {
     view.visibility = if (item != null) View.VISIBLE else View.GONE

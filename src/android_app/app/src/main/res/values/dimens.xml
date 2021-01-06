@@ -9,7 +9,7 @@
     -->
     <dimen name="activity_pin_top_margin">70dp</dimen>
     <dimen name="activity_pin_recycler_margin">15dp</dimen>
-    <dimen name="activity_pin_grid_top_margin">70dp</dimen>
+    <dimen name="activity_pin_grid_top_margin">90dp</dimen>
     <dimen name="activity_pin_btn_height">70dp</dimen>
     <dimen name="activity_pin_btn_width">70dp</dimen>
     <dimen name="activity_pin_btn_margin">5dp</dimen>

@@ -2,21 +2,15 @@ package com.mobilehealthsports.vaccinepass.ui.pin
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityPinBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
-import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
@@ -25,8 +19,11 @@ class PinActivity : BaseActivity() {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
     private val viewModel: PinViewModel by stateViewModel()
-    private val pinList: MutableList<Int> = mutableListOf()
+    private val pinList: MutableList<Boolean> = mutableListOf()
+    private val pinListLine: MutableList<Int> = mutableListOf()
     private val adapter = PinViewAdapter(pinList)
+    private val adapterLine = PinLineViewAdapter(pinListLine)
+    private var lastPinCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +34,7 @@ class PinActivity : BaseActivity() {
         )
         binding.viewModel = viewModel
         binding.pinRecyclerview.adapter = adapter
+        binding.lineRecyclerview.adapter = adapterLine
         binding.lifecycleOwner = this
 
         messageService.subscribeToRequests(viewModel.messageRequest)
@@ -63,24 +61,39 @@ class PinActivity : BaseActivity() {
 
         val length = intent.getIntExtra(EXTRA_PIN_LENGTH, 4)
         viewModel.setPinLength(length)
+        val list = (1..length)
+        pinListLine.addAll(list)
+        list.forEach { _ ->
+            pinList.add(false)
+        }
+
+        adapterLine.notifyDataSetChanged()
 
         viewModel.pinCount.observe(this, { pinCount ->
-            val recyclerItemCount = pinList.count()
 
-            when {
-                pinCount > recyclerItemCount -> {
-                    pinList.add(1)
+            if (pinCount > pinList.count()) return@observe
+
+            // when pinCount is 0 all pins should be set invisible
+            if (pinCount == 0) {
+                pinList.replaceAll {
+                    false
                 }
-                pinCount == 0 -> {
-                    pinList.clear()
-                }
-                pinCount < recyclerItemCount -> {
-                    while (pinList.count() > pinCount && pinList.isNotEmpty())
-                        pinList.removeLast()
-                }
+                adapter.notifyDataSetChanged()
+                lastPinCount = 0
+                return@observe
             }
 
+            // set either the removed pin invisible or the current pin visible
+            // counting starts at 0
+            if (lastPinCount > pinCount) {
+                pinList[pinCount] = false
+            } else {
+                pinList[pinCount - 1] = true
+            }
+
+            //adapter.pins = pinList
             adapter.notifyDataSetChanged()
+            lastPinCount = pinCount
         })
 
         viewModel.correctPin.observe(this, {
