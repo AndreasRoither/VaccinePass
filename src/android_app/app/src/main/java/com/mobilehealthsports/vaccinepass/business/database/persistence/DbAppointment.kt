@@ -12,4 +12,5 @@ data class DbAppointment (
     @ColumnInfo(name = "place") val place: String?,
     @ColumnInfo(name = "appointment_date") val appointment_date: LocalDate?,
     @ColumnInfo(name = "reminder") val reminder: Boolean,
+    @ColumnInfo(name = "reminder_date") val reminder_date: LocalDate?
 )

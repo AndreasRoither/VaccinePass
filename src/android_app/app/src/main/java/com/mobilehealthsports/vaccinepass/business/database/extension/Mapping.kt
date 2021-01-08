@@ -90,22 +90,6 @@ fun Vaccination.toDb() = DbVaccination(
 )
 
 /***********************
- * REMINDER
- ************************/
-
-fun DbReminder.toReminder() = Reminder(
-        uid = uid,
-        reminderDate = reminderDate,
-        vaccination_uid = vaccination_uid
-)
-
-fun Reminder.toDb() = DbReminder(
-        uid = uid,
-        reminderDate = reminderDate,
-        vaccination_uid = vaccination_uid
-)
-
-/***********************
  * APPOINTMENT
  ************************/
 fun DbAppointment.toAppointment() = Appointment(
@@ -113,7 +97,8 @@ fun DbAppointment.toAppointment() = Appointment(
     title = title,
     place = place,
     appointment_date = appointment_date,
-    reminder = reminder
+    reminder = reminder,
+    reminder_date = reminder_date
 )
 
 fun Appointment.toDb() = DbAppointment(
@@ -121,5 +106,6 @@ fun Appointment.toDb() = DbAppointment(
     title = title,
     place = place,
     appointment_date = appointment_date,
-    reminder = reminder
+    reminder = reminder,
+    reminder_date = reminder_date
 )

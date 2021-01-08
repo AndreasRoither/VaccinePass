@@ -3,27 +3,34 @@ package com.mobilehealthsports.vaccinepass.ui.main.calendar
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.utils.yearMonth
 import com.mobilehealthsports.vaccinepass.R
+import com.mobilehealthsports.vaccinepass.business.models.Appointment
+import com.mobilehealthsports.vaccinepass.business.repository.AppointmentRepository
 import com.mobilehealthsports.vaccinepass.business.repository.VaccinationRepository
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
-import com.mobilehealthsports.vaccinepass.ui.main.user.VaccineViewAdapter
+import com.mobilehealthsports.vaccinepass.ui.main.adapter.ItemViewAdapter
+import com.mobilehealthsports.vaccinepass.ui.main.user.AppointmentItem
+import com.mobilehealthsports.vaccinepass.ui.main.user.ListItem
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.daysOfWeekFromLocale
 import com.mobilehealthsports.vaccinepass.util.setTextColorRes
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class CalendarViewModel(private val vaccinationRepository: VaccinationRepository) :
+class CalendarViewModel(private val appointmentRepository: AppointmentRepository) :
     BaseViewModel() {
 
     val messageRequest = ServiceRequest<MessageRequest>()
@@ -33,9 +40,10 @@ class CalendarViewModel(private val vaccinationRepository: VaccinationRepository
     private var lastSelectedDay: CalendarDay? = null
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.YY")
-    private val events = mutableMapOf<LocalDate, List<Event>>()
+    private var events = mutableMapOf<LocalDate, MutableList<AppointmentItem>>()
     private lateinit var calendar: com.kizitonwose.calendarview.CalendarView
     val addEntry = NonNullMutableLiveData(false)
+    val selectedId = MutableLiveData(-1L)
 
     private var _month = MutableLiveData(monthTitleFormatter.format(LocalDate.now().yearMonth))
     var month: LiveData<String> = _month
@@ -46,7 +54,7 @@ class CalendarViewModel(private val vaccinationRepository: VaccinationRepository
     private var _selectedDayHeader = MutableLiveData(dateFormatter.format(LocalDate.now()))
     var selectedDayHeader: LiveData<String> = _selectedDayHeader
 
-    val eventsAdapter = VaccineViewAdapter {
+    val eventsAdapter = ItemViewAdapter {
         messageRequest.request(ToastRequest("Clicked " + it.text))
     }
 
@@ -55,21 +63,14 @@ class CalendarViewModel(private val vaccinationRepository: VaccinationRepository
         this.calendar = calendar
         val daysOfWeek = daysOfWeekFromLocale()
 
-        events[LocalDate.now()] = listOf(Event("1", "Hello there", LocalDate.now()))
-
-        // TODO: setup after adding pojo for sql inner join
-        // and load list once, then use filtering down below for
-        /* viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             eventsAdapter.apply {
-                val vaccinations = vaccinationRepository.getAllActiveVaccinations()?.map {
-                    VaccineItem(it)
+                val appointments = appointmentRepository.getAllAppointments()?.map {
+                    AppointmentItem(it.uid, it.title!!, it.appointment_date!!, it.reminder, this@CalendarViewModel::onAppointmentItemClick);
                 }
-
-                // filter for date
-                items.addAll()
-                notifyDataSetChanged()
+                events = appointments.groupByTo(mutableMapOf()) { it.appointment_date }
             }
-        }*/
+        }
 
         val currentMonth = YearMonth.now()
         val startMonth = currentMonth.minusMonths(10)
@@ -140,7 +141,13 @@ class CalendarViewModel(private val vaccinationRepository: VaccinationRepository
                 }
             }
         }
+        //check for initial date if there are any appointments
+        updateAdapterForDate(LocalDate.now());
 
+    }
+
+    private fun onAppointmentItemClick(id: Long) {
+        selectedId.value = id
     }
 
     private fun selectDate(day: CalendarDay) {
@@ -161,9 +168,9 @@ class CalendarViewModel(private val vaccinationRepository: VaccinationRepository
 
     private fun updateAdapterForDate(date: LocalDate) {
         eventsAdapter.apply {
-            events.clear()
-            // TODO: update with repo change
-            //events.addAll(this@CalendarViewModel.events[date].orEmpty())
+            this.items.clear()
+            val appointments: List<AppointmentItem> = this@CalendarViewModel.events[date].orEmpty()
+            this.items = appointments.toMutableList()
             notifyDataSetChanged()
         }
     }

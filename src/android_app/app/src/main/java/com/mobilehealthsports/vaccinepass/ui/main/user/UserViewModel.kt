@@ -15,6 +15,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRe
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.SelectUserRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.adapter.ItemViewAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -23,7 +24,8 @@ import kotlin.collections.ArrayList
 
 enum class ListItemType {
     HEADER,
-    VACCINE
+    VACCINE,
+    APPOINTMENT
 }
 
 abstract class ListItem(open var type: ListItemType)
@@ -37,6 +39,19 @@ data class VaccineItem(
     val state: VaccineState,
     val onClick: ((id: Long) -> Unit)?,
     override var type: ListItemType = ListItemType.VACCINE
+) : ListItem(type) {
+    fun onItemClick() {
+        onClick?.invoke(this.id)
+    }
+}
+
+data class AppointmentItem(
+    val id: Long,
+    val title: String,
+    val appointment_date: LocalDate,
+    val reminder: Boolean,
+    val onClick: ((id: Long) -> Unit)?,
+    override var type: ListItemType = ListItemType.APPOINTMENT
 ) : ListItem(type) {
     fun onItemClick() {
         onClick?.invoke(this.id)
@@ -57,7 +72,7 @@ class UserViewModel(
 ) : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()
 
-    val vaccineAdapter = VaccineViewAdapter {
+    val vaccineAdapter = ItemViewAdapter {
         messageRequest.request(ToastRequest("Clicked"))
     }
 

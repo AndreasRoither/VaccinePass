@@ -1,5 +1,6 @@
 package com.mobilehealthsports.vaccinepass.ui.main.add_calendar_entry
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import java.time.LocalDate
+import java.util.*
 
 class CalendarEntryFragment : Fragment() {
     private lateinit var binding: FragmentAddCalendarEntryBinding
@@ -25,6 +27,8 @@ class CalendarEntryFragment : Fragment() {
         arguments?.let {
             currentDate = it.getString(CalendarFragment.SELECTED_DATE, "")
         }
+
+
     }
 
     override fun onCreateView(
@@ -62,6 +66,38 @@ class CalendarEntryFragment : Fragment() {
                 }
             }
         })
+
+        binding.addEntryVaccineDate.setOnClickListener {
+            val c = Calendar.getInstance()
+
+            val dpd = DatePickerDialog(
+                requireContext(),
+                R.style.SpinnerDatePickerStyle,
+                { _, year, month, dayOfMonth ->
+                    viewModel.appointmentDate.value = LocalDate.of(year, month+1, dayOfMonth);
+                },
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH)
+            )
+            dpd.show()
+        }
+
+        binding.addEntryReminderDate.setOnClickListener {
+            val c = Calendar.getInstance()
+
+            val dpd = DatePickerDialog(
+                requireContext(),
+                R.style.SpinnerDatePickerStyle,
+                { _, year, month, dayOfMonth ->
+                    viewModel.reminderDate.value = LocalDate.of(year, month+1, dayOfMonth);
+                },
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH)
+            )
+            dpd.show()
+        }
 
     }
 

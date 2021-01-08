@@ -11,6 +11,7 @@ import com.mobilehealthsports.vaccinepass.business.repository.VaccineRepository
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.adapter.ItemViewAdapter
 import com.mobilehealthsports.vaccinepass.ui.main.user.*
 import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +35,7 @@ class VaccineViewModel(
     var listItems: MutableList<ListItem> = ArrayList()
     val selectedId = MutableLiveData(-1L)
     val noVaccinationsString = NonNullMutableLiveData("")
-    val vaccineAdapter = VaccineViewAdapter {}
+    val itemAdapter = ItemViewAdapter {}
 
     fun setUser(user: User?) {
         user?.let {
@@ -65,7 +66,7 @@ class VaccineViewModel(
             listItems.add(HeaderItem(noVaccinationsString.value))
         }
 
-        vaccineAdapter.apply {
+        itemAdapter.apply {
             items.clear()
             items.addAll(listItems)
             notifyDataSetChanged()
@@ -134,7 +135,7 @@ class VaccineViewModel(
         listItems.addAll(notScheduledListItems)
 
         viewModelScope.launch(Dispatchers.Main) {
-            vaccineAdapter.apply {
+            itemAdapter.apply {
                 items.clear()
                 items.addAll(listItems)
                 notifyDataSetChanged()

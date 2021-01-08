@@ -22,6 +22,7 @@ class CalendarEntryViewModel(val appointmentRepository: AppointmentRepository) :
     val addAppointment = NonNullMutableLiveData(false)
 
     var appointmentDate = NonNullMutableLiveData(LocalDate.now())
+    var reminderDate = NonNullMutableLiveData(LocalDate.now())
 
     private val regex = "[*/\\\'%;\"]+".toRegex()
 
@@ -38,11 +39,20 @@ class CalendarEntryViewModel(val appointmentRepository: AppointmentRepository) :
     }
 
     fun finish() {
-        val appointment: Appointment =
-            Appointment(0, title.value, place.value, appointmentDate.value, setReminder.value)
-        viewModelScope.launch(Dispatchers.IO) {
-            appointmentRepository.insertAppointment(appointment)
+        if(setReminder.value){
+            val appointment: Appointment =
+                Appointment(0, title.value, place.value, appointmentDate.value, setReminder.value, reminderDate.value)
+            viewModelScope.launch(Dispatchers.IO) {
+                appointmentRepository.insertAppointment(appointment)
+            }
+            addAppointment.value = true
+        }else{
+            val appointment: Appointment =
+                Appointment(0, title.value, place.value, appointmentDate.value, setReminder.value, null)
+            viewModelScope.launch(Dispatchers.IO) {
+                appointmentRepository.insertAppointment(appointment)
+            }
+            addAppointment.value = true
         }
-        addAppointment.value = true
     }
 }

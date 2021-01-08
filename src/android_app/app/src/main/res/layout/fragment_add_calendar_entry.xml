@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.mobilehealthsports.vaccinepass.ui.main.add_calendar_entry.CalendarEntryViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -85,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="Appointmentdate"
                 android:textColor="?colorPrimary" />
 
             <LinearLayout
@@ -163,6 +164,66 @@
                     android:checked="@={viewModel.setReminder}"
                     android:thumbTint="?colorPrimary"
                     android:trackTint="@color/grey"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reminderdate"
+                android:textColor="?colorPrimary"
+                android:visibility="@{viewModel.setReminder ? View.VISIBLE : View.GONE}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="@{viewModel.setReminder ? View.VISIBLE : View.GONE}">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"/>
+
+                <LinearLayout
+                    android:id="@+id/reminder_date"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.1">
+
+                    <ImageView
+                        style="@style/RoundView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/fragment_user_creation_image_margin"
+                        android:contentDescription="@string/fragment_user_creation_icon_description"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="?colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/add_entry_reminder_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.reminderDate.toString()}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fragment_user_creation_date_text_size" />
+
+                        <TextView
+                            android:id="@+id/add_entry_reminder_lbl_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <View

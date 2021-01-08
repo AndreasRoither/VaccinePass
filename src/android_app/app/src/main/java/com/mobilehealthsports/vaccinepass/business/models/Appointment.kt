@@ -7,5 +7,6 @@ data class Appointment (
     val title: String?,
     val place: String?,
     val appointment_date: LocalDate?,
-    val reminder: Boolean
+    val reminder: Boolean,
+    val reminder_date: LocalDate?
     )

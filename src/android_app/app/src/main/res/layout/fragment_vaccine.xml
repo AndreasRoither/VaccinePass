@@ -33,7 +33,7 @@
             android:id="@+id/vaccine_recyclerview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:adapter="@{viewModel.vaccineAdapter}"
+            android:adapter="@{viewModel.itemAdapter}"
             android:nestedScrollingEnabled="false"
             android:orientation="vertical"
             android:scrollbarStyle="outsideOverlay"
