@@ -1,21 +1,24 @@
-package com.mobilehealthsports.vaccinepass.ui.main.user
+package com.mobilehealthsports.vaccinepass.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobilehealthsports.vaccinepass.R
+import com.mobilehealthsports.vaccinepass.business.models.Appointment
+import com.mobilehealthsports.vaccinepass.databinding.ListItemAppointmentBinding
 import com.mobilehealthsports.vaccinepass.databinding.ListItemHeaderBinding
 import com.mobilehealthsports.vaccinepass.databinding.ListItemVaccineBinding
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.Event
+import com.mobilehealthsports.vaccinepass.ui.main.user.*
 import java.lang.IllegalStateException
 
 
 
 
-class VaccineViewAdapter(val onClick: (Event) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ItemViewAdapter(val onClick: (Event) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val items : MutableList<ListItem> = mutableListOf()
+    var items : MutableList<ListItem> = mutableListOf()
 
     // This is your ViewHolder class that helps to populate data to the view
     inner class VaccineViewHolder(private val binding: ListItemVaccineBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -29,6 +32,13 @@ class VaccineViewAdapter(val onClick: (Event) -> Unit) : RecyclerView.Adapter<Re
     inner class HeaderViewHolder(private val binding: ListItemHeaderBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(header: HeaderItem) {
             binding.item = header
+            //binding.executePendingBindings()
+        }
+    }
+
+    inner class AppointmentViewHolder(private val binding: ListItemAppointmentBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(appointmentItem: AppointmentItem) {
+            binding.item = appointmentItem
             //binding.executePendingBindings()
         }
     }
@@ -48,6 +58,10 @@ class VaccineViewAdapter(val onClick: (Event) -> Unit) : RecyclerView.Adapter<Re
                 val binding: ListItemVaccineBinding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item_vaccine, parent, false)
                 VaccineViewHolder(binding)
             }
+            ListItemType.APPOINTMENT.ordinal -> {
+                val binding: ListItemAppointmentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item_appointment, parent, false)
+                AppointmentViewHolder(binding)
+            }
             else -> throw IllegalStateException("unsupported item type")
         }
     }
@@ -64,6 +78,11 @@ class VaccineViewAdapter(val onClick: (Event) -> Unit) : RecyclerView.Adapter<Re
                 val headerItem: HeaderItem = listItem as HeaderItem
                 val holder: HeaderViewHolder = viewHolder as HeaderViewHolder
                 holder.bind(headerItem)
+            }
+            ListItemType.APPOINTMENT -> {
+                val appointmentItem: AppointmentItem = listItem as AppointmentItem
+                val holder: AppointmentViewHolder = viewHolder as AppointmentViewHolder
+                holder.bind(appointmentItem)
             }
         }
     }

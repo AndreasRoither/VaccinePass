@@ -1,13 +1,7 @@
 package com.mobilehealthsports.vaccinepass.business.database.extension
 
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbReminder
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbUser
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccination
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbVaccine
-import com.mobilehealthsports.vaccinepass.business.models.Reminder
-import com.mobilehealthsports.vaccinepass.business.models.User
-import com.mobilehealthsports.vaccinepass.business.models.Vaccination
-import com.mobilehealthsports.vaccinepass.business.models.Vaccine
+import com.mobilehealthsports.vaccinepass.business.database.persistence.*
+import com.mobilehealthsports.vaccinepass.business.models.*
 
 /***********************
  * USER
@@ -96,17 +90,22 @@ fun Vaccination.toDb() = DbVaccination(
 )
 
 /***********************
- * REMINDER
+ * APPOINTMENT
  ************************/
-
-fun DbReminder.toReminder() = Reminder(
-        uid = uid,
-        reminderDate = reminderDate,
-        vaccination_uid = vaccination_uid
+fun DbAppointment.toAppointment() = Appointment(
+    uid = uid,
+    title = title,
+    place = place,
+    appointment_date = appointment_date,
+    reminder = reminder,
+    reminder_date = reminder_date
 )
 
-fun Reminder.toDb() = DbReminder(
-        uid = uid,
-        reminderDate = reminderDate,
-        vaccination_uid = vaccination_uid
+fun Appointment.toDb() = DbAppointment(
+    uid = uid,
+    title = title,
+    place = place,
+    appointment_date = appointment_date,
+    reminder = reminder,
+    reminder_date = reminder_date
 )

@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.FragmentCalendarBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
+import com.mobilehealthsports.vaccinepass.ui.main.add_calendar_entry.CalendarEntryFragment
 import com.mobilehealthsports.vaccinepass.util.daysOfWeekFromLocale
 import com.mobilehealthsports.vaccinepass.util.setTextColorRes
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -57,10 +59,21 @@ class CalendarFragment : Fragment() {
 
         // setup binding
         viewModel.setupCalendar(binding.calendar)
+
+        viewModel.addEntry.observe(this, {
+            if (it) {
+                requireActivity().supportFragmentManager.commit {
+                    val fragment =
+                        CalendarEntryFragment.newInstance(viewModel.selectedDate!!.toString())
+                    replace(R.id.fragment_container_view, fragment)
+                }
+            }
+        })
     }
 
     companion object {
         fun newInstance() = CalendarFragment()
+        const val SELECTED_DATE = "SELECTED_DATE"
     }
 
     override fun onDestroy() {

@@ -14,6 +14,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.AppNa
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
 import com.mobilehealthsports.vaccinepass.ui.introduction.IntroductionViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.MainViewModel
+import com.mobilehealthsports.vaccinepass.ui.main.add_calendar_entry.CalendarEntryViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.AddViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.settings.SettingsViewModel
@@ -64,7 +65,7 @@ object InjectionModules {
             single<UserRepository> { UserRepositoryImpl(get()) }
             single<VaccinationRepository> { VaccinationRepositoryImpl(get()) }
             single<VaccineRepository> { VaccineRepositoryImpl(get()) }
-            single<ReminderRepository> { ReminderRepositoryImpl(get()) }
+            single<AppointmentRepository> {AppointmentRepositoryImpl(get())}
         },
 
         // ViewModel module
@@ -81,6 +82,7 @@ object InjectionModules {
             viewModel { VaccinationViewModel(get(), get()) }
             viewModel { IntroductionViewModel() }
             viewModel { VaccineViewModel(get(), get()) }
+            viewModel { CalendarEntryViewModel(get()) }
         }
     )
 }
