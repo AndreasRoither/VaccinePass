@@ -1,4 +1,4 @@
-package com.mobilehealthsports.vaccinepass.util
+package com.mobilehealthsports.vaccinepass.util.livedata
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

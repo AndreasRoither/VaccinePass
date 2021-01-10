@@ -14,7 +14,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRe
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.add_vaccine.ReceivedVaccineInfo
-import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -57,10 +57,10 @@ class VaccinationViewModel(private val vaccinationRepository: VaccinationReposit
                     expiresIn.postValue(_vaccination.expiresIn)
                     userId.postValue(_vaccination.userId)
                     doctorName.postValue(_vaccination.doctorName)
-                    vaccine?.let { vaccine ->
-                        vaccineName.postValue(vaccine.name)
-                        vaccineCompany.postValue(vaccine.company!!)
-                        qrJson.postValue(getSignDataString(_vaccination, vaccine))
+                    vaccine?.let { vac ->
+                        vaccineName.postValue(vac.name)
+                        vaccineCompany.postValue(vac.company!!)
+                        qrJson.postValue(getSignDataString(_vaccination, vac))
                     }
                 }
 

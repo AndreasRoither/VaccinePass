@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Entity(tableName = "appointment")
 data class DbAppointment (
@@ -12,5 +13,5 @@ data class DbAppointment (
     @ColumnInfo(name = "place") val place: String?,
     @ColumnInfo(name = "appointment_date") val appointment_date: LocalDate?,
     @ColumnInfo(name = "reminder") val reminder: Boolean,
-    @ColumnInfo(name = "reminder_date") val reminder_date: LocalDate?
+    @ColumnInfo(name = "reminder_date") val reminder_date: LocalDateTime?
 )

@@ -1,9 +1,11 @@
 package com.mobilehealthsports.vaccinepass.application
 
 import android.app.Application
+import androidx.core.app.NotificationManagerCompat
 import com.mobilehealthsports.vaccinepass.BuildConfig
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.application.injection.InjectionModules
+import com.mobilehealthsports.vaccinepass.util.notification.NotificationHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 import com.mobilehealthsports.vaccinepass.util.ThemeColor
@@ -44,5 +46,10 @@ class VaccinePassApplication : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        // setup notification channel
+        NotificationHelper.createNotificationChannel(
+            this, NotificationManagerCompat.IMPORTANCE_HIGH, true, getString(R.string.reminder), "Notification channel for reminder."
+        )
     }
 }

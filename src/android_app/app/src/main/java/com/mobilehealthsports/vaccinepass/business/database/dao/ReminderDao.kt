@@ -15,9 +15,6 @@ interface ReminderDao {
     @Query("SELECT * FROM reminder WHERE uid IN (:reminderIds)")
     fun loadAllByIds(reminderIds: LongArray): Flowable<List<DbReminder>>
 
-    @Query("SELECT * FROM reminder WHERE vaccination_uid IN (:vaccinationIds)")
-    fun loadAllByVaccination(vaccinationIds: LongArray): Flowable<List<DbReminder>>
-
     @Insert
     fun insertAll(vararg dbReminder: DbReminder): List<Long>
 

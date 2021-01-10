@@ -9,7 +9,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.MainR
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.navigation.UserCreationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
-import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import kotlinx.coroutines.Dispatchers

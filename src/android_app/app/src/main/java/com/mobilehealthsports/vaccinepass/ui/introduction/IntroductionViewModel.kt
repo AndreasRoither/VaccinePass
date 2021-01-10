@@ -3,7 +3,7 @@ package com.mobilehealthsports.vaccinepass.ui.introduction
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
-import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 
 class IntroductionViewModel : BaseViewModel() {
     val messageRequest = ServiceRequest<MessageRequest>()

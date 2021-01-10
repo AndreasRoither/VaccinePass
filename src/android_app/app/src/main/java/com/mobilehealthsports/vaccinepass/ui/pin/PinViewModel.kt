@@ -8,7 +8,7 @@ import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
-import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
 import kotlinx.coroutines.*
 

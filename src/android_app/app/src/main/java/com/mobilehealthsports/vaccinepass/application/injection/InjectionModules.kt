@@ -66,6 +66,7 @@ object InjectionModules {
             single<VaccinationRepository> { VaccinationRepositoryImpl(get()) }
             single<VaccineRepository> { VaccineRepositoryImpl(get()) }
             single<AppointmentRepository> {AppointmentRepositoryImpl(get())}
+            single<ReminderRepository> {ReminderRepositoryImpl(get())}
         },
 
         // ViewModel module
@@ -82,7 +83,7 @@ object InjectionModules {
             viewModel { VaccinationViewModel(get(), get()) }
             viewModel { IntroductionViewModel() }
             viewModel { VaccineViewModel(get(), get()) }
-            viewModel { CalendarEntryViewModel(get()) }
+            viewModel { CalendarEntryViewModel(get(), get()) }
         }
     )
 }

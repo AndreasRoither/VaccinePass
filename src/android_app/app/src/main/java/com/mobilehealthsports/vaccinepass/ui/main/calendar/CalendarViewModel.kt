@@ -9,9 +9,7 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.utils.yearMonth
 import com.mobilehealthsports.vaccinepass.R
-import com.mobilehealthsports.vaccinepass.business.models.Appointment
 import com.mobilehealthsports.vaccinepass.business.repository.AppointmentRepository
-import com.mobilehealthsports.vaccinepass.business.repository.VaccinationRepository
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.ToastRequest
@@ -19,8 +17,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Navig
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.adapter.ItemViewAdapter
 import com.mobilehealthsports.vaccinepass.ui.main.user.AppointmentItem
-import com.mobilehealthsports.vaccinepass.ui.main.user.ListItem
-import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.daysOfWeekFromLocale
 import com.mobilehealthsports.vaccinepass.util.setTextColorRes
 import kotlinx.coroutines.Dispatchers
@@ -65,7 +62,7 @@ class CalendarViewModel(private val appointmentRepository: AppointmentRepository
 
         viewModelScope.launch(Dispatchers.IO) {
             eventsAdapter.apply {
-                val appointments = appointmentRepository.getAllAppointments()?.map {
+                val appointments = appointmentRepository.getAllAppointments().map {
                     AppointmentItem(it.uid, it.title!!, it.appointment_date!!, it.reminder, this@CalendarViewModel::onAppointmentItemClick);
                 }
                 events = appointments.groupByTo(mutableMapOf()) { it.appointment_date }

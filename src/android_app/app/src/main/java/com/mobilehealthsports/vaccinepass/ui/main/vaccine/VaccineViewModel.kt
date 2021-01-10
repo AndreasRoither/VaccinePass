@@ -13,7 +13,7 @@ import com.mobilehealthsports.vaccinepass.presentation.services.navigation.Navig
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
 import com.mobilehealthsports.vaccinepass.ui.main.adapter.ItemViewAdapter
 import com.mobilehealthsports.vaccinepass.ui.main.user.*
-import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*

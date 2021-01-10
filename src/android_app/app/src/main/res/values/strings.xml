@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">VaccinePass</string>
+    <string name="reminder">Reminder</string>
+    <string name="reminder_message"></string>
 
     <!--
     PIN Activity

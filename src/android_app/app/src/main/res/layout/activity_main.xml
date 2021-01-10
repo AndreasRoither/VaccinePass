@@ -49,10 +49,11 @@
                 android:paddingTop="@dimen/activity_main_bottom_item_top_bottom_padding"
                 android:paddingEnd="@dimen/activity_main_bottom_item_left_right_padding"
                 android:paddingBottom="@dimen/activity_main_bottom_item_top_bottom_padding"
-                app:elevation="10dp"
+                app:elevation="5dp"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_navigation_menu" />
 
+            <!-- Temporary fix; TODO: Fix image -->
             <ImageView
                 android:id="@+id/iv_add"
                 android:layout_width="@dimen/activity_main_btn_add_diameter"
@@ -62,9 +63,10 @@
                 android:layout_marginBottom="-30dp"
                 android:clickable="true"
                 android:contentDescription="@string/bottom_nav_add"
-                android:elevation="15dp"
+                android:elevation="10dp"
                 android:focusable="true"
                 android:padding="1dp"
+                android:paddingStart="3.5dp"
                 android:src="@drawable/ic_add"
                 app:tint="?colorPrimary" />
 
@@ -88,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
+                    app:layout_constraintGuide_begin="206dp" />
 
                 <ImageButton
                     android:id="@+id/add_vac_qr"
@@ -99,9 +101,9 @@
                     android:background="@drawable/drawable_circle_full"
                     android:src="@drawable/ic_qrcode"
                     android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guideline_middle"/>
+                    app:layout_constraintStart_toEndOf="@id/guideline_middle"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
                     android:id="@+id/check_vaccination"
@@ -112,9 +114,9 @@
                     android:background="@drawable/drawable_circle_full"
                     android:src="@drawable/ic_checkmarks"
                     android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/guideline_middle"/>
+                    app:layout_constraintEnd_toStartOf="@id/guideline_middle"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>

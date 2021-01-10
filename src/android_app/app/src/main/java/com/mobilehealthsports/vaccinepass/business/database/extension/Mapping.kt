@@ -109,3 +109,20 @@ fun Appointment.toDb() = DbAppointment(
     reminder = reminder,
     reminder_date = reminder_date
 )
+
+/***********************
+ * REMINDER
+ ************************/
+fun DbReminder.toReminder() = Reminder(
+    uid = uid,
+    reminderDate = reminderDate,
+    title = title,
+    place = place
+)
+
+fun Reminder.toDb() = DbReminder(
+    uid = uid,
+    reminderDate = reminderDate,
+    title = title,
+    place = place
+)

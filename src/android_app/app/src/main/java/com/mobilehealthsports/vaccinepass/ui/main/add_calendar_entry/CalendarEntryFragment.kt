@@ -11,7 +11,8 @@ import androidx.fragment.app.replace
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.FragmentAddCalendarEntryBinding
 import com.mobilehealthsports.vaccinepass.ui.main.calendar.CalendarFragment
-import com.mobilehealthsports.vaccinepass.util.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
+import com.mobilehealthsports.vaccinepass.util.notification.AlarmScheduler
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import java.time.LocalDate
 import java.util.*
@@ -27,8 +28,6 @@ class CalendarEntryFragment : Fragment() {
         arguments?.let {
             currentDate = it.getString(CalendarFragment.SELECTED_DATE, "")
         }
-
-
     }
 
     override fun onCreateView(
@@ -51,7 +50,7 @@ class CalendarEntryFragment : Fragment() {
         viewModel.errorText.value = getString(R.string.fragment_user_creation_error_required)
         viewModel.errorTextValidity.value = getString(R.string.fragment_user_creation_error_invalid)
 
-        viewModel.cancelAdd.observe(this, {
+        viewModel.cancelAdd.observe(viewLifecycleOwner, {
             if (it) {
                 requireActivity().supportFragmentManager.commit {
                     replace<CalendarFragment>(R.id.fragment_container_view)
@@ -59,7 +58,7 @@ class CalendarEntryFragment : Fragment() {
             }
         })
 
-        viewModel.addAppointment.observe(this, {
+        viewModel.addAppointment.observe(viewLifecycleOwner, {
             if (it) {
                 requireActivity().supportFragmentManager.commit {
                     replace<CalendarFragment>(R.id.fragment_container_view)
@@ -67,14 +66,20 @@ class CalendarEntryFragment : Fragment() {
             }
         })
 
-        binding.addEntryVaccineDate.setOnClickListener {
+        viewModel.addReminder.observe(viewLifecycleOwner, {
+            if (it == null) return@observe
+
+            AlarmScheduler.scheduleAlarmForReminder(requireContext(), it)
+        })
+
+        binding.appointmentDate.setOnClickListener {
             val c = Calendar.getInstance()
 
             val dpd = DatePickerDialog(
                 requireContext(),
                 R.style.SpinnerDatePickerStyle,
                 { _, year, month, dayOfMonth ->
-                    viewModel.appointmentDate.value = LocalDate.of(year, month+1, dayOfMonth);
+                    viewModel.appointmentDate.value = LocalDate.of(year, month + 1, dayOfMonth);
                 },
                 c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH),
@@ -83,14 +88,14 @@ class CalendarEntryFragment : Fragment() {
             dpd.show()
         }
 
-        binding.addEntryReminderDate.setOnClickListener {
+        binding.reminderDate.setOnClickListener {
             val c = Calendar.getInstance()
 
             val dpd = DatePickerDialog(
                 requireContext(),
                 R.style.SpinnerDatePickerStyle,
                 { _, year, month, dayOfMonth ->
-                    viewModel.reminderDate.value = LocalDate.of(year, month+1, dayOfMonth);
+                    viewModel.reminderDate.value = LocalDate.of(year, month + 1, dayOfMonth);
                 },
                 c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH),
@@ -98,7 +103,6 @@ class CalendarEntryFragment : Fragment() {
             )
             dpd.show()
         }
-
     }
 
     companion object {

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fc346fa6a3154d954092daa528809912",
+    "identityHash": "b2c11ddff05afb948154167e1ce2bd0b",
     "entities": [
       {
         "tableName": "user",
@@ -243,7 +243,7 @@
       },
       {
         "tableName": "reminder",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reminder_date` INTEGER NOT NULL, `vaccination_uid` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reminder_date` TEXT NOT NULL, `title` TEXT NOT NULL, `place` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -254,13 +254,19 @@
           {
             "fieldPath": "reminderDate",
             "columnName": "reminder_date",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "vaccination_uid",
-            "columnName": "vaccination_uid",
-            "affinity": "INTEGER",
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "place",
+            "columnName": "place",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -270,21 +276,12 @@
           ],
           "autoGenerate": true
         },
-        "indices": [
-          {
-            "name": "index_reminder_vaccination_uid",
-            "unique": false,
-            "columnNames": [
-              "vaccination_uid"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_reminder_vaccination_uid` ON `${TABLE_NAME}` (`vaccination_uid`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "appointment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `place` TEXT, `appointment_date` INTEGER, `reminder` INTEGER NOT NULL, `reminder_date` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `place` TEXT, `appointment_date` INTEGER, `reminder` INTEGER NOT NULL, `reminder_date` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -319,7 +316,7 @@
           {
             "fieldPath": "reminder_date",
             "columnName": "reminder_date",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -336,7 +333,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fc346fa6a3154d954092daa528809912')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b2c11ddff05afb948154167e1ce2bd0b')"
     ]
   }
 }

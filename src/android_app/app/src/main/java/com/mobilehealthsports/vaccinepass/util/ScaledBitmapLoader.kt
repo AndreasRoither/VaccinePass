@@ -22,7 +22,6 @@ object ScaledBitmapLoader {
             // Decode the image file into a Bitmap sized to fill the View
             inJustDecodeBounds = false
             inSampleSize = scaleFactor
-            inPurgeable = true
         }
 
         BitmapFactory.decodeFile(photoFilePath, bmOptions)?.also { bitmap ->
