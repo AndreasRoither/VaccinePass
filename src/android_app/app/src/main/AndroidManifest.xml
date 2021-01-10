@@ -55,6 +55,16 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <!-- For retrieving the broadcast sent by the system when the alarm is triggered -->
+        <receiver android:name=".util.notification.AlarmReceiver" />
+
+        <!-- For listening to device reboot to reschedule alarms -->
+        <receiver android:name=".util.notification.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

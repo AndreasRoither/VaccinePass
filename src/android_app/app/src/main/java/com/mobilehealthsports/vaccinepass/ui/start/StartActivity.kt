@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.core.app.NotificationManagerCompat
 import com.mobilehealthsports.vaccinepass.BuildConfig
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.TestActivity
+import com.mobilehealthsports.vaccinepass.business.models.Reminder
 import com.mobilehealthsports.vaccinepass.ui.introduction.IntroductionActivity
 import com.mobilehealthsports.vaccinepass.ui.main.MainActivity
 import com.mobilehealthsports.vaccinepass.ui.pin.PinActivity
@@ -15,7 +17,12 @@ import com.mobilehealthsports.vaccinepass.ui.user_creation.UserCreationActivity
 import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.get
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
+import com.mobilehealthsports.vaccinepass.util.notification.AlarmScheduler
+import com.mobilehealthsports.vaccinepass.util.notification.NotificationHelper
 import org.koin.android.ext.android.inject
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 
 class StartActivity : BaseActivity() {

@@ -14,10 +14,6 @@ class ReminderRepositoryImpl(private val database: AppDatabase) : ReminderReposi
         return database.reminderDao().getAll().blockingFirst().map { it.toReminder() }
     }
 
-    override suspend fun getReminderByVaccination(vaccination_uid: Long): Reminder? {
-        return database.reminderDao().loadAllByVaccination(longArrayOf(vaccination_uid)).blockingFirst().firstOrNull()?.toReminder()
-    }
-
     override suspend fun insertReminder(reminder: Reminder): Long? {
         return database.reminderDao().insertAll(reminder.toDb()).firstOrNull()
     }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b71db21bb6d55e4c5ec657d8496d0a32",
+    "identityHash": "b3c0629162995bc7a9fcd4e7dfce25af",
     "entities": [
       {
         "tableName": "user",
@@ -243,7 +243,7 @@
       },
       {
         "tableName": "reminder",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reminder_date` INTEGER NOT NULL, `vaccination_uid` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reminder_date` TEXT NOT NULL, `title` TEXT NOT NULL, `place` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -254,13 +254,19 @@
           {
             "fieldPath": "reminderDate",
             "columnName": "reminder_date",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "vaccination_uid",
-            "columnName": "vaccination_uid",
-            "affinity": "INTEGER",
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "place",
+            "columnName": "place",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -270,23 +276,14 @@
           ],
           "autoGenerate": true
         },
-        "indices": [
-          {
-            "name": "index_reminder_vaccination_uid",
-            "unique": false,
-            "columnNames": [
-              "vaccination_uid"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_reminder_vaccination_uid` ON `${TABLE_NAME}` (`vaccination_uid`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b71db21bb6d55e4c5ec657d8496d0a32')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b3c0629162995bc7a9fcd4e7dfce25af')"
     ]
   }
 }

@@ -100,13 +100,15 @@ fun Vaccination.toDb() = DbVaccination(
  ************************/
 
 fun DbReminder.toReminder() = Reminder(
-        uid = uid,
-        reminderDate = reminderDate,
-        vaccination_uid = vaccination_uid
+    uid = uid,
+    reminderDate = reminderDate,
+    title = title,
+    place = place
 )
 
 fun Reminder.toDb() = DbReminder(
-        uid = uid,
-        reminderDate = reminderDate,
-        vaccination_uid = vaccination_uid
+    uid = uid,
+    reminderDate = reminderDate,
+    title = title,
+    place = place
 )
