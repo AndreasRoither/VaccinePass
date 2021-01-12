@@ -95,6 +95,18 @@
             tools:itemCount="5"
             tools:listitem="@layout/list_item_settings" />
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_pin_btn_forgot_pin_top_margin"
+            android:onClick="@{(view) -> viewModel.resetApp(view)}"
+            android:text="@string/fragment_settings_Reset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_settings_recyclerView"
+            app:strokeColor="?colorPrimary"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

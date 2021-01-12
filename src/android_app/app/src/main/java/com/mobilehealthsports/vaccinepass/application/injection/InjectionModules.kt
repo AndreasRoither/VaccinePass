@@ -75,9 +75,9 @@ object InjectionModules {
             viewModel { CalendarViewModel(get()) }
             viewModel { TestViewModel(get()) }
             viewModel { MainViewModel() }
-            viewModel { PinViewModel() }
+            viewModel { PinViewModel(get(), get(), get(), get()) }
             viewModel { SelectUserViewModel(get(), get()) }
-            viewModel { SettingsViewModel() }
+            viewModel { SettingsViewModel(get(), get(), get(), get(), get()) }
             viewModel { UserCreationViewModel(get(), get()) }
             viewModel { UserViewModel(get(), get()) }
             viewModel { VaccinationViewModel(get(), get()) }

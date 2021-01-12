@@ -165,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_pin_btn_forgot_pin_top_margin"
             android:boolean_visibility="@{viewModel.pinState == viewModel.pinState.CHECK || viewModel.pinState == viewModel.pinState.CONFIRM}"
-            android:onClick="@{() -> viewModel.forgotPin()}"
+            android:onClick="@{(view) -> viewModel.forgotPin(view)}"
             android:text="@{viewModel.bottomText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

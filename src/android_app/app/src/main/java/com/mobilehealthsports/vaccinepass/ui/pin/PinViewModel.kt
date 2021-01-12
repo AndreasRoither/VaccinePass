@@ -1,19 +1,28 @@
 package com.mobilehealthsports.vaccinepass.ui.pin
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mobilehealthsports.vaccinepass.R
+import com.mobilehealthsports.vaccinepass.business.repository.AppointmentRepository
+import com.mobilehealthsports.vaccinepass.business.repository.ReminderRepository
+import com.mobilehealthsports.vaccinepass.business.repository.UserRepository
+import com.mobilehealthsports.vaccinepass.business.repository.VaccinationRepository
 import com.mobilehealthsports.vaccinepass.presentation.services.ServiceRequest
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.InitActivityRequest
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationRequest
 import com.mobilehealthsports.vaccinepass.presentation.viewmodels.BaseViewModel
-import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 import com.mobilehealthsports.vaccinepass.util.PreferenceHelper.set
+import com.mobilehealthsports.vaccinepass.util.ResetHelper
+import com.mobilehealthsports.vaccinepass.util.livedata.NonNullMutableLiveData
 import kotlinx.coroutines.*
 
 
-class PinViewModel : BaseViewModel() {
+class PinViewModel(private var appointmentRepository: AppointmentRepository, private var reminderRepository: ReminderRepository, private var userRepository: UserRepository, private var vaccinationRepository: VaccinationRepository) : BaseViewModel() {
 
     enum class PinState {
         INITIAL,
@@ -25,6 +34,7 @@ class PinViewModel : BaseViewModel() {
 
     private var pinLength = 4
     private var currentErrorCoroutine: Job? = null
+    private var resetCoroutine: Job? = null
 
     private var _titleColor = MutableLiveData(R.color.black)
     var titleColor: LiveData<Int> = _titleColor
@@ -46,6 +56,9 @@ class PinViewModel : BaseViewModel() {
 
     private var _correctPin = MutableLiveData(false)
     val correctPin: LiveData<Boolean> = _correctPin
+
+    private val _navigationRequest = ServiceRequest<NavigationRequest>()
+    val navigationRequest = _navigationRequest
 
     lateinit var sharedPreferences: SharedPreferences
 
@@ -190,7 +203,7 @@ class PinViewModel : BaseViewModel() {
         this.pinLength = pinLength
     }
 
-    fun forgotPin() {
+    fun forgotPin(view: View) {
         currentErrorCoroutine?.cancel()
 
         when (_pinState.value) {
@@ -203,7 +216,19 @@ class PinViewModel : BaseViewModel() {
                 setText()
             }
             PinState.CHECK -> {
-                // TODO: reset app here
+                val alertDialogBuilder = AlertDialog.Builder(view.context)
+                alertDialogBuilder.setMessage(R.string.confirm_reset)
+                        .setTitle(R.string.title_reset)
+                        .setPositiveButton(R.string.proceed) { _, _ ->
+                            resetCoroutine = GlobalScope.launch {
+                                ResetHelper.resetApp(sharedPreferences, appointmentRepository, reminderRepository, userRepository, vaccinationRepository)
+                            }
+                            navigationRequest.request(InitActivityRequest(false))
+                        }
+                        .setNegativeButton(R.string.cancel) { _, _ ->
+                        }
+
+                alertDialogBuilder.create().show()
             }
             else -> {
             }

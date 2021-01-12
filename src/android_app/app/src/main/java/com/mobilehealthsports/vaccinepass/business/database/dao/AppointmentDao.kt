@@ -5,9 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.mobilehealthsports.vaccinepass.business.database.persistence.DbAppointment
-import com.mobilehealthsports.vaccinepass.business.database.persistence.DbUser
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Maybe
 
 @Dao
 interface AppointmentDao {
@@ -26,6 +24,6 @@ interface AppointmentDao {
     @Delete
     fun delete(dbAppointment: DbAppointment)
 
-    @Query("DELETE FROM user")
+    @Query("DELETE FROM appointment")
     fun deleteAll()
 }

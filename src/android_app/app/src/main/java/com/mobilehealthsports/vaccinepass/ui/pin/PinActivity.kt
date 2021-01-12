@@ -9,6 +9,7 @@ import androidx.security.crypto.MasterKey
 import com.mobilehealthsports.vaccinepass.R
 import com.mobilehealthsports.vaccinepass.databinding.ActivityPinBinding
 import com.mobilehealthsports.vaccinepass.presentation.services.messages.MessageService
+import com.mobilehealthsports.vaccinepass.presentation.services.navigation.NavigationService
 import com.mobilehealthsports.vaccinepass.util.BaseActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
@@ -18,6 +19,7 @@ import org.koin.core.parameter.parametersOf
 class PinActivity : BaseActivity() {
     private var disposables = CompositeDisposable()
     private val messageService: MessageService by inject { parametersOf(this) }
+    private val navigationService: NavigationService by inject { parametersOf(this) }
     private val viewModel: PinViewModel by stateViewModel()
     private val pinList: MutableList<Boolean> = mutableListOf()
     private val pinListLine: MutableList<Int> = mutableListOf()
@@ -38,7 +40,8 @@ class PinActivity : BaseActivity() {
         binding.lifecycleOwner = this
 
         messageService.subscribeToRequests(viewModel.messageRequest)
-        disposables.addAll(messageService)
+        navigationService.subscribeToRequests(viewModel.navigationRequest)
+        disposables.addAll(messageService, navigationService)
 
         val masterKey = MasterKey.Builder(this, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)

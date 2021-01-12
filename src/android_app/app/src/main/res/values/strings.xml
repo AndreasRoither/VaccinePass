@@ -123,4 +123,13 @@
     <string name="activity_verification_verified_by">Verified by</string>
     <string name="activity_verification_not_verified">Not verified!</string>
 
+    <!--
+    Reset App
+    -->
+    <string name="confirm_reset">This will reset the App and delete all your settings. Do you want to proceed?</string>
+    <string name="title_reset">Reset</string>
+    <string name="proceed">Proceed</string>
+    <string name="cancel">Cancel</string>
+    <string name="fragment_settings_Reset">Reset App?</string>
+
 </resources>
