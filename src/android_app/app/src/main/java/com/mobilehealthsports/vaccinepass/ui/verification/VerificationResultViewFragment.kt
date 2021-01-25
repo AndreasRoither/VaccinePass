@@ -62,7 +62,7 @@ class VerificationResultViewFragment : Fragment() {
     }
 
     private fun showSuccessView(vaccinationInfo: ReceivedVaccineInfo) {
-        bindingSuccess.doctorName.text = vaccinationInfo.doctorId
+        bindingSuccess.doctorName.text = vaccinationInfo.doctorName
         bindingSuccess.vaccinationDate.text = vaccinationInfo.vaccinationDate
         bindingSuccess.vaccine.text = vaccinationInfo.productName
 

@@ -77,7 +77,7 @@
     <string name="fragment_user_creation_weight">Weight in kg</string>
     <string name="fragment_user_creation_birth_date">Birth date</string>
     <string name="fragment_user_creation_blood_type">Blood Type</string>
-    <string name="fragment_user_creation_height">Height in m</string>
+    <string name="fragment_user_creation_height">Height in cm</string>
     <string name="fragment_user_creation_select_a_theme">Select a theme</string>
     <string name="fragment_user_creation_upload_photo">Upload photo</string>
     <string name="fragment_user_creation_finish">Finish</string>
