@@ -132,4 +132,7 @@
     <string name="cancel">Cancel</string>
     <string name="fragment_settings_Reset">Reset App?</string>
 
+
+    <string name="fragments_settings_userID">User ID: </string>
+
 </resources>
