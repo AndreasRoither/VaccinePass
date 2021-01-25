@@ -110,7 +110,7 @@ class ScanQrCodeActivity : BaseActivity() {
     }
 
     private fun createVaccination(id: Long, receivedVaccineInfo: ReceivedVaccineInfo, signature: String): Vaccination {
-        val formatter = DateTimeFormatter.ofPattern("dd.M.yyyy")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val vaccinationDate = LocalDate.parse(receivedVaccineInfo.vaccinationDate, formatter)
         val expiresIn = calculateExpirationDate(vaccinationDate, receivedVaccineInfo.expiresIn)
 

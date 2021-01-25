@@ -49,7 +49,7 @@ class VaccinationUserData : AppCompatActivity() {
     private fun initView() {
         EditTextDatePicker(this, binding.vaccineDate.id)
 
-        val dateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val expiredAdapter = ArrayAdapter(this, R.layout.list_item, items)
         binding.expires.setAdapter(expiredAdapter)
 
